@@ -11,11 +11,16 @@
 <body>
 
 <!-- Header -->
-<header class="bg-dark text-white p-3">
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <div class="container">
-        <h1>Chibchaweb</h1>
-        <nav>
-            <ul class="nav">
+        <a class="navbar-brand" href="#">
+            <img src="logo.jpg" alt="Chibchaweb Logo" class="img-fluid" style="max-height: 40px;">
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ml-auto">
                 <li class="nav-item">
                     <a class="nav-link" href="#">Inicio</a>
                 </li>
@@ -23,15 +28,18 @@
                     <a class="nav-link" href="#">Acerca de nosotros</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Servicios</a>
+                    <a class="nav-link" href="#">Planes</a> <!-- Cambio de "Servicios" a "Planes" -->
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="#">Contacto</a>
                 </li>
             </ul>
-        </nav>
+            <button class="btn btn-light ml-2">
+                <i class="fas fa-user"></i> Iniciar sesión
+            </button>
+        </div>
     </div>
-</header>
+</nav>
 
 <!-- Contenido de la página -->
 <div class="container mt-5">
