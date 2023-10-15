@@ -1,0 +1,13 @@
+.usuario-btn {
+    background-color: #ffffff98;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.usuario-img {
+    width: 20px; /* Tamaño del logotipo */
+    height: 20px;
+}
