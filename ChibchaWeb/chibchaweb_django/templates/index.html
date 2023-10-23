@@ -1,3 +1,4 @@
+<!-- para que esta pagina sea reusable hay que poner bloques -->
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -12,7 +13,7 @@
 <body>
 
 <!-- Header -->
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+<nav class="navbar navbar-light navbar-expand-lg font-awesome border-bottom" data-bs-theme="light" style="background-color: #e3f2fd;">
     <div class="container">
         <a class="navbar-brand" href="#">
             <img src="images/logo.png" alt="Chibchaweb Logo" class="img-fluid" style="max-height: 40px;">
@@ -34,11 +35,13 @@
                 <li class="nav-item">
                     <a class="nav-link" href="#">Contacto</a>
                 </li>
+                <li class="nav-item">
+                    <a class="btn btn-default usuario-btn" href="#"><!--aqui puede ir el nombre del usuario cuando haga login-->
+                        <img class="img-fluid usuario-img" src="images/usuario.png" alt="perfil">
+                    </a>
+                </li>
             </ul>
         </div>
-        <button class="usuario-btn">
-            <img src="images/usuario.png" alt="perfil" class="usuario-img">
-        </button>
     </div>
 </nav>
 
@@ -47,7 +50,7 @@
 </div>
 
 <!-- Footer -->
-<footer class="bg-dark text-white p-3">
+<footer class="bg-light text-black p-3">
     <div class="container">
         <p>&copy; 2023 Chibchaweb</p>
     </div>
