@@ -1,115 +1,126 @@
 <!--- este documento se puede meter dentro de la pagina index si quiere (usando django) --->
+{%load static%}
 <!DOCTYPE html>
-<html lang="en" >
+<html lang="en">
+
 <head>
-  <meta charset="UTF-8">
-  <title>CodePen - Day 001 Login Form</title>
-  <link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Open+Sans:600'><link rel="stylesheet" href="css/style.css">
+	<meta charset="UTF-8">
+	<title>CodePen - Day 001 Login Form</title>
+	<link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Open+Sans:600'>
+	<link rel="stylesheet" href="{%static 'css/style.css'%}">
 
 </head>
+
 <body>
-<!-- partial:index.partial.html -->
-<div class="login-wrap">
-	<div class="login-html">
-		<input id="tab-1" type="radio" name="tab" class="sign-in" checked><label for="tab-1" class="tab">Iniciar sesión</label>
-		<input id="tab-2" type="radio" name="tab" class="sign-up"><label for="tab-2" class="tab">Registrate</label>
-		<div class="login-form">
-			<div class="sign-in-htm">
-				<div class="group">
-					<label for="user" class="label">Nombre Usuario</label>
-					<input id="user" type="text" class="input">
+	<!-- partial:index.partial.html -->
+	<div class="login-wrap">
+		<div class="login-html">
+			<input id="tab-1" type="radio" name="tab" class="sign-in" checked><label for="tab-1" class="tab">Iniciar
+				sesión</label>
+			<input id="tab-2" type="radio" name="tab" class="sign-up"><label for="tab-2" class="tab">Registrate</label>
+			<div class="login-form">
+				<div class="sign-in-htm">
+					<div class="group">
+						<label for="user" class="label">Nombre Usuario</label>
+						<input id="user" type="text" class="input">
+					</div>
+					<div class="group">
+						<label for="pass" class="label">Contraseña</label>
+						<input id="pass" type="password" class="input" data-type="password">
+					</div>
+					<div class="group">
+						<input id="check" type="checkbox" class="check" checked>
+						<label for="check"><span class="icon"></span> Recordarmi usuario</label>
+					</div>
+					<div class="group">
+						<input type="submit" class="button" value="Ingresar">
+					</div>
+					<div class="hr"></div>
+					<div class="foot-lnk">
+						<a href="#forgot">¿Olvide mi Contraseña?</a>
+					</div>
 				</div>
-				<div class="group">
-					<label for="pass" class="label">Contraseña</label>
-					<input id="pass" type="password" class="input" data-type="password">
-				</div>
-				<div class="group">
-					<input id="check" type="checkbox" class="check" checked>
-					<label for="check"><span class="icon"></span> Recordarmi usuario</label>
-				</div>
-				<div class="group">
-					<input type="submit" class="button" value="Ingresar">
-				</div>
-				<div class="hr"></div>
-				<div class="foot-lnk">
-					<a href="#forgot">¿Olvide mi Contraseña?</a>
-				</div>
-			</div>
-			<div class="sign-up-htm">
-				<div class="group">
-					<label for="user" class="label">Nombre</label>
-					<input id="user" type="text" class="input">
-				</div>
-				<div class="group">
-					<label for="pass" class="label">Fecha nacimiento</label>
-					<input id="pass" type="date" class="input">
-				</div>
-				<div class="group">
-					<label for="user" class="label">email</label>
-					<input id="user" type="email" class="input">
-				</div>
-				<div class="group">
-					<label for="user" class="label">Pais</label>
-					<select class="n" id="countrySelect"  onchange="updateCitySelect()" required>
-						<option value="0">Selecciona un país</option>
-						<option value="Argentina">Argentina</option>
-						<option value="Bolivia">Bolivia</option>
-						<option value="Brasil">Brasil</option>
-						<option value="Canadá">Canadá</option>
-						<option value="Chile">Chile</option>
-						<option value="Colombia">Colombia</option>
-						<option value="Costa_Rica">Costa Rica</option>
-						<option value="Cuba">Cuba</option>
-						<option value="Ecuador">Ecuador</option>
-						<option value="El_Salvador">El Salvador</option>
-						<option value="Estados_Unidos">Estados Unidos</option>
-						<option value="Guatemala">Guatemala</option>
-						<option value="Honduras">Honduras</option>
-						<option value="México">México</option>
-						<option value="Nicaragua">Nicaragua</option>
-						<option value="Panamá">Panamá</option>
-						<option value="Paraguay">Paraguay</option>
-						<option value="Perú">Perú</option>
-						<option value="Uruguay">Uruguay</option>
-						<option value="Venezuela">Venezuela</option>    
-					</select>
-				</div>
-				<div class="group">
-					<label for="user" class="label">Ciudad</label>
-					<select class="n" id="citySelect"  required>
-						<option value="0">Selecciona un país primero</option>
-					</select>
-				</div>
-				<div class="group">
-					<label for="pass" class="label">Nombre usuario</label>
-					<input id="pass" type="text" class="input">
-				</div>
-				<div class="group">
-					<label for="pass" class="label">Contraseña</label>
-					<input id="pass" type="password" class="input" data-type="password">
-				</div>
-				<div class="group">
-					<label for="user" class="label">Plan</label>
-					<select class="n" id="citySelect"  required>
-						<option value="0">Selecciona un plan</option>
-                        <option value="Argentina">Mensual</option>
-                        <option value="Bolivia">trimestral</option>
-                        <option value="Bolivia">semestral</option>
-                        <option value="Bolivia">anual</option>
-					</select>
-				</div>
-				<div class="group">
-					<input type="submit" class="button" value="Registrar">
-				</div>
-				<div class="hr"></div>
-				<div class="foot-lnk">
-					<label for="tab-1">Already Member?</a>
+				<div class="sign-up-htm">
+					<form method="post">
+						{% csrf_token %}
+						<div class="group">
+							<label for="name" class="label">Nombre</label>
+							<input id="name" name="name" type="text" class="input">
+						</div>
+						<div class="group">
+							<label for="fecha" class="label">Fecha nacimiento</label>
+							<input id="fecha" name="fecha" type="date" class="input">
+						</div>
+						<div class="group">
+							<label for="email" class="label">email</label>
+							<input id="email" name="email" type="email" class="input">
+						</div>
+						<div class="group">
+							<label for="countrySelect" class="label">Pais</label>
+							<select class="n" id="countrySelect" name="countrySelect" onchange="updateCitySelect()"
+								required>
+								<option value="0">Selecciona un país</option>
+								<option value="Argentina">Argentina</option>
+								<option value="Bolivia">Bolivia</option>
+								<option value="Brasil">Brasil</option>
+								<option value="Canadá">Canadá</option>
+								<option value="Chile">Chile</option>
+								<option value="Colombia">Colombia</option>
+								<option value="Costa_Rica">Costa Rica</option>
+								<option value="Cuba">Cuba</option>
+								<option value="Ecuador">Ecuador</option>
+								<option value="El_Salvador">El Salvador</option>
+								<option value="Estados_Unidos">Estados Unidos</option>
+								<option value="Guatemala">Guatemala</option>
+								<option value="Honduras">Honduras</option>
+								<option value="México">México</option>
+								<option value="Nicaragua">Nicaragua</option>
+								<option value="Panamá">Panamá</option>
+								<option value="Paraguay">Paraguay</option>
+								<option value="Perú">Perú</option>
+								<option value="Uruguay">Uruguay</option>
+								<option value="Venezuela">Venezuela</option>
+							</select>
+						</div>
+						<div class="group">
+							<label for="citySelect" class="label">Ciudad</label>
+							<select class="n" id="citySelect" name="citySelect" required>
+								<option value="0">Selecciona un país primero</option>
+							</select>
+						</div>
+						<div class="group">
+							<label for="user" class="label">Nombre usuario</label>
+							<input id="user" name="user" type="text" class="input">
+						</div>
+						<div class="group">
+							<label for="pass" class="label">Contraseña</label>
+							<input id="pass" name="pass" type="password" class="input" data-type="password">
+						</div>
+						<div class="group">
+							<label for="plan" class="label">Plan</label>
+							<select class="n" id="plan" name="plan" required>
+								<option value="0">Selecciona un plan</option>
+								<option value="Argentina">Mensual</option>
+								<option value="Bolivia">trimestral</option>
+								<option value="Bolivia">semestral</option>
+								<option value="Bolivia">anual</option>
+							</select>
+						</div>
+						<div class="group">
+							<button type="submit" class="button">Registrar</button>
+						</div>
+					</form>
+
+					<div class="hr"></div>
+					<div class="foot-lnk">
+						<label for="tab-1">Already Member?</a>
+					</div>
 				</div>
 			</div>
 		</div>
 	</div>
-</div>
-<!-- partial -->
-<script src="./login.js"></script>
+	<!-- partial -->
+	<script src="{% static 'js/login.js'%}"></script>
 </body>
+
 </html>
