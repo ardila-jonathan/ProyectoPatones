@@ -17,7 +17,7 @@
 <!-- Header -->
 <nav class="navbar navbar-light navbar-expand-lg font-awesome border-bottom" data-bs-theme="light" style="background-color: #e3f2fd;">
     <div class="container">
-        <a class="navbar-brand" href="#">
+        <a class="navbar-brand" href="{% url 'home' %}">
             <img src="{%static 'images/logo.png'%}" alt="Chibchaweb Logo" class="img-fluid" style="max-height: 40px;">
         </a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -26,27 +26,27 @@
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Inicio</a>
+                    <a class="nav-link" href="{% url 'home' %}">Inicio</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Acerca de nosotros</a>
+                    <a class="nav-link" href="{% url 'acercaDeNosotros' %}">Acerca de nosotros</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Planes</a> 
+                    <a class="nav-link" href="{% url 'planes' %}">Planes</a> 
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Contacto</a>
+                    <a class="nav-link" href="{% url 'home' %}">Contacto</a>
                 </li>
                 <li class="nav-item">
                     <div class="container ">
                         
                             {% if user.is_authenticated %}
-                            <a class="btn btn-primary usuario-btn" href="{% url 'home' %}">
+                            <a class="btn btn-outline-dark" href="{% url 'home' %}">
                                 <img class="img-fluid usuario-img" src="{%static 'images/usuario.png'%}" alt="perfil">
                                 Ir al Panel de Control
                             </a>
                             {% else %}
-                            <a class="btn btn-primary usuario-btn" href="{% url 'registroCliente' %}">
+                            <a class="btn btn-outline-dark" href="{% url 'registroCliente' %}">
                                 <img class="img-fluid usuario-img" src="{%static 'images/usuario.png'%}" alt="perfil">
                                 Iniciar Sesión
                             </a>

@@ -1,6 +1,6 @@
 .usuario-btn {
-    background-color: #ffffff98;
-    color: #fff;
+    background-color: #6ef1ff98;
+    color: rgb(0, 0, 0);
     border: cornflowerblue;
     cursor: pointer;
 }
@@ -8,4 +8,18 @@
 .usuario-img {
     width: 20px; /* Tamaño del logotipo */
     height: 20px;
+}
+
+.custom-div {
+    background-image: url(https://izavitatours.com/wp-content/uploads/2020/05/Sugamuxi-Trekking-1.jpg);
+    height: 400px;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: #fff;
+    padding: 20px;
 }
