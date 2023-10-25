@@ -1,5 +1,8 @@
-<!--- este documento se puede meter dentro de la pagina index si quiere (usando django) --->
+{% extends 'index.html' %}
+
 {%load static%}
+
+{% block content %}
 <!DOCTYPE html>
 <html lang="en">
 
@@ -124,3 +127,5 @@
 </body>
 
 </html>
+
+{% endblock %}

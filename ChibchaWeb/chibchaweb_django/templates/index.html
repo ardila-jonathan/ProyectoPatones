@@ -38,9 +38,20 @@
                     <a class="nav-link" href="#">Contacto</a>
                 </li>
                 <li class="nav-item">
-                    <a class="btn btn-default usuario-btn" href="#"><!--aqui puede ir el nombre del usuario cuando haga login-->
-                        <img class="img-fluid usuario-img" src="{%static 'images/usuario.png'%}" alt="perfil">
-                    </a>
+                    <div class="container ">
+                        
+                            {% if user.is_authenticated %}
+                            <a class="btn btn-primary usuario-btn" href="{% url 'home' %}">
+                                <img class="img-fluid usuario-img" src="{%static 'images/usuario.png'%}" alt="perfil">
+                                Ir al Panel de Control
+                            </a>
+                            {% else %}
+                            <a class="btn btn-primary usuario-btn" href="{% url 'registroCliente' %}">
+                                <img class="img-fluid usuario-img" src="{%static 'images/usuario.png'%}" alt="perfil">
+                                Iniciar Sesión
+                            </a>
+                            {% endif %}
+                    </div>
                 </li>
             </ul>
         </div>

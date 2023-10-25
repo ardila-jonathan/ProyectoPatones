@@ -36,7 +36,7 @@ def registro_clientes(request):
       
       nuevoCliente.save()
 
-      return HttpResponseRedirect('/clientes')
+      return render(request,'index.html')
 
     else:
         return render(request,'login.html')
