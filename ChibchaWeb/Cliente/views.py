@@ -14,7 +14,8 @@ def consulta_clientes(request):
 
     return HttpResponse(template.render(context, request))
 
-
+def consulta_cliente(request):
+    return render(request, "cliente.html")
 
 def registro_clientes(request):
 

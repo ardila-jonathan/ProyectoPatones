@@ -1,3 +1,5 @@
+{% load static %}
+
 <!-- para que esta pagina sea reusable hay que poner bloques -->
 <!DOCTYPE html>
 <html lang="es">
@@ -5,10 +7,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>Chibchaweb</title>
-    <link rel="icon" href="logo.ico" type="image/ico">
+    <link rel="icon" href="{%static 'images/logo.ico'%}" type="images/ico">
     <!-- Agrega aquí los enlaces a los archivos CSS de Bootstrap y tu propio CSS personalizado si lo tienes -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="{%static 'css/styles.css'%}">
 </head>
 <body>
 
@@ -16,7 +18,7 @@
 <nav class="navbar navbar-light navbar-expand-lg font-awesome border-bottom" data-bs-theme="light" style="background-color: #e3f2fd;">
     <div class="container">
         <a class="navbar-brand" href="#">
-            <img src="images/logo.png" alt="Chibchaweb Logo" class="img-fluid" style="max-height: 40px;">
+            <img src="{%static 'images/logo.png'%}" alt="Chibchaweb Logo" class="img-fluid" style="max-height: 40px;">
         </a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -37,7 +39,7 @@
                 </li>
                 <li class="nav-item">
                     <a class="btn btn-default usuario-btn" href="#"><!--aqui puede ir el nombre del usuario cuando haga login-->
-                        <img class="img-fluid usuario-img" src="images/usuario.png" alt="perfil">
+                        <img class="img-fluid usuario-img" src="{%static 'images/usuario.png'%}" alt="perfil">
                     </a>
                 </li>
             </ul>
@@ -46,7 +48,9 @@
 </nav>
 
 <!-- Contenido de la página -->
-<div class="container mt-5">
+<div class="container mt-5 mb-5">
+    {% block content %}
+    {% endblock %}
 </div>
 
 <!-- Footer -->
