@@ -1,8 +1,11 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
+from django.contrib.auth import authenticate, login
 from .models import Cliente
 from django.template import loader
 from django.http import HttpResponse, HttpResponseRedirect
-
+from django.contrib import messages
+import django.http.multipartparser
+from django.contrib.auth.decorators import login_required
 # Create your views here.
 
 def consulta_clientes(request):
@@ -15,6 +18,33 @@ def consulta_clientes(request):
     return HttpResponse(template.render(context, request))
 
 def consulta_cliente(request):
+    return render(request, "cliente.html")
+
+def inicioSesion(request):
+    
+    if request.method == 'POST':
+        username = request.POST['usuarioCliente']
+        password = request.POST['contraseniaCliente']
+        
+        user = authenticate(username=username,password=password)
+        print(user)
+        if user is not None:
+            login(request, user)
+            return render(request,"cliente.html")
+        else:
+            return render(request,'login.html')
+            
+        
+
+def ingresar(request):
+    if request.user.is_authenticated:
+        return redirect('dashboard')
+    else:
+       return render(request, 'login.html')
+        
+@login_required
+def dashboard_view(request):
+    # Esta vista solo es accesible si el usuario ha iniciado sesión
     return render(request, "cliente.html")
 
 def registro_clientes(request):

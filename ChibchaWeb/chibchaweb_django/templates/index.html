@@ -41,12 +41,12 @@
                     <div class="container ">
                         
                             {% if user.is_authenticated %}
-                            <a class="btn btn-outline-dark" href="{% url 'home' %}">
+                            <a class="btn btn-outline-dark" href="{% url 'dashboard' %}">
                                 <img class="img-fluid usuario-img" src="{%static 'images/usuario.png'%}" alt="perfil">
                                 Ir al Panel de Control
                             </a>
                             {% else %}
-                            <a class="btn btn-outline-dark" href="{% url 'registroCliente' %}">
+                            <a class="btn btn-outline-dark" href="{% url 'ingresar' %}">
                                 <img class="img-fluid usuario-img" src="{%static 'images/usuario.png'%}" alt="perfil">
                                 Iniciar Sesión
                             </a>
