@@ -26,7 +26,6 @@ def inicioSesion(request):
         password = request.POST['contraseniaCliente']
         
         user = Cliente.objects.get(usuarioCliente=username, contraseniaCliente=password)
-        print(user)
         if user is not None:
             login(request,user)
             return render(request,"cliente.html")

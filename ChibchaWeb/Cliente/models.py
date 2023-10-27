@@ -15,9 +15,13 @@ class Cliente(models.Model):
     planCliente = models.CharField(verbose_name="plan",blank=True, null=True, max_length=20)
     ClienteActivo = models.BooleanField(default=False) 
     last_login = models.DateTimeField(null=True, blank=True)
+    is_authenticated = models.BooleanField(default=False)
 
+    def is_authenticated(self):
+        return self.is_authenticated
     class Meta:
         ordering = ('nombreCliente',)
+        
 
     def __str__(self) -> str:
         return self.nombreCliente
@@ -31,6 +35,8 @@ class TarjetaCredito(models.Model):
 
     class Meta:
         ordering = ('clienteId',)
+
+    
 
     def __str__(self) -> str:
         return self.clienteId
