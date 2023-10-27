@@ -10,8 +10,18 @@
     height: 20px;
 }
 
-.custom-div {
-    background-image: url(https://izavitatours.com/wp-content/uploads/2020/05/Sugamuxi-Trekking-1.jpg);
+/* Estilos CSS personalizados para centrar el banner con imagen de fondo */
+body {
+    background-color: #f0f0f0;
+    margin: 0;
+    padding: 0;
+}
+
+.contenido{
+    text-align: center;
+}
+.banner {
+    background-image: url('../images/sugamuxiM.jpg');
     height: 400px;
     background-size: cover;
     background-repeat: no-repeat;
@@ -22,4 +32,10 @@
     align-items: center;
     color: #fff;
     padding: 20px;
+}
+.banner h1 {
+    font-size: 36px;
+}
+.banner p {
+    font-size: 18px;
 }

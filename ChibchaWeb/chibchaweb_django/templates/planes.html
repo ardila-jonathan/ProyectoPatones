@@ -112,3 +112,56 @@
 </html>
 
 {% endblock %}
+
+<!--- ejemplo de como hacer los planes de manera automatica segun los planes que hayan en la base de datos:
+    <!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Planes de Alojamiento Web</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container mt-5">
+        <div class="row">
+            {% for plan in planes %}
+            <div class="col-md-4">
+                <div class="card h-100 d-flex flex-column">
+                    <div class="card-header bg-primary text-white">
+                        {{ plan.nombre }}
+                    </div>
+                    <div class="card-body">
+                        <h5 class="card-title">Descripción:</h5>
+                        <p>{{ plan.descripcion }}</p>
+                        <h5 class="card-title">Características:</h5>
+                        <ul>
+                            {% for caracteristica in plan.caracteristicas|linebreaksbr %}
+                            <li>{{ caracteristica }}</li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                    <div class="mt-auto">
+                        <div class="text-center">
+                            <h5 class="card-title">Precios (COP):</h5>
+                        </div>
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item">Mensual: {{ plan.precio_mensual }}</li>
+                            <li class="list-group-item">Trimestral: {{ plan.precio_trimestral }}</li>
+                            <li class="list-group-item">Semestral: {{ plan.precio_semestral }}</li>
+                            <li class="list-group-item">Anual: {{ plan.precio_anual }}</li>
+                        </ul>
+                        <a href="#" class="btn btn-primary d-block mx-auto mt-2">Suscribirse</a>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
+-->
