@@ -83,10 +83,10 @@ WSGI_APPLICATION = 'chibchaweb_django.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'bpsf2hqkfcrx6r5unykr',
-        'USER': 'uakw9tiqqhrmgl4z',
-        'PASSWORD': 'NDQuaFdCG7b6FjUEJlbv',
-        'HOST': 'bpsf2hqkfcrx6r5unykr-mysql.services.clever-cloud.com',  
+        'NAME': 'bffacdftz1flfkdgzhlm',
+        'USER': 'ugjjkdsklqrd8o8t',
+        'PASSWORD': '6qP1MRKA7jJZnk0Hd9oP',
+        'HOST': 'bffacdftz1flfkdgzhlm-mysql.services.clever-cloud.com',  
         'PORT': '3306',  
     }
 }
@@ -115,7 +115,6 @@ AUTHENTICATION_BACKENDS = (
 )
 
 LOGIN_URL = 'inicioSesion'
-  # Duración de la sesión en segundos (ejemplo: 2 semanas)
 
 
 
