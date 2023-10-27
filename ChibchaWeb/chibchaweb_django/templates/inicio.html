@@ -1,0 +1,146 @@
+{% extends 'index.html' %}
+
+{% load static %}
+
+{% block content %}
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>ChibchaWeb - Tu Socio en Alojamiento Web</title>
+    <!-- Agrega aquí los enlaces a los archivos CSS de Bootstrap y tu propio CSS personalizado si lo tienes -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+
+<body>
+    <div class="contenido">
+        <!-- Banner Principal -->
+        <section class="banner">
+            <div class="container">
+                <h1>Tu Socio en Alojamiento Web</h1>
+                <p>Servicios de alojamiento web confiables y de alto rendimiento en Sugamuxi.</p>
+                <a href="{% url 'planes' %}" class="btn btn-primary">Ver Planes</a>
+            </div>
+        </section>
+
+        <!-- Información de la Empresa -->
+        <section class="empresa mb-5 mt-5">
+            <div class="container">
+                <div>
+                    <h2>Sobre ChibchaWeb</h2>
+                    <p>ChibchaWeb es una empresa de hospedaje de páginas web con sede en Sugamuxi. Nos dedicamos a
+                        proporcionar servicios de alojamiento web de alta calidad a clientes tanto en Colombia como en
+                        países aledaños. Nuestra misión es garantizar la satisfacción de nuestros clientes al ofrecer
+                        alojamiento web confiable, soporte experto y soluciones personalizadas.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Sección de Planes de Alojamiento -->
+        <section class="planes-alojamiento mb-5 mt-5">
+            <div class="container">
+                <h2>Planes de Alojamiento Web</h2>
+                <div class="row mt-3">
+                    <div class="col-md-4">
+                        <div class="card h-100">
+                            <div class="card-header bg-success text-white">
+                                Chibcha-Plata
+                            </div>
+                            <div class="card-body">
+                                <h5 class="card-title">Equilibrio entre Rendimiento y Precio</h5>
+                                <p>Este paquete ofrece un equilibrio entre rendimiento y asequibilidad para proyectos en
+                                    crecimiento.</p>
+                                <p class="descripcion-plan">Chibcha-Plata proporciona recursos confiables y soporte
+                                    competente para garantizar el éxito de los clientes.</p>
+                                <ul>
+                                    <li>Recursos confiables</li>
+                                    <li>Soporte competente</li>
+                                    <li>Características esenciales</li>
+                                </ul>
+                                <p class="precio">Desde $XX/mes</p>
+                            </div>
+                            <div class="card-footer">
+                                <a href="{% url 'planes' %}" class="btn btn-success">ver detalles</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="card h-100">
+                            <div class="card-header bg-warning text-white">
+                                Chibcha-Oro
+                            </div>
+                            <div class="card-body">
+                                <h5 class="card-title">Alojamiento Sólido y Rentable</h5>
+                                <p>Ideal para proyectos más pequeños o sitios web personales que necesitan una solución
+                                    sólida y rentable.</p>
+                                <p class="descripcion-plan">Chibcha-Oro ofrece características esenciales para lanzar y
+                                    mantener un sitio web con éxito.</p>
+                                <ul>
+                                    <li>Solución sólida</li>
+                                    <li>Características esenciales</li>
+                                    <li>Alojamiento rentable</li>
+                                </ul>
+                                <p class="precio">Desde $XX/mes</p>
+                            </div>
+                            <div class="card-footer">
+                                <a href="{% url 'planes' %}" class="btn btn-warning">ver detalles</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="card h-100">
+                            <div class="card-header bg-primary text-white">
+                                Chincha-Platino
+                            </div>
+                            <div class="card-body">
+                                <h5 class="card-title">Alojamiento de Alto Rendimiento</h5>
+                                <p>El paquete ideal para un alojamiento de alto rendimiento y características avanzadas.
+                                </p>
+                                <p class="descripcion-plan">Chincha-Platino ofrece una experiencia de alojamiento
+                                    premium con recursos robustos y soporte técnico de primer nivel.</p>
+                                <ul>
+                                    <li>Recursos robustos</li>
+                                    <li>Soporte técnico de primer nivel</li>
+                                    <li>Características avanzadas</li>
+                                </ul>
+                                <p class="precio">Desde $XX/mes</p>
+                            </div>
+                            <div class="card-footer">
+                                <a href="{% url 'planes' %}" class="btn btn-primary">ver detalles</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Sección de Soporte -->
+        <section class="soporte mb-5 mt-5">
+            <div class="container">
+                <h2>Soporte Técnico</h2>
+                <div class="row">
+                    <div class="col-md-6">
+                        <h3>Soporte Expertos</h3>
+                        <p>Nuestro equipo de soporte técnico está disponible las 24/7 para ayudarte con cualquier
+                            pregunta o problema que puedas tener.</p>
+                    </div>
+                    <div class="col-md-6">
+                        <h3>Recursos Útiles</h3>
+                        <p>Ofrecemos una amplia gama de recursos útiles, incluyendo tutoriales, documentación y foros de
+                            la comunidad para ayudarte a sacar el máximo provecho de nuestros servicios.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Agrega aquí los enlaces a los archivos JavaScript de Bootstrap y tus propios scripts si es necesario -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+
+</html>
+{% endblock %}
