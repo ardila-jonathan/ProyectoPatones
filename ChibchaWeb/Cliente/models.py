@@ -14,6 +14,7 @@ class Cliente(models.Model):
     contraseniaCliente = models.CharField(blank=True, null=True, max_length=20)
     planCliente = models.CharField(verbose_name="plan",blank=True, null=True, max_length=20)
     ClienteActivo = models.BooleanField(default=False) 
+    last_login = models.DateTimeField(null=True, blank=True)
 
     class Meta:
         ordering = ('nombreCliente',)

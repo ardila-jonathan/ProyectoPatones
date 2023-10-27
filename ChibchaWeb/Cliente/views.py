@@ -1,10 +1,9 @@
 from django.shortcuts import render, redirect
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import login
 from .models import Cliente
 from django.template import loader
 from django.http import HttpResponse, HttpResponseRedirect
-from django.contrib import messages
-import django.http.multipartparser
+
 from django.contrib.auth.decorators import login_required
 # Create your views here.
 
@@ -26,14 +25,14 @@ def inicioSesion(request):
         username = request.POST['usuarioCliente']
         password = request.POST['contraseniaCliente']
         
-        user = authenticate(username=username,password=password)
+        user = Cliente.objects.get(usuarioCliente=username, contraseniaCliente=password)
         print(user)
         if user is not None:
-            login(request, user)
+            login(request,user)
             return render(request,"cliente.html")
         else:
             return render(request,'login.html')
-            
+    return render(request,'login.html')        
         
 
 def ingresar(request):
