@@ -47,7 +47,7 @@
 						</div>
 					</form>
 				<div class="sign-up-htm">
-					<form method="post">
+					<form method="post" action="{% url 'registroCliente' %}">
 						{% csrf_token %}
 						<div class="group">
 							<label for="name" class="label">Nombre</label>
