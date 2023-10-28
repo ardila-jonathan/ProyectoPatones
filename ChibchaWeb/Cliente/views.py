@@ -25,6 +25,7 @@ def consulta_cliente(request):
 def inicioSesion(request):
 
     if request.method == 'POST':
+        return redirect('dashboard')
         username = request.POST['usuarioCliente']
         password = request.POST['contraseniaCliente']
         try:
@@ -45,7 +46,7 @@ def ingresar(request):
         return render(request, 'login.html')
 
 
-@login_required
+#@login_required
 def dashboard_view(request):
     # Esta vista solo es accesible si el usuario ha iniciado sesión
     return render(request, "cliente.html")
@@ -79,6 +80,8 @@ def registro_clientes(request):
 def eliminar_clientes(request, ids_clientes):
     pass
 
+def editarCliente(request):
+    return render(request, "editarCliente.html")
 
 def eliminar_cliente(request, id_cliente):
 

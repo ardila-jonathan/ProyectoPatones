@@ -1,0 +1,46 @@
+{% extends 'index.html' %}
+
+{% load static %}
+
+{% block content %}
+
+<!-- Sección de Edición (inicialmente oculta) -->
+<div class="container">
+    <div id="edicion" class="col-md-6 mx-auto">
+        <div class="card">
+            <div class="card-header">Editar Información del Cliente</div>
+            <div class="card-body">
+                <form>
+                    <div class="form-group">
+                        <label for="nuevoUsuario">Usuario:</label>
+                        <input type="text" id="nuevoUsuario" class="form-control" placeholder="Nuevo Usuario">
+                    </div>
+                    <div class="form-group">
+                        <label for="nuevoNombre">Nombre:</label>
+                        <input type="text" id="nuevoNombre" class="form-control" placeholder="Nuevo Nombre">
+                    </div>
+                    <div class="form-group">
+                        <label for="nuevaFechaNacimiento">Fecha de Nacimiento:</label>
+                        <input type="text" id="nuevaFechaNacimiento" class="form-control"
+                            placeholder="Nueva Fecha de Nacimiento">
+                    </div>
+                    <div class="form-group">
+                        <label for="nuevoEmail">Email:</label>
+                        <input type="text" id="nuevoEmail" class="form-control" placeholder="Nuevo Email">
+                    </div>
+                    <div class="form-group">
+                        <label for="nuevoPais">País:</label>
+                        <input type="text" id="nuevoPais" class="form-control" placeholder="Nuevo País">
+                    </div>
+                    <div class="form-group">
+                        <label for="nuevaCiudad">Ciudad:</label>
+                        <input type="text" id="nuevaCiudad" class="form-control" placeholder="Nueva Ciudad">
+                    </div>
+                    <button id="guardarBtn" class="btn btn-success float-right">Guardar Cambios</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

@@ -1,5 +1,7 @@
 {% extends 'index.html' %}
 
+{% load static %}
+
 {% block content %}
 <!DOCTYPE html>
 <html lang="es">
@@ -18,13 +20,13 @@
             <div class="card">
                 <div class="card-header">Información del Cliente</div>
                 <div class="card-body">
-                    <p><strong>Usuario:</strong> Cliente123</p>
-                    <p><strong>Nombre:</strong> Juan Pérez</p>
-                    <p><strong>Fecha de Nacimiento:</strong> 15 de mayo de 1980</p>
-                    <p><strong>Email:</strong> juan@example.com</p>
-                    <p><strong>País:</strong> España</p>
-                    <p><strong>Ciudad:</strong> Madrid</p>
-                    <a href="#" class="btn btn-primary">Modificar Información</a>
+                    <p><strong>Usuario:</strong> <span id="usuario">Cliente123</span></p>
+                    <p><strong>Nombre:</strong> <span id="nombre">Juan Pérez</span></p>
+                    <p><strong>Fecha de Nacimiento:</strong> <span id="fechaNacimiento">15 de mayo de 1980</span></p>
+                    <p><strong>Email:</strong> <span id="email">juan@example.com</span></p>
+                    <p><strong>País:</strong> <span id="pais">España</span></p>
+                    <p><strong>Ciudad:</strong> <span id="ciudad">Madrid</span></p>
+                    <button class="btn btn-primary" href="{% url 'editarCliente' %}" >Modificar Información</button>
                 </div>
             </div>
         </div>
