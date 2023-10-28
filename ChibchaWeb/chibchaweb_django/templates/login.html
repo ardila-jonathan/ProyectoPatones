@@ -22,30 +22,38 @@
 				sesión</label>
 			<input id="tab-2" type="radio" name="tab" class="sign-up"><label for="tab-2" class="tab">Registrate</label>
 			<div class="login-form">
-					<form method="post" action="{% url 'inicioSesion' %}">
-							{% csrf_token %}
-						<div class="sign-in-htm">
-							<div class="group">
-								<label for="user" class="label">Nombre Usuario</label>
-								<input id="userL" type="text" name="usuarioCliente"class="input">
-							</div>
-							<div class="group">
-								<label for="pass" class="label">Contraseña</label>
-								<input id="passL" type="password" name="contraseniaCliente" class="input" data-type="password">
-							</div>
-							<div class="group">
-								<input id="check" type="checkbox" class="check" checked>
-								<label for="check"><span class="icon"></span> Recordar mi usuario</label>
-							</div>
-							<div class="group">
-								<input type="submit" class="button" value="Ingresar">
-							</div>
-							<div class="hr"></div>
-							<div class="foot-lnk">
-								<a href="#forgot">¿Olvide mi Contraseña?</a>
-							</div>
+				<form method="post" action="{% url 'inicioSesion' %}">
+					{% csrf_token %}
+					<div class="sign-in-htm">
+						<div class="group">
+							<label for="user" class="label">Nombre Usuario</label>
+							<input id="userL" type="text" name="usuarioCliente" class="input">
 						</div>
-					</form>
+						<div class="group">
+							<label for="pass" class="label">Contraseña</label>
+							<input id="passL" type="password" name="contraseniaCliente" class="input"
+								data-type="password">
+						</div>
+						<div class="group">
+							<input id="check" type="checkbox" class="check" checked>
+							<label for="check"><span class="icon"></span> Recordar mi usuario</label>
+						</div>
+						<div class="group">
+							<input type="submit" class="button" value="Ingresar">
+						</div>
+						<div>
+							{% if mensaje_advertencia %}
+							<div class="alert alert-warning" role="alert">
+								{{ mensaje_advertencia }}
+							</div>
+							{% endif %}
+						</div>
+						<div class="hr"></div>
+						<div class="foot-lnk">
+							<a href="#forgot">¿Olvide mi Contraseña?</a>
+						</div>
+					</div>
+				</form>
 				<div class="sign-up-htm">
 					<form method="post" action="{% url 'registroCliente' %}">
 						{% csrf_token %}
@@ -103,24 +111,17 @@
 							<input id="pass" name="pass" type="password" class="input" data-type="password">
 						</div>
 						<div class="group">
-							<label for="plan" class="label">Plan</label>
-							<select class="n" id="plan" name="plan" required>
-								<option value="0">Selecciona un plan</option>
-								<option value="Mensual">Mensual</option>
-								<option value="Trimestral">Trimestral</option>
-								<option value="Semestral">Semestral</option>
-								<option value="Anual">Anual</option>
-							</select>
-						</div>
-						<div class="group">
 							<button type="submit" class="button">Registrar</button>
 						</div>
 					</form>
-
-					<div class="hr"></div>
-					<div class="foot-lnk">
-						<label for="tab-1">Already Member?</a>
+					<div>
+						{% if mensaje_advertencia %}
+						<div class="alert alert-info" role="alert">
+							{{ mensaje_advertencia }}
+						</div>
+						{% endif %}
 					</div>
+					<div class="hr"></div>
 				</div>
 			</div>
 		</div>
