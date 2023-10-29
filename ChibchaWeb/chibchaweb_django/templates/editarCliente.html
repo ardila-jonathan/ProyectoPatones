@@ -1,46 +1,91 @@
-{% extends 'index.html' %}
-
-{% load static %}
-
-{% block content %}
+{% extends 'index.html' %} {% load static %} {% block content %}
 
 <!-- Sección de Edición (inicialmente oculta) -->
 <div class="container">
-    <div id="edicion" class="col-md-6 mx-auto">
-        <div class="card">
-            <div class="card-header">Editar Información del Cliente</div>
-            <div class="card-body">
-                <form>
-                    <div class="form-group">
-                        <label for="nuevoUsuario">Usuario:</label>
-                        <input type="text" id="nuevoUsuario" class="form-control" placeholder="Nuevo Usuario">
-                    </div>
-                    <div class="form-group">
-                        <label for="nuevoNombre">Nombre:</label>
-                        <input type="text" id="nuevoNombre" class="form-control" placeholder="Nuevo Nombre">
-                    </div>
-                    <div class="form-group">
-                        <label for="nuevaFechaNacimiento">Fecha de Nacimiento:</label>
-                        <input type="text" id="nuevaFechaNacimiento" class="form-control"
-                            placeholder="Nueva Fecha de Nacimiento">
-                    </div>
-                    <div class="form-group">
-                        <label for="nuevoEmail">Email:</label>
-                        <input type="text" id="nuevoEmail" class="form-control" placeholder="Nuevo Email">
-                    </div>
-                    <div class="form-group">
-                        <label for="nuevoPais">País:</label>
-                        <input type="text" id="nuevoPais" class="form-control" placeholder="Nuevo País">
-                    </div>
-                    <div class="form-group">
-                        <label for="nuevaCiudad">Ciudad:</label>
-                        <input type="text" id="nuevaCiudad" class="form-control" placeholder="Nueva Ciudad">
-                    </div>
-                    <button id="guardarBtn" class="btn btn-success float-right">Guardar Cambios</button>
-                </form>
-            </div>
-        </div>
+  <div id="edicion" class="col-md-6 mx-auto">
+    <div class="card">
+      <div class="card-header">Editar Información del Cliente</div>
+      <div class="card-body">
+        <form method="post">
+          {% csrf_token %}
+          <div class="form-group">
+            <label for="nuevoUsuario">Usuario:</label>
+            <input
+              type="text"
+              id="nuevoUsuario"
+              name="nuevoUsuario"
+              class="form-control"
+              placeholder="Nuevo Usuario"
+              required
+              value="{{user.username}}"
+            />
+          </div>
+          <div class="form-group">
+            <label for="nuevoNombre">Nombre:</label>
+            <input
+              type="text"
+              id="nuevoNombre"
+              name="nuevoNombre"
+              class="form-control"
+              placeholder="Nuevo Nombre"
+              required
+              value="{{cliente.nombreCliente}}"
+            />
+          </div>
+          <div class="form-group">
+            <label for="nuevaFechaNacimiento">Fecha de Nacimiento:</label>
+            <input
+              type="date"
+              id="nuevaFechaNacimiento"
+              name="nuevaFechaNacimiento"
+              class="form-control"
+              placeholder="Nueva Fecha de Nacimiento"
+              value="{{cliente.fechaNacimientoCliente}}"
+            />
+          </div>
+          <div class="form-group">
+            <label for="nuevoEmail">Email:</label>
+            <input
+              type="text"
+              id="nuevoEmail"
+              name="nuevoEmail"
+              class="form-control"
+              placeholder="Nuevo Email"
+              required
+              value="{{cliente.emailCliente}}"
+            />
+          </div>
+          <div class="form-group">
+            <label for="nuevoPais">País:</label>
+            <input
+              type="text"
+              id="nuevoPais"
+              name="nuevoPais"
+              class="form-control"
+              placeholder="Nuevo País"
+              required
+              value="{{cliente.paisCliente}}"
+            />
+          </div>
+          <div class="form-group">
+            <label for="nuevaCiudad">Ciudad:</label>
+            <input
+              type="text"
+              id="nuevaCiudad"
+              name="nuevaCiudad"
+              class="form-control"
+              placeholder="Nueva Ciudad"
+              required
+              value="{{cliente.ciudadCliente}}"
+            />
+          </div>
+          <button id="guardarBtn" class="btn btn-success float-right">
+            Guardar Cambios
+          </button>
+        </form>
+      </div>
     </div>
+  </div>
 </div>
 
 {% endblock %}
