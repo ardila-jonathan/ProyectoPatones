@@ -1,63 +1,102 @@
-{% extends 'index.html' %}
-
-{% load static %}
-
-{% block content %}
+{% extends 'index.html' %} {% load static %} {% block content %}
 <!DOCTYPE html>
 <html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
     <title>Perfil del Cliente</title>
     <!-- Agrega aquí los enlaces a los archivos CSS de Bootstrap y tu propio CSS personalizado si lo tienes -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-</head>
-<body>
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+    />
+  </head>
 
-<div class="container mt-5">
-    <div class="row">
+  <body>
+    <div class="container mt-5">
+      <div class="row">
         <div class="col-md-6">
-            <div class="card">
-                <div class="card-header">Información del Cliente</div>
-                <div class="card-body">
-                    <p><strong>Usuario:</strong> <span id="usuario">Cliente123</span></p>
-                    <p><strong>Nombre:</strong> <span id="nombre">Juan Pérez</span></p>
-                    <p><strong>Fecha de Nacimiento:</strong> <span id="fechaNacimiento">15 de mayo de 1980</span></p>
-                    <p><strong>Email:</strong> <span id="email">juan@example.com</span></p>
-                    <p><strong>País:</strong> <span id="pais">España</span></p>
-                    <p><strong>Ciudad:</strong> <span id="ciudad">Madrid</span></p>
-                    <button class="btn btn-primary" href="{% url 'editarCliente' %}" >Modificar Información</button>
-                </div>
+          <div class="card">
+            <div class="card-header">Información del Cliente</div>
+            <div class="card-body">
+              <p>
+                <strong>Usuario:</strong>
+                <span id="usuario">{{cliente.usuario.username}}</span>
+              </p>
+              <p>
+                <strong>Nombre:</strong>
+                <span id="nombre">{{cliente.nombreCliente}}</span>
+              </p>
+              <p>
+                <strong>Fecha de Nacimiento:</strong>
+                <span id="fechaNacimiento"
+                  >{{cliente.fechaNacimientoCliente}}</span
+                >
+              </p>
+              <p>
+                <strong>Email:</strong>
+                <span id="email">{{cliente.emailCliente}}</span>
+              </p>
+              <p>
+                <strong>País:</strong>
+                <span id="pais">{{cliente.paisCliente}}</span>
+              </p>
+              <p>
+                <strong>Ciudad:</strong>
+                <span id="ciudad">{{cliente.ciudadCliente}}</span>
+              </p>
+              <button
+                class="btn btn-primary"
+                href="{% url 'editarCliente' cliente.pk %}"
+              >
+                Modificar Información
+                <a href="{% url 'editarCliente' cliente.pk %}"
+                  >Modificar Información</a
+                >
+              </button>
             </div>
+          </div>
         </div>
         <div class="col-md-6">
-            <div class="card">
-                <div class="card-header">Tarjeta</div>
-                <div class="card-body">
-                    <p><strong>Número de Tarjeta:</strong> **** **** **** 1234</p>
-                    <p><strong>CVC:</strong> ***</p>
-                    <p><strong>Fecha de Vencimiento:</strong> 12/24</p>
-                    <a href="#" class="btn btn-primary">Cambiar Tarjeta</a>
-                </div>
+          <div class="card">
+            <div class="card-header">Tarjeta</div>
+            <div class="card-body">
+              <p><strong>Número de Tarjeta:</strong> **** **** **** 1234</p>
+              <p><strong>CVC:</strong> ***</p>
+              <p><strong>Fecha de Vencimiento:</strong> 12/24</p>
+              <a href="#" class="btn btn-primary">Cambiar Tarjeta</a>
             </div>
+          </div>
         </div>
-    </div>
+      </div>
 
-    <div class="mt-4">
+      <div class="mt-4">
         <h3>Sitios Web</h3>
         <ul class="list-group">
-            <li class="list-group-item"><a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ&ab_channel=RickAstley">Ejemplo 1</a></li>
-            <li class="list-group-item"><a href="https://www.ejemplo2.com">Ejemplo 2</a></li>
-            <li class="list-group-item"><a href="https://www.ejemplo3.com">Ejemplo 3</a></li>
+          <li class="list-group-item">
+            <a
+              href="https://www.youtube.com/watch?v=dQw4w9WgXcQ&ab_channel=RickAstley"
+              >Ejemplo 1</a
+            >
+          </li>
+          <li class="list-group-item">
+            <a href="https://www.ejemplo2.com">Ejemplo 2</a>
+          </li>
+          <li class="list-group-item">
+            <a href="https://www.ejemplo3.com">Ejemplo 3</a>
+          </li>
         </ul>
+      </div>
     </div>
-</div>
 
-<!-- Agrega aquí los enlaces a los archivos JavaScript de Bootstrap y tus propios scripts si es necesario -->
-<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-</body>
+    <!-- Agrega aquí los enlaces a los archivos JavaScript de Bootstrap y tus propios scripts si es necesario -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  </body>
 </html>
 
 {% endblock %}

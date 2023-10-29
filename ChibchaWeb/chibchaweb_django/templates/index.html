@@ -3,94 +3,122 @@
 <!-- para que esta pagina sea reusable hay que poner bloques -->
 <!DOCTYPE html>
 <html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
     <title>Chibchaweb</title>
-    <link rel="icon" href="{%static 'images/logo.ico'%}" type="images/ico">
+    <link rel="icon" href="{%static 'images/logo.ico'%}" type="images/ico" />
     <!-- Agrega aquí los enlaces a los archivos CSS de Bootstrap y tu propio CSS personalizado si lo tienes -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <link rel="stylesheet" href="{%static 'css/styles.css'%}">
-</head>
-<body>
-
-<!-- Header -->
-<nav class="navbar navbar-light navbar-expand-lg font-awesome border-bottom" data-bs-theme="light" style="background-color: #e3f2fd;">
-    <div class="container">
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+    />
+    <link rel="stylesheet" href="{%static 'css/styles.css'%}" />
+  </head>
+  <body>
+    <!-- Header -->
+    <nav
+      class="navbar navbar-light navbar-expand-lg font-awesome border-bottom"
+      data-bs-theme="light"
+      style="background-color: #e3f2fd"
+    >
+      <div class="container">
         <a class="navbar-brand" href="{% url 'home' %}">
-            <img src="{%static 'images/logo.png'%}" alt="Chibchaweb Logo" class="img-fluid" style="max-height: 40px;">
+          <img
+            src="{%static 'images/logo.png'%}"
+            alt="Chibchaweb Logo"
+            class="img-fluid"
+            style="max-height: 40px"
+          />
         </a>
         <a class="navbar-brand">ChibchaWeb</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-toggle="collapse"
+          data-target="#navbarNav"
+          aria-controls="navbarNav"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav ml-auto">
-                <li class="nav-item">
-                    <a class="nav-link" href="{% url 'home' %}">Inicio</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{% url 'acercaDeNosotros' %}">Acerca de nosotros</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{% url 'planes' %}">Planes</a> 
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Contacto</a>
-                </li>
-                <li class="nav-item">
-                    <div class="container ">
-                        
-                            {% if user.is_authenticated %}
-                            <a class="btn btn-outline-dark" href="{% url 'dashboard' %}">
-                                <img class="img-fluid usuario-img" src="{%static 'images/usuario.png'%}" alt="perfil">
-                                Ir al Panel de Control
-                            </a>
-                            {% else %}
-                            <a class="btn btn-outline-dark" href="{% url 'inicioSesion' %}">
-                                <img class="img-fluid usuario-img" src="{%static 'images/usuario.png'%}" alt="perfil">
-                                Iniciar Sesión
-                            </a>
-                            {% endif %}
-                    </div>
-                </li>
-            </ul>
+          <ul class="navbar-nav ml-auto">
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'home' %}">Inicio</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'acercaDeNosotros' %}"
+                >Acerca de nosotros</a
+              >
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'planes' %}">Planes</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">Contacto</a>
+            </li>
+            <li class="nav-item">
+              <div class="container">
+                {% if user.is_authenticated %}
+                <a class="btn btn-outline-dark" href="{% url 'dashboard' %}">
+                  <img
+                    class="img-fluid usuario-img"
+                    src="{%static 'images/usuario.png'%}"
+                    alt="perfil"
+                  />
+                  Ir al Panel de Control
+                </a>
+                {% else %}
+                <a class="btn btn-outline-dark" href="{% url 'inicioSesion' %}">
+                  <img
+                    class="img-fluid usuario-img"
+                    src="{%static 'images/usuario.png'%}"
+                    alt="perfil"
+                  />
+                  Iniciar Sesión
+                </a>
+                {% endif %}
+              </div>
+            </li>
+          </ul>
         </div>
-    </div>
-</nav>
+      </div>
+    </nav>
 
-<!-- Contenido de la página -->
-<div class="container mt-5 mb-5">
-    {% block content %}
-    {% endblock %}
-</div>
+    <!-- Contenido de la página -->
+    <div class="container mt-5 mb-5">{% block content %} {% endblock %}</div>
 
-<!-- Pie de Página (Footer) -->
-<footer class="bg-dark text-white py-4">
-    <div class="container">
+    <!-- Pie de Página (Footer) -->
+    <footer class="bg-dark text-white py-4">
+      <div class="container">
         <div class="row">
-            <div class="col-md-4">
-                <h5>Contacto</h5>
-                <p>ChibchaWeb</p>
-                <p>Dirección: Sugamuxi, Colombia</p>
-                <p>Teléfono: +57 123 456 789</p>
-                <p>Correo Electrónico: info@chibchaweb.com</p>
-            </div>
-            <div class="col-md-4">
-                <h5>Enlaces Rápidos</h5>
-                <ul class="list-unstyled">
-                    <li><a href="{% url 'planes' %}">Planes de Alojamiento</a></li>
-                    <li><a href="#">Soporte Técnico</a></li>
-                </ul>
-            </div>
-            <div class="col-md-4">
-                <p>&copy; 2023 Chibchaweb</p>
-            </div>
+          <div class="col-md-4">
+            <h5>Contacto</h5>
+            <p>ChibchaWeb</p>
+            <p>Dirección: Sugamuxi, Colombia</p>
+            <p>Teléfono: +57 123 456 789</p>
+            <p>Correo Electrónico: info@chibchaweb.com</p>
+          </div>
+          <div class="col-md-4">
+            <h5>Enlaces Rápidos</h5>
+            <ul class="list-unstyled">
+              <li><a href="{% url 'planes' %}">Planes de Alojamiento</a></li>
+              <li><a href="#">Soporte Técnico</a></li>
+            </ul>
+          </div>
+          <div class="col-md-4">
+            <p>&copy; 2023 Chibchaweb</p>
+          </div>
         </div>
-    </div>
-</footer>
-<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-</body>
+      </div>
+    </footer>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  </body>
 </html>
