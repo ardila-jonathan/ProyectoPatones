@@ -48,23 +48,69 @@
                 <strong>Ciudad:</strong>
                 <span id="ciudad">{{cliente.ciudadCliente}}</span>
               </p>
-              <a class="btn btn-primary" href="{% url 'editarCliente' cliente.usuario_id %}">
-                Modificar Información
-              </a>
-              
-              
-              </button>
+
+              <div class="text-center">
+                    <a class="btn btn-primary" href="{% url 'editarCliente' cliente.usuario_id %}">
+                        Modificar Información
+                    </a>
+                    <button class="btn btn-danger">
+                        Eliminar cuenta
+                    </button>
+              </div>
             </div>
           </div>
         </div>
         <div class="col-md-6">
-          <div class="card">
-            <div class="card-header">Tarjeta</div>
-            <div class="card-body">
-              <p><strong>Número de Tarjeta:</strong> **** **** **** 1234</p>
-              <p><strong>CVC:</strong> ***</p>
-              <p><strong>Fecha de Vencimiento:</strong> 12/24</p>
-              <a href="#" class="btn btn-primary">Cambiar Tarjeta</a>
+            <div class="card">
+                <div class="card-header">Tarjeta</div>
+                <div class="card-body">
+                    <p><strong>Número de Tarjeta:</strong> **** **** **** 1234</p>
+                    <p><strong>CVC:</strong> ***</p>
+                    <p><strong>Fecha de Vencimiento:</strong> 12/24</p>
+                    <div class="text-center">
+                        <a href="#" class="btn btn-primary">Cambiar Tarjeta</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row m-4">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header">Registrar Dominio</div>
+                <div class="card-body">
+                    <form>
+                        <div class="form-group">
+                            <label for="dominio">Dominio:</label>
+                            <input type="text" id="dominio" class="form-control" placeholder="Nombre del Dominio">
+                        </div>
+                        <div class="text-center">
+                            <button type="submit" class="btn btn-primary">Registrar</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header">Abrir Ticket</div>
+                <div class="card-body">
+                    <form>
+                        <div class="form-group">
+                            <label for="titulo">Título:</label>
+                            <input type="text" id="titulo" class="form-control" placeholder="Título del Ticket">
+                        </div>
+                        <div class="form-group">
+                            <label for="descripcion">Descripción:</label>
+                            <textarea id="descripcion" class="form-control" placeholder="Descripción del Ticket"></textarea>
+                        </div>
+                        <div class="text-center">
+                            <button type="submit" class="btn btn-primary">Abrir Ticket</button>
+                        </div>
+                    </form>
+                </div>
             </div>
           </div>
         </div>
@@ -86,7 +132,7 @@
             <a href="https://www.ejemplo3.com">Ejemplo 3</a>
           </li>
         </ul>
-      </div>
+        <a href="#" class="btn btn-secondary fixed-right m-4">Agregar pagina</a>
     </div>
 
 
