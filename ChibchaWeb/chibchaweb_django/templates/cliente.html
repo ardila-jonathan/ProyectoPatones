@@ -15,7 +15,7 @@
 <body>
 
 <div class="container mt-5">
-    <div class="row">
+    <div class="row m-4">
         <div class="col-md-6">
             <div class="card">
                 <div class="card-header">Información del Cliente</div>
@@ -26,7 +26,14 @@
                     <p><strong>Email:</strong> <span id="email">juan@example.com</span></p>
                     <p><strong>País:</strong> <span id="pais">España</span></p>
                     <p><strong>Ciudad:</strong> <span id="ciudad">Madrid</span></p>
-                    <button class="btn btn-primary" href="{% url 'editarCliente' %}" >Modificar Información</button>
+                    <div class="container mt-3">
+                        <div class="row">
+                            <div class="col-md-11 text-center">
+                                <button class="btn btn-primary" href="{% url 'editarCliente' %}" >Modificar Información</button>
+                                <button class="btn btn-danger">Eliminar cuenta</button>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -37,7 +44,49 @@
                     <p><strong>Número de Tarjeta:</strong> **** **** **** 1234</p>
                     <p><strong>CVC:</strong> ***</p>
                     <p><strong>Fecha de Vencimiento:</strong> 12/24</p>
-                    <a href="#" class="btn btn-primary">Cambiar Tarjeta</a>
+                    <div class="text-center">
+                        <a href="#" class="btn btn-primary">Cambiar Tarjeta</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row m-4">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header">Registrar Dominio</div>
+                <div class="card-body">
+                    <form>
+                        <div class="form-group">
+                            <label for="dominio">Dominio:</label>
+                            <input type="text" id="dominio" class="form-control" placeholder="Nombre del Dominio">
+                        </div>
+                        <div class="text-center">
+                            <button type="submit" class="btn btn-primary">Registrar</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header">Abrir Ticket</div>
+                <div class="card-body">
+                    <form>
+                        <div class="form-group">
+                            <label for="titulo">Título:</label>
+                            <input type="text" id="titulo" class="form-control" placeholder="Título del Ticket">
+                        </div>
+                        <div class="form-group">
+                            <label for="descripcion">Descripción:</label>
+                            <textarea id="descripcion" class="form-control" placeholder="Descripción del Ticket"></textarea>
+                        </div>
+                        <div class="text-center">
+                            <button type="submit" class="btn btn-primary">Abrir Ticket</button>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>
@@ -50,6 +99,7 @@
             <li class="list-group-item"><a href="https://www.ejemplo2.com">Ejemplo 2</a></li>
             <li class="list-group-item"><a href="https://www.ejemplo3.com">Ejemplo 3</a></li>
         </ul>
+        <a href="#" class="btn btn-secondary fixed-right m-4">Agregar pagina</a>
     </div>
 </div>
 <a href="#" class="btn btn-danger m-4">Cerrar Sesión</a>
