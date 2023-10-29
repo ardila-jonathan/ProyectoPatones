@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+import datetime
 
 # Create your models here. Ciente
 
@@ -51,9 +52,9 @@ class Cliente(models.Model):
 class TarjetaCredito(models.Model):
     tarjetaId = models.AutoField(primary_key=True)
     clienteId = models.ForeignKey(Cliente, on_delete=models.CASCADE)
-    numeroTarjeta = models.CharField(blank=False,verbose_name="tarjeta numero",max_length=18)
-    cvc = models.CharField(blank=False, max_length=3)
-    fechaVencimiento = models.DateField(verbose_name="Fecha de vencimiento", blank=False, max_length=10)
+    numeroTarjeta = models.CharField(blank=False,verbose_name="tarjeta numero",max_length=18, default="NE")
+    cvc = models.CharField(blank=False, max_length=3, default="NE")
+    fechaVencimiento = models.DateField(verbose_name="Fecha de vencimiento", blank=False, default=datetime.date.today)
 
 
 class SitioWeb(models.Model):

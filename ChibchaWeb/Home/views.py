@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import login
 from Cliente.models import Cliente, Plan
+from Empleado.models import Empleado
 from django.http import HttpResponse, HttpResponseRedirect
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import AuthenticationForm
@@ -37,20 +38,28 @@ def singout(request):
     logout(request)
     return redirect('home')
 
+def eliminar_usuario(request):
+    request.user.delete()
+    return HttpResponseRedirect('index.html')
+
 #@login_required
 def dashboard_view(request):
     # Esta vista solo es accesible si el usuario ha iniciado sesión
-    user = request.user
-    rol = Rol.objects.get(usuario = user).rol
-    if rol == "Cliente":
-        cliente = Cliente.objects.get(usuario = user)
-        return render(request, "cliente.html", {'cliente':cliente})
-    elif rol == "Distribuidor":
-        #Lo que pasa cuando un distribuidor inicia sesión
-        pass
-    elif rol == "Empleado":
-        #Lo que pasa cuando un empleado inicia sesión
-        pass
+    try:
+        user = request.user
+        rol = Rol.objects.get(usuario = user).rol
+        if rol == "Cliente":
+            cliente = Cliente.objects.get(usuario = user)
+            return render(request, "cliente.html", {'cliente':cliente})
+        elif rol == "Distribuidor":
+            #Lo que pasa cuando un distribuidor inicia sesión
+            pass
+        elif rol == "Empleado":
+            #Lo que pasa cuando un empleado inicia sesión
+            empleado = Empleado.objects.get(usuario = user)
+            return render(request, "empleado.html", {'empleado':empleado})
+    except:
+        return render(request, "inicio.html")
 
 
 def registro_clientes(request):

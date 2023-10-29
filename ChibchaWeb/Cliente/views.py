@@ -43,10 +43,5 @@ def editar_cliente(request, id_cliente):
     return render(request, "editarCliente.html", {'cliente':Cliente.objects.get(clienteId = id_cliente)})
 
 
-def eliminar_cliente(request):
-    request.user.delete()
-    return HttpResponseRedirect('index.html')
-
-
 def cambiar_tarjeta(request):
-    pass
+    return render(request)
