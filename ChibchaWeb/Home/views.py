@@ -47,9 +47,10 @@ def dashboard_view(request):
     # Esta vista solo es accesible si el usuario ha iniciado sesión
     
     try:
+        
         user = request.user
         rol = Rol.objects.get(usuario = user).rol
-      
+        
         if rol == "Cliente":
             cliente = Cliente.objects.get(usuario = user)
             return render(request, "cliente.html", {'cliente':cliente})

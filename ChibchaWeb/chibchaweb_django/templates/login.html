@@ -71,7 +71,11 @@
               <div class="foot-lnk">
                 <a href="#forgot">¿Olvide mi Contraseña?</a>
               </div>
+              <div class="foot-lnk-a">
+                <a href="{% url 'admin:index' %}">Inicio administradores</a>
+              </div>
             </div>
+            
           </form>
           <div class="sign-up-htm">
             <form method="post" action="{% url 'registroCliente' %}">
