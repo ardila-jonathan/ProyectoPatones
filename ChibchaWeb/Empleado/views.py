@@ -16,5 +16,20 @@ def consulta_empleado(request):
     return render(request, "empleado.html")
 
 
+@login_required
 def editar_empleado(request, id_empleado):
-    pass
+
+    user = request.user
+    if user.id == id_empleado:
+        if request.method == 'POST':
+            empleado = Empleado.objects.get(usuario_id = id_empleado)
+            empleado.nombreEmpleado = request.POST['nombre']
+            empleado.cargoEmpleado = request.POST['cargo']
+            empleado.fechaNacimientoEmpleado = request.POST['fechaNacimiento']
+            empleado.telefonoEmpleado = request.POST['telefono']
+            empleado.inicioContrato = request.POST['inicioContrato']
+            empleado.save()
+            return redirect('dashboard')
+    else:
+        return redirect('home')
+    return render(request, "editarEmpleado.html", {'empleado':Empleado.objects.get(usuario_id = id_empleado)})

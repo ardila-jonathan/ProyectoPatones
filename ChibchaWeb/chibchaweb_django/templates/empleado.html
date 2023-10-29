@@ -35,8 +35,9 @@
             <div class="container mt-3">
               <div class="row">
                 <div class="col-md-12 text-center">
-                  <a href="#" class="btn btn-primary">Actualizar Información</a>
-                  <button class="btn btn-danger">Cerrar Sesión</button>
+                  <a  class="btn btn-primary" href="{% url 'editarEmpleado' empleado.usuario_id %}">Actualizar Información </a>
+                  
+                  <a href="{% url 'cerrarSesion' %}" class="btn btn-danger">Cerrar Sesión</a>
                 </div>
               </div>
             </div>
