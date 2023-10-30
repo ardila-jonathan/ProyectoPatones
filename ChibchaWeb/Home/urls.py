@@ -8,6 +8,6 @@ urlpatterns = [
     path("signin", inicioSesion, name="inicioSesion"),
     path("signout", singout, name="cerrarSesion"),
     path("registro", registro_clientes, name="registroCliente"),
-    path("eliminar", eliminar_usuario, name="eliminarUsuario" ),
+    path("eliminar", eliminar_usuario, name="eliminarUsuario"),
     path("dashboard", dashboard_view, name="dashboard"),
 ]

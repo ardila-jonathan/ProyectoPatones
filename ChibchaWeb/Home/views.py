@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from django.contrib.auth import login
 from Cliente.models import Cliente, Plan
 from Empleado.models import Empleado
+from Distribuidor.models import Distribuidor
 from django.http import HttpResponse, HttpResponseRedirect
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import AuthenticationForm
@@ -38,6 +39,7 @@ def singout(request):
     logout(request)
     return redirect('home')
 
+
 def eliminar_usuario(request):
     request.user.delete()
     return HttpResponseRedirect('index.html')
@@ -55,13 +57,13 @@ def dashboard_view(request):
             return render(request, "cliente.html", {'cliente':cliente})
         elif rol == "Distribuidor":
             #Lo que pasa cuando un distribuidor inicia sesión
-            pass
+            distribuidor = Distribuidor.objects.get(usuario = user)
+            return render(request, "distribuidor.html", {'distribuidor':distribuidor})
         elif rol == "Empleado":
             #Lo que pasa cuando un empleado inicia sesión
             empleado = Empleado.objects.get(usuario = user)
             return render(request, "empleado.html", {'empleado':empleado})
-    except:
-        
+    except:        
         return render(request, "inicio.html")
 
 
