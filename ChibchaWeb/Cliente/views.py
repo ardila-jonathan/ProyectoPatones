@@ -9,7 +9,6 @@ from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.decorators import login_required
 from django.urls import reverse
 
-
 # Create your views here.
 
 def consulta_clientes(request):

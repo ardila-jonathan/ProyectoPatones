@@ -1,41 +1,60 @@
+{% extends 'index.html' %}
+
+{% load static %}
+
+{% block content %}
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
     <title>Dashboard del Distribuidor</title>
 </head>
+
 <body>
     <div class="container mt-4">
-        <div class="row">
-            <div class="col-md-4">
-                <div class="card">
-                    <div class="card-header">Solicitudes XML</div>
-                    <div class="card-body">
-                        <p>Ejemplo de solicitud XML:</p>
-                        <pre>
-&lt;xml version="1.0"&gt;
-&lt;request&gt;
-    &lt;client_id&gt;12345&lt;/client_id&gt;
-    &lt;amount&gt;1000.00&lt;/amount&gt;
-    &lt;description&gt;Pago de factura&lt;/description&gt;
-&lt;/request&gt;
-                        </pre>
+        <div class="row m-4">
+            <div class="col-md-6">
+                <div class="card d-flex flex-column h-100">
+                    <div class="card-header">Información del Distribuidor</div>
+                    <div class="card-body d-flex flex-column">
+                        <p>
+                            <strong>Distribuidor:</strong>
+                            <span id="usuario">{{Distribuidor.usuario.username}}</span>
+                        </p>
+                        <p>
+                            <strong>Categoria:</strong>
+                            <span id="nombre">{{cliente.nombreCliente}}</span>
+                        </p>
+                        <p>
+                            <strong>Comision:</strong>
+                            <span id="fechaNacimiento">{{cliente.fechaNacimientoCliente}}</span>
+                        </p>
+
+                        <div class="mt-auto text-center">
+                            <!-- Utiliza la clase 'mt-auto' para mover los botones hacia la parte inferior -->
+                            <a class="btn btn-primary" href="{% url 'editarCliente' cliente.usuario_id %}">
+                                Modificar Información
+                            </a>
+                            <a class="btn btn-danger" href="{% url 'eliminarUsuario' %}">
+                                Eliminar cuenta
+                            </a>
+                            <a href="{% url 'cerrarSesion' %}" class="btn btn-danger">Cerrar Sesión</a>
+                        </div>
                     </div>
                 </div>
             </div>
-            <div class="col-md-4">
-                <div class="card">
+            <div class="column col-md-6">
+                <div class="card mt-2">
                     <div class="card-header">Exportar a PDF</div>
                     <div class="card-body">
                         <p>Archivo bancario exportado como PDF.</p>
                         <a href="#" class="btn btn-primary">Descargar PDF</a>
                     </div>
                 </div>
-            </div>
-            <div class="col-md-4">
-                <div class="card">
+                <div class="card mt-2">
                     <div class="card-header">Reporte de Contratos</div>
                     <div class="card-body">
                         <p>Se generó un reporte con los contratos de los clientes.</p>
@@ -44,8 +63,27 @@
                 </div>
             </div>
         </div>
+        <div class="row m-4">
+            <div class="card">
+                <div class="card-header">Solicitudes XML</div>
+                <div class="card-body">
+                    <p>Ejemplo de solicitud XML:</p>
+                    <pre>
+&lt;xml version="1.0"&gt;
+&lt;request&gt;
+    &lt;client_id&gt;12345&lt;/client_id&gt;
+    &lt;amount&gt;1000.00&lt;/amount&gt;
+    &lt;description&gt;Pago de factura&lt;/description&gt;
+&lt;/request&gt;
+                        </pre>
+                </div>
+            </div>
+
+        </div>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
 </body>
+
 </html>
+{% endblock %}
