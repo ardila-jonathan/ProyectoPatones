@@ -20,22 +20,13 @@
                 <div class="card d-flex flex-column h-100">
                     <div class="card-header">Información del Distribuidor</div>
                     <div class="card-body d-flex flex-column">
-                        <p>
-                            <strong>Distribuidor:</strong>
-                            <span id="usuario">{{Distribuidor.usuario.username}}</span>
-                        </p>
-                        <p>
-                            <strong>Categoria:</strong>
-                            <span id="nombre">{{cliente.nombreCliente}}</span>
-                        </p>
-                        <p>
-                            <strong>Comision:</strong>
-                            <span id="fechaNacimiento">{{cliente.fechaNacimientoCliente}}</span>
-                        </p>
+                        <p><strong>Distribuidor: </strong>{{distribuidor.nombreDistribuidor}}</p>
+                        <p><strong>Categoria: </strong>{{distribuidor.categoria}}</p>
+                        <p><strong>Comisión: </strong>{{distribuidor.comision}}</p>
 
                         <div class="mt-auto text-center">
                             <!-- Utiliza la clase 'mt-auto' para mover los botones hacia la parte inferior -->
-                            <a class="btn btn-primary" href="{% url 'editarCliente' cliente.usuario_id %}">
+                            <a class="btn btn-primary" href="{% url 'editarDistribuidor' distribuidor.usuario_id %}">
                                 Modificar Información
                             </a>
                             <a class="btn btn-danger" href="{% url 'eliminarUsuario' %}">

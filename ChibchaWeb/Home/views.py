@@ -58,6 +58,7 @@ def dashboard_view(request):
         elif rol == "Distribuidor":
             #Lo que pasa cuando un distribuidor inicia sesión
             distribuidor = Distribuidor.objects.get(usuario = user)
+            print("entra")
             return render(request, "distribuidor.html", {'distribuidor':distribuidor})
         elif rol == "Empleado":
             #Lo que pasa cuando un empleado inicia sesión
