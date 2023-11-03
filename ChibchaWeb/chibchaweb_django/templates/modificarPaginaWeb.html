@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <title>Modificar Archivos de la Página</title>
+</head>
+<body>
+    <div class="container mt-5">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-header">Archivos y Carpetas</div>
+                    <div class="card-body">
+                        <!-- Lista de archivos y carpetas (debes cargar dinámicamente desde el servidor) -->
+                        <ul id="fileList" class="list-group">
+                            <li class="list-group-item">Carpeta 1</li>
+                            <li class="list-group-item">Carpeta 2</li>
+                            <li class="list-group-item">Archivo 1.txt</li>
+                            <li class="list-group-item">Archivo 2.jpg</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-header">Subir Archivos</div>
+                    <div class="card-body">
+                        <form>
+                            <div class="form-group">
+                                <input type="file" id="fileInput" class="form-control-file">
+                            </div>
+                            <button type="submit" class="btn btn-primary">Subir</button>
+                        </form>
+                    </div>
+                </div>
+                <div class="card mt-3">
+                    <div class="card-header">Crear Carpeta</div>
+                    <div class="card-body">
+                        <form>
+                            <div class="form-group">
+                                <input type="text" id="folderName" class="form-control" placeholder="Nombre de la Carpeta">
+                            </div>
+                            <button type="submit" class="btn btn-success">Crear Carpeta</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
+    <script>
+        // JavaScript para manejar la interacción del usuario con los archivos y carpetas
+        document.getElementById('fileInput').addEventListener('change', function (e) {
+            // Aquí debes agregar la lógica para subir archivos al servidor
+        });
+
+        document.querySelector('#folderName').addEventListener('input', function (e) {
+            // Aquí debes agregar la lógica para crear una carpeta en el servidor
+        });
+    </script>
+</body>
+</html>
