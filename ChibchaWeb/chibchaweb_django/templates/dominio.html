@@ -1,0 +1,136 @@
+{% extends 'index.html' %}
+
+{% load static %}
+
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="{%static 'css/dominio.css'%}" type="text/css">
+    <title>Dominios</title>
+</head>
+<body>
+  <header class="header">
+    <h1>Registro de Dominio</h1>
+  </header>
+  <!-- <section class="banner">
+    <h2>Cyber Oferta Limitada - ¡Aprovecha Hoy!</h2>
+  </section> -->
+  <section class="content">
+    <h2>Comprar dominios en Colombia en minutos</h2>
+    <p>Encuentra dominios disponibles en nuestro buscador y registra el dominio ideal para tu proyecto en minutos. Ofrecemos una variedad de extensiones populares para dominios:</p>
+    <div class="search">
+      <input type="text" placeholder="Escribe tu dominio aquí">
+      <button>Buscar</button>
+      <!-- agregar Tabla  -->
+    </div>
+    <table>
+      <tr>
+        <th>Dominio</th>
+        <th>Extensión</th>
+        <th>En Uso</th>
+        <th>Registrar Dominio</th>
+      </tr>
+      <tr>
+        <td>ejemplo1</td>
+        <td>.com</td>
+        <td>Sí</td>
+        <td><button class="btn" disabled>Registrar</button></td>
+      </tr>
+      <tr>
+        <td>ejemplo2</td>
+        <td>.net</td>
+        <td>No</td>
+        <td><button class="btn"> Registrar</button></td>
+      </tr>
+      <!-- Agrega más filas de datos según sea necesario -->
+    </table>
+  </div>
+    <h3>Extensiones de Dominio Populares:</h3>
+    <div class="options">
+      <div class="option">
+        <p>.com.co</p>
+        <span>Desde COP 41,900</span>
+        <p>por año</p>
+        <button>Comprar</button>
+      </div>
+      <div class="option">
+        <p>.net.co</p>
+        <span>Desde COP 52,900</span>
+        <p>por año</p>
+        <button>Comprar</button>
+      </div>
+      <div class="option">
+        <p>.org.co</p>
+        <span>Desde COP 45,000</span>
+        <p>por año</p>
+        <button>Comprar</button>
+      </div>
+    </div>
+    <div class="info">
+      <h3>Por qué elegir nuestros servicios de registro de dominio:</h3>
+      <p>Ofrecemos un proceso de registro de dominio sencillo y rápido. Además, brindamos un servicio de atención al cliente excepcional las 24 horas, los 7 días de la semana. Registra tu dominio con nosotros y únete a miles de clientes satisfechos.</p>
+    </div>
+    <div class="pricing-table">
+      <h3>Planes de Dominio</h3>
+      <table>
+        <tr>
+          <td>Plan Básico</td>
+          <td>.com.co</td>
+          <td>5 GB de almacenamiento</td>
+          <td>Precio: COP 41,900/año</td>
+          <td><button>Comprar</button></td>
+        </tr>
+        <tr>
+          <td>Plan Premium</td>
+          <td>.net.co</td>
+          <td>10 GB de almacenamiento</td>
+          <td>Precio: COP 52,900/año</td>
+          <td><button>Comprar</button></td>
+        </tr>
+        <tr>
+          <td>Plan Empresarial</td>
+          <td>.org.co</td>
+          <td>20 GB de almacenamiento</td>
+          <td>Precio: COP 45,000/año</td>
+          <td><button>Comprar</button></td>
+        </tr>
+      </table>
+    </div>
+    <div class="contact-support">
+      <h3>Atención al Cliente</h3>
+      <p>Si tienes preguntas o necesitas asistencia, nuestro equipo de soporte está disponible las 24 horas del día, los 7 días de la semana. Contáctanos por teléfono o correo electrónico.</p>
+      <p>Teléfono: 123-456-7890</p>
+      <p>Correo Electrónico: soporte@dominioscolombia.com</p>
+    </div>
+    <div class="faq">
+      <h3>Preguntas Frecuentes</h3>
+      <ul>
+        <li><strong>¿Cómo registro un dominio?</strong> - Registrarte es fácil. Simplemente utiliza nuestro buscador, encuentra tu dominio y sigue las instrucciones.</li>
+        <li><strong>¿Puedo transferir un dominio existente?</strong> - Sí, ofrecemos servicios de transferencia de dominio. Ponte en contacto con nuestro equipo de soporte para obtener ayuda.</li>
+        <li><strong>¿Cuáles son las opciones de pago?</strong> - Aceptamos tarjetas de crédito, PayPal y otros métodos de pago seguros.</li>
+      </ul>
+    </div>
+    <div class="call-to-action">
+      <h2>¡Registra tu dominio ahora y comienza tu aventura en línea!</h2>
+      <p>Aprovecha nuestras ofertas limitadas y asegura tu presencia en la web hoy mismo. ¡No te lo pierdas!</p>
+    </div>
+  </section>
+  <div class="footer">
+    <p>&copy; 2023. Todos los derechos reservados.</p>
+    <p><a href="#">Facebook</a> | <a href="#">Twitter</a> | <a href="#">Instagram</a></p>
+    <p><a href="#">Términos y condiciones</a> | <a href="#">Política de privacidad</a></p>
+  </div>
+  <div class="cookie-banner">
+    <p>Utilizamos cookies para mejorar tu experiencia en nuestra web. Al continuar navegando, aceptas el uso de cookies. Para más información, consulta nuestra política de cookies.</p>
+    <button>Aceptar</button>
+  </div>
+  <footer class="footer">
+    <p>&copy; 2023 Venta de Dominios Colombia | <a href="">Política de Privacidad</a></p>
+  </footer>
+</body>
+
+<script src="{%static 'js/dominio.js'%}" type="text/javascript"></script>
+</html>
+{% endblock %}
