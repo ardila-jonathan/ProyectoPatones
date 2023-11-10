@@ -116,7 +116,8 @@ AUTHENTICATION_BACKENDS = (
 
 LOGIN_URL = 'inicioSesion'
 
-
+#SESSION_EXPIRE_AFTER_LAST_ACTIVITY = True
+SESSION_TIMEOUT_REDIRECT = ''
 
 # Internationalization
 # https://docs.djangoproject.com/en/4.2/topics/i18n/

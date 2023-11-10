@@ -5,11 +5,13 @@
 {% block content %}
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <link rel="stylesheet" href="{%static 'css/dominio.css'%}" type="text/css">
-    <title>Dominios</title>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="{%static 'css/dominio.css'%}" type="text/css">
+  <title>Dominios</title>
 </head>
+
 <body>
   <header class="header">
     <h1>Registro de Dominio</h1>
@@ -19,10 +21,12 @@
   </section> -->
   <section class="content">
     <h2>Comprar dominios en Colombia en minutos</h2>
-    <p>Encuentra dominios disponibles en nuestro buscador y registra el dominio ideal para tu proyecto en minutos. Ofrecemos una variedad de extensiones populares para dominios:</p>
+    <p>Encuentra dominios disponibles en nuestro buscador y registra el dominio ideal para tu proyecto en minutos.
+      Ofrecemos una variedad de extensiones populares para dominios:</p>
     <div class="search">
-      <input type="text" placeholder="Escribe tu dominio aquí">
-      <button>Buscar</button>
+
+      <input id="nombreDominio" name="nombreDominio" type="text" placeholder="Escribe tu dominio aquí">
+      <button onclick="pasarValor()">Buscar</button></a>
       <!-- agregar Tabla  -->
     </div>
     <table>
@@ -32,21 +36,35 @@
         <th>En Uso</th>
         <th>Registrar Dominio</th>
       </tr>
+      {% if dominioObj != "_" %}
+      {% if extensiones.count > 0 %}
+      {% for extension in extensiones %}
       <tr>
-        <td>ejemplo1</td>
-        <td>.com</td>
-        <td>Sí</td>
-        <td><button class="btn" disabled>Registrar</button></td>
-      </tr>
-      <tr>
-        <td>ejemplo2</td>
-        <td>.net</td>
+        <td id="{{extension.pk}}d">{{dominioObj}}</td>
+        <td id="{{extension.pk}}e">{{extension.extensionDominio}}</td>
+
+        {% if dominios.count > 0 %}
+        {% for dominio in dominios %}
+        {% if dominio.extensionDominio.extensionDominio == extension.extensionDominio %}
         <td>No</td>
-        <td><button class="btn"> Registrar</button></td>
+        <td><button class="btn" disabled> Registrar</button></td>
+        {% else %}
+        <td>Sí</td>
+        <td><button class="btn" id="{{extension.pk}}" onclick="enviarDominio(this.id)"> Registrar</button></td>
+        {% endif %}
+        {% endfor %}
+        {% else %}
+        <td>Sí</td>
+        <td><button class="btn" id="{{extension.pk}}" onclick="enviarDominio(this.id)"> Registrar</button></td>
+        {% endif %}
       </tr>
+      {% endfor %}
+      {% endif %}
+      {% endif %}
+
       <!-- Agrega más filas de datos según sea necesario -->
     </table>
-  </div>
+    </div>
     <h3>Extensiones de Dominio Populares:</h3>
     <div class="options">
       <div class="option">
@@ -70,7 +88,9 @@
     </div>
     <div class="info">
       <h3>Por qué elegir nuestros servicios de registro de dominio:</h3>
-      <p>Ofrecemos un proceso de registro de dominio sencillo y rápido. Además, brindamos un servicio de atención al cliente excepcional las 24 horas, los 7 días de la semana. Registra tu dominio con nosotros y únete a miles de clientes satisfechos.</p>
+      <p>Ofrecemos un proceso de registro de dominio sencillo y rápido. Además, brindamos un servicio de atención al
+        cliente excepcional las 24 horas, los 7 días de la semana. Registra tu dominio con nosotros y únete a miles de
+        clientes satisfechos.</p>
     </div>
     <div class="pricing-table">
       <h3>Planes de Dominio</h3>
@@ -100,16 +120,20 @@
     </div>
     <div class="contact-support">
       <h3>Atención al Cliente</h3>
-      <p>Si tienes preguntas o necesitas asistencia, nuestro equipo de soporte está disponible las 24 horas del día, los 7 días de la semana. Contáctanos por teléfono o correo electrónico.</p>
+      <p>Si tienes preguntas o necesitas asistencia, nuestro equipo de soporte está disponible las 24 horas del día, los
+        7 días de la semana. Contáctanos por teléfono o correo electrónico.</p>
       <p>Teléfono: 123-456-7890</p>
       <p>Correo Electrónico: soporte@dominioscolombia.com</p>
     </div>
     <div class="faq">
       <h3>Preguntas Frecuentes</h3>
       <ul>
-        <li><strong>¿Cómo registro un dominio?</strong> - Registrarte es fácil. Simplemente utiliza nuestro buscador, encuentra tu dominio y sigue las instrucciones.</li>
-        <li><strong>¿Puedo transferir un dominio existente?</strong> - Sí, ofrecemos servicios de transferencia de dominio. Ponte en contacto con nuestro equipo de soporte para obtener ayuda.</li>
-        <li><strong>¿Cuáles son las opciones de pago?</strong> - Aceptamos tarjetas de crédito, PayPal y otros métodos de pago seguros.</li>
+        <li><strong>¿Cómo registro un dominio?</strong> - Registrarte es fácil. Simplemente utiliza nuestro buscador,
+          encuentra tu dominio y sigue las instrucciones.</li>
+        <li><strong>¿Puedo transferir un dominio existente?</strong> - Sí, ofrecemos servicios de transferencia de
+          dominio. Ponte en contacto con nuestro equipo de soporte para obtener ayuda.</li>
+        <li><strong>¿Cuáles son las opciones de pago?</strong> - Aceptamos tarjetas de crédito, PayPal y otros métodos
+          de pago seguros.</li>
       </ul>
     </div>
     <div class="call-to-action">
@@ -123,7 +147,8 @@
     <p><a href="#">Términos y condiciones</a> | <a href="#">Política de privacidad</a></p>
   </div>
   <div class="cookie-banner">
-    <p>Utilizamos cookies para mejorar tu experiencia en nuestra web. Al continuar navegando, aceptas el uso de cookies. Para más información, consulta nuestra política de cookies.</p>
+    <p>Utilizamos cookies para mejorar tu experiencia en nuestra web. Al continuar navegando, aceptas el uso de cookies.
+      Para más información, consulta nuestra política de cookies.</p>
     <button>Aceptar</button>
   </div>
   <footer class="footer">
@@ -132,5 +157,40 @@
 </body>
 
 <script src="{%static 'js/dominio.js'%}" type="text/javascript"></script>
+<script>
+  function pasarValor() {
+    let valor = document.getElementById('nombreDominio').value;
+
+    var url = "{% url 'dominiosDisponibles' 'valor' %}";
+
+    if (valor != "") {
+      url = url.replace('valor', valor);
+    } else {
+      url = url.replace('valor', "_");
+    }
+
+    window.location.href = url;
+
+  }
+
+  function enviarDominio(id) {
+    console.log("Se envia" + document.getElementById(id + "d").innerHTML + document.getElementById(id + "e").innerHTML);
+    // Envía el valor a tu vista de Django a través de una solicitud AJAX
+    $.ajax({
+      url: '/clientes/registrarDominio',
+      method: 'POST',
+      data: {
+        nombreDominio: document.getElementById(id + "d").innerHTML,
+        extension: document.getElementById(id + "e").innerHTML
+      },
+      success: function (response) {
+        // Recarga la página cuando la solicitud AJAX tenga éxito
+        window.location.href = "{% url 'dashboard' %}";
+      }
+
+    });
+  }
+</script>
+
 </html>
 {% endblock %}

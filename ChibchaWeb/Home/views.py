@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import login
-from Cliente.models import Cliente, Plan
+from Cliente.models import Cliente, Plan, TarjetaCredito
 from Empleado.models import Empleado
 from Distribuidor.models import Distribuidor
 from django.http import HttpResponse, HttpResponseRedirect
@@ -54,11 +54,13 @@ def dashboard_view(request):
         
         if rol == "Cliente":
             cliente = Cliente.objects.get(usuario = user)
-            return render(request, "cliente.html", {'cliente':cliente})
+            print(cliente)
+            tarjeta =  TarjetaCredito.objects.get(clienteId = cliente)
+            print(tarjeta.numeroTarjeta)
+            return render(request, "cliente.html", {'cliente':cliente, 'tarjeta':tarjeta})
         elif rol == "Distribuidor":
             #Lo que pasa cuando un distribuidor inicia sesión
             distribuidor = Distribuidor.objects.get(usuario = user)
-            print("entra")
             return render(request, "distribuidor.html", {'distribuidor':distribuidor})
         elif rol == "Empleado":
             #Lo que pasa cuando un empleado inicia sesión
@@ -90,6 +92,11 @@ def registro_clientes(request):
                                paisCliente=pais, ciudadCliente=ciudad, ClienteActivo=False)
 
         nuevoCliente.save()
+
+        tarjeta = TarjetaCredito(clienteId = nuevoCliente, numeroTarjeta = "0000000000000000", cvc = "000", direccion = "" )
+
+        tarjeta.save()
+
 
         rol = Rol(usuario = user, rol="Cliente")
 
