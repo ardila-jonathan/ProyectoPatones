@@ -77,6 +77,18 @@ def registrarDominio(request):
     
     else:
         return render(request, 'dominio.html')
+    
+def agregarPagina(request, id_cliente):
+
+    
+    user = request.user
+    if user.id == id_cliente:
+        cliente = Cliente.objects.get(usuario_id = id_cliente)
+        id_C= cliente.clienteId
+        dominios = Dominio.objects.filter(clienteId_id=id_C).values_list('nombreDominio', flat=True)
+    else:
+        return redirect('home')
+    return render(request, "registroPaginaWeb.html", {'cliente':Cliente.objects.get(usuario_id = id_cliente), 'dominios_disponibles': dominios})
 
    
 def dominiosDisponibles(request, dominio):
