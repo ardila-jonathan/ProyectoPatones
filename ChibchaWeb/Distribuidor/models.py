@@ -21,6 +21,7 @@ class ExtensionDominio(models.Model):
     extensionId = models.AutoField(primary_key=True)
     distribuidorId = models.ForeignKey(Distribuidor, on_delete=models.CASCADE)
     extensionDominio = models.CharField(verbose_name="extensionDominio",blank=False, null="True", max_length=10)
+    precioExtension = models.FloatField(verbose_name="precioExtension", null=True)
 
     class Meta:
         ordering = ('extensionDominio',)

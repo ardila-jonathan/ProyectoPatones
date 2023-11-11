@@ -54,10 +54,9 @@ def dashboard_view(request):
         
         if rol == "Cliente":
             cliente = Cliente.objects.get(usuario = user)
-            print(cliente)
-            #tarjeta =  TarjetaCredito.objects.get(clienteId = cliente)
-            #print(tarjeta.numeroTarjeta)
-            return render(request, "cliente.html", {'cliente':cliente})
+            tarjeta =  TarjetaCredito.objects.get(clienteId = cliente)
+            tarjeta.save()
+            return render(request, "cliente.html", {'cliente':cliente, 'tarjeta':tarjeta})
         elif rol == "Distribuidor":
             #Lo que pasa cuando un distribuidor inicia sesión
             distribuidor = Distribuidor.objects.get(usuario = user)
