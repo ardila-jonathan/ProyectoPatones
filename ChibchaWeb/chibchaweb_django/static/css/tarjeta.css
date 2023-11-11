@@ -1,25 +1,19 @@
 ::-webkit-scrollbar {
-    width: 8px;
-  }
-  /* Track */
-  ::-webkit-scrollbar-track {
-    background: #f1f1f1; 
-  }
-   
-  /* Handle */
-  ::-webkit-scrollbar-thumb {
-    background: #888; 
-  }
-  
-  /* Handle on hover */
-  ::-webkit-scrollbar-thumb:hover {
-    background: #555; 
-  } body{
-background: #ddd;
-min-height: 100vh;
-vertical-align: middle;
-display: flex;
+  width: 8px;
+}
+/* Track */
+::-webkit-scrollbar-track {
+  background: #f1f1f1; 
+}
+ 
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #888; 
+}
 
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #555; 
 }
 .card{
 margin: auto;
@@ -168,7 +162,7 @@ overflow: hidden;
 font-size: 0.7rem;
 margin-left: 1vh;
 }
-.btn{
+.btnTarj{
 width: 100%;
 background-color: rgb(65, 202, 127);
 border-color: rgb(65, 202, 127);
@@ -177,7 +171,7 @@ justify-content: center;
 padding: 2vh 0;
 margin-top: 3vh;
 }
-.btn:focus{
+.btnTarj:focus{
 box-shadow: none;
 outline: none;
 box-shadow: none;
@@ -186,7 +180,7 @@ color: white;
 -webkit-user-select: none;
 transition: none; 
 }
-.btn:hover{
+.btnTarj:hover{
 color: white;
 }
 input:focus::-webkit-input-placeholder { 
