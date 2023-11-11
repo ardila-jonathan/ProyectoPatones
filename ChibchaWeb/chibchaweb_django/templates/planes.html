@@ -1,144 +1,137 @@
 {% extends 'index.html' %} {% block content %}
 <!DOCTYPE html>
 <html lang="es">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Planes de Alojamiento Web</title>
-    <!-- Agrega aquí los enlaces a los archivos CSS de Bootstrap y tu propio CSS personalizado si lo tienes -->
-    <link
-      rel="stylesheet"
-      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
-    />
-  </head>
-  <body>
-    <div class="container mt-5">
-      <div class="row">
-        <div class="col-md-4">
-          <div class="card h-100 d-flex flex-column">
-            <div class="card-header bg-warning text-white">
-              {{planes.0.nombrePlan}}
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Planes de Alojamiento Web</title>
+  <!-- Agrega aquí los enlaces a los archivos CSS de Bootstrap y tu propio CSS personalizado si lo tienes -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" />
+</head>
+
+<body>
+  <div class="container mt-5">
+    <div class="row">
+      <div class="col-md-4">
+        <div class="card h-100 d-flex flex-column">
+          <div class="card-header bg-warning text-white">
+            {{planes.0.nombrePlan}}
+          </div>
+          <div class="card-body">
+            <h5 class="card-title">Descripción:</h5>
+            <p>{{planes.0.descripcionPlan}}</p>
+            <h5 class="card-title">Características:</h5>
+            <ul>
+              {% for caracteristica in planes.0.caracteristicasPlan.all%}
+              <li>{{caracteristica}}</li>
+              {% endfor %}
+            </ul>
+          </div>
+          <div class="mt-auto">
+            <div class="text-center">
+              <h5 class="card-title">Precios (COP):</h5>
             </div>
-            <div class="card-body">
-              <h5 class="card-title">Descripción:</h5>
-              <p>{{planes.0.descripcionPlan}}</p>
-              <h5 class="card-title">Características:</h5>
-              <ul>
-                {% for caracteristica in planes.0.caracteristicasPlan.all%}
-                <li>{{caracteristica}}</li>
-                {% endfor %}
-              </ul>
-            </div>
-            <div class="mt-auto">
-              <div class="text-center">
-                <h5 class="card-title">Precios (COP):</h5>
-              </div>
-              <ul class="list-group list-group-flush">
-                <li class="list-group-item">
-                  Mensual: ${{planes.0.precioMensual}}
-                </li>
-                <li class="list-group-item">
-                  Trimestral: $135,000 (Descuento del 10%)
-                </li>
-                <li class="list-group-item">
-                  Semestral: $240,000 (Descuento del 15%)
-                </li>
-                <li class="list-group-item">
-                  Anual: $420,000 (Descuento del 20%)
-                </li>
-              </ul>
-              <a href="#" class="btn btn-warning d-block mx-auto mt-2"
-                >Suscribirse</a
-              >
-            </div>
+            <ul class="list-group list-group-flush">
+              <li class="list-group-item">
+                Mensual: ${{planes.0.precioMensual}}
+              </li>
+              <li class="list-group-item">
+                Trimestral: $135,000 (Descuento del 10%)
+              </li>
+              <li class="list-group-item">
+                Semestral: $240,000 (Descuento del 15%)
+              </li>
+              <li class="list-group-item">
+                Anual: $420,000 (Descuento del 20%)
+              </li>
+            </ul>
+            <a href="#" class="btn btn-warning d-block mx-auto mt-2">Suscribirse</a>
           </div>
         </div>
-        <div class="col-md-4">
-          <div class="card h-100 d-flex flex-column">
-            <div class="card-header bg-success text-white">
-              {{planes.1.nombrePlan}}
+      </div>
+      <div class="col-md-4">
+        <div class="card h-100 d-flex flex-column">
+          <div class="card-header bg-success text-white">
+            {{planes.1.nombrePlan}}
+          </div>
+          <div class="card-body">
+            <h5 class="card-title">Descripción:</h5>
+            <p>{{planes.1.descripcionPlan}}</p>
+            <h5 class="card-title">Características:</h5>
+            <ul>
+              {% for caracteristica in planes.1.caracteristicasPlan.all%}
+              <li>{{caracteristica}}</li>
+              {% endfor %}
+            </ul>
+          </div>
+          <div class="mt-auto">
+            <div class="text-center">
+              <h5 class="card-title">Precios (COP):</h5>
             </div>
-            <div class="card-body">
-              <h5 class="card-title">Descripción:</h5>
-              <p>{{planes.1.descripcionPlan}}</p>
-              <h5 class="card-title">Características:</h5>
-              <ul>
-                {% for caracteristica in planes.1.caracteristicasPlan.all%}
-                <li>{{caracteristica}}</li>
-                {% endfor %}
-              </ul>
-            </div>
-            <div class="mt-auto">
-              <div class="text-center">
-                <h5 class="card-title">Precios (COP):</h5>
-              </div>
-              <ul class="list-group list-group-flush">
-                <li class="list-group-item">
-                  Mensual: ${{planes.1.precioMensual}}
-                </li>
-                <li class="list-group-item">
-                  Trimestral: $216,000 (Descuento del 10%)
-                </li>
-                <li class="list-group-item">
-                  Semestral: $384,000 (Descuento del 15%)
-                </li>
-                <li class="list-group-item">
-                  Anual: $672,000 (Descuento del 20%)
-                </li>
-              </ul>
-              <a href="#" class="btn btn-success d-block mx-auto mt-2"
-                >Suscribirse</a
-              >
-            </div>
+            <ul class="list-group list-group-flush">
+              <li class="list-group-item">
+                Mensual: ${{planes.1.precioMensual}}
+              </li>
+              <li class="list-group-item">
+                Trimestral: $216,000 (Descuento del 10%)
+              </li>
+              <li class="list-group-item">
+                Semestral: $384,000 (Descuento del 15%)
+              </li>
+              <li class="list-group-item">
+                Anual: $672,000 (Descuento del 20%)
+              </li>
+            </ul>
+            <a href="#" class="btn btn-success d-block mx-auto mt-2">Suscribirse</a>
           </div>
         </div>
-        <div class="col-md-4">
-          <div class="card h-100 d-flex flex-column">
-            <div class="card-header bg-primary text-white">
-              {{planes.2.nombrePlan}}
+      </div>
+      <div class="col-md-4">
+        <div class="card h-100 d-flex flex-column">
+          <div class="card-header bg-primary text-white">
+            {{planes.2.nombrePlan}}
+          </div>
+          <div class="card-body">
+            <h5 class="card-title">Descripción:</h5>
+            <p>{{planes.2.descripcionPlan}}</p>
+            <h5 class="card-title">Características:</h5>
+            <ul>
+              {% for caracteristica in planes.2.caracteristicasPlan.all%}
+              <li>{{caracteristica}}</li>
+              {% endfor %}
+            </ul>
+          </div>
+          <div class="mt-auto">
+            <div class="text-center">
+              <h5 class="card-title">Precios (COP):</h5>
             </div>
-            <div class="card-body">
-              <h5 class="card-title">Descripción:</h5>
-              <p>{{planes.2.descripcionPlan}}</p>
-              <h5 class="card-title">Características:</h5>
-              <ul>
-                {% for caracteristica in planes.2.caracteristicasPlan.all%}
-                <li>{{caracteristica}}</li>
-                {% endfor %}
-              </ul>
-            </div>
-            <div class="mt-auto">
-              <div class="text-center">
-                <h5 class="card-title">Precios (COP):</h5>
-              </div>
-              <ul class="list-group list-group-flush">
-                <li class="list-group-item">
-                  Mensual: ${{planes.2.precioMensual}}
-                </li>
-                <li class="list-group-item">
-                  Trimestral: $420,000 (Descuento del 10%)
-                </li>
-                <li class="list-group-item">
-                  Semestral: $780,000 (Descuento del 15%)
-                </li>
-                <li class="list-group-item">
-                  Anual: $1,440,000 (Descuento del 20%)
-                </li>
-              </ul>
-              <a href="#" class="btn btn-primary d-block mx-auto mt-2"
-                >Suscribirse</a
-              >
-            </div>
+            <ul class="list-group list-group-flush">
+              <li class="list-group-item">
+                Mensual: ${{planes.2.precioMensual}}
+              </li>
+              <li class="list-group-item">
+                Trimestral: $420,000 (Descuento del 10%)
+              </li>
+              <li class="list-group-item">
+                Semestral: $780,000 (Descuento del 15%)
+              </li>
+              <li class="list-group-item">
+                Anual: $1,440,000 (Descuento del 20%)
+              </li>
+            </ul>
+            <a href="#" class="btn btn-primary d-block mx-auto mt-2">Suscribirse</a>
           </div>
         </div>
       </div>
     </div>
+  </div>
 
-    <!-- Agrega aquí los enlaces a los archivos JavaScript de Bootstrap y tus propios scripts si es necesario -->
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-  </body>
+  <!-- Agrega aquí los enlaces a los archivos JavaScript de Bootstrap y tus propios scripts si es necesario -->
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+
 </html>
 
 {% endblock %}
