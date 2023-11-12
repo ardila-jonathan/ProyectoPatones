@@ -64,7 +64,7 @@ class SitioWeb(models.Model):
     clienteId = models.ForeignKey(Cliente, on_delete=models.CASCADE)
     nombreDominio = models.CharField(verbose_name="dominio", blank=True, max_length=30)
     fechaSolicitud = models.DateField(verbose_name="Fecha desolicitud",null=True, blank=True, max_length=10)
-
+    tiempoHosteo = models.IntegerField(verbose_name="tiempoHosteo", blank=False, null=True)
 
 class Ticket(models.Model):
     ticketiId = models.AutoField(primary_key=True)
@@ -79,12 +79,14 @@ class Dominio(models.Model):
     estado = models.CharField(blank=False, verbose_name="estadoDominio",max_length=15, default="Sin usar")
     nombreDominio = models.CharField(blank=False,verbose_name="nombreDominio",max_length=100)
     extensionDominio = models.ForeignKey(ExtensionDominio, on_delete=models.CASCADE)
+    tiempoPropiedad = models.IntegerField(verbose_name="tiempoPropiedad", blank=False, null=True)
+    fechaSolicitud = models.DateField(verbose_name="fechaSolicitud",null=True, blank=True, max_length=10)
     
     class Meta:
         ordering = ('nombreDominio',)
 
     def __str__(self) -> str:
-        return self.nombreDominio
+        return self.nombreDominio + self.extensionDominio.extensionDominio
 
 
 
