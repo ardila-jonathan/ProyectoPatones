@@ -46,15 +46,15 @@
         {% if dominios.count > 0 %}
         {% for dominio in dominios %}
         {% if dominio.extensionDominio.extensionDominio == extension.extensionDominio %}
-        <td>No</td>
+        <td>Sí</td>
         <td><button class="btn" disabled> Registrar</button></td>
         {% else %}
-        <td>Sí</td>
+        <td>No</td>
         <td><button class="btn" id="{{extension.pk}}" onclick="enviarDominio(this.id)"> Registrar</button></td>
         {% endif %}
         {% endfor %}
         {% else %}
-        <td>Sí</td>
+        <td>No</td>
         <td><button class="btn" id="{{extension.pk}}" onclick="enviarDominio(this.id)"> Registrar</button></td>
         {% endif %}
       </tr>
