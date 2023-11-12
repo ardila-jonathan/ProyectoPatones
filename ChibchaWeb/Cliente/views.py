@@ -1,9 +1,11 @@
+from datetime import date
+import json
 from django.shortcuts import render, redirect
 from django.contrib.auth import login
-from .models import Cliente, TarjetaCredito, Dominio
+from .models import Cliente, TarjetaCredito, Dominio, SitioWeb
 from Distribuidor.models import Distribuidor, ExtensionDominio
 from django.template import loader
-from django.http import HttpResponse, HttpResponseRedirect
+from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth import login, logout, authenticate
@@ -77,20 +79,40 @@ def registrarDominio(request):
     
     else:
         return render(request, 'dominio.html')
-    
+
+
+@login_required   
 def agregarPagina(request, id_cliente):
 
-    
     user = request.user
     if user.id == id_cliente:
         cliente = Cliente.objects.get(usuario_id = id_cliente)
         id_C= cliente.clienteId
-        dominios = Dominio.objects.filter(clienteId_id=id_C).values_list('nombreDominio', flat=True)
+        dominios = Dominio.objects.filter(clienteId_id=id_C).values('nombreDominio','dominioId')
     else:
         return redirect('home')
+    
     return render(request, "registroPaginaWeb.html", {'cliente':Cliente.objects.get(usuario_id = id_cliente), 'dominios_disponibles': dominios})
 
+@csrf_exempt
+def registrarPaginaWeb(request):
+    if request.method == 'POST':
+        user = request.user
+        cliente = Cliente.objects.get(usuario=user)
+        data = json.loads(request.body)
+        dominio = data.get('dominio')
+        dom=Dominio.objects.get(dominioId = dominio)
+        sitio = SitioWeb(clienteId=cliente, nombreDominio=dom.nombreDominio, fechaSolicitud=date.today())
+        #actualiza el estado del dominio
+        dom.estado='En uso'
+        dom.save()
+        sitio.save()  # Guardar el objeto SitioWeb en la base de datos
+
+        return JsonResponse({'redirect': '/dashboard'})  # Redirigir a la página de dashboard después de guardar
+    else:
+        return redirect('home')
    
+
 def dominiosDisponibles(request, dominio):
     extensiones = ExtensionDominio.objects.all()
     dominios = Dominio.objects.filter(nombreDominio = dominio)
