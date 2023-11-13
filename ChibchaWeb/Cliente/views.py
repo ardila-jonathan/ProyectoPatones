@@ -117,8 +117,7 @@ def registrarPaginaWebArchivo(request):
     if request.method == 'POST':
         user = request.user
         cliente = Cliente.objects.get(usuario=user)
-        data = json.loads(request.body)
-        dominio = data.get('dominio')
+        dominio = request.POST.get('dominio')
         dom=Dominio.objects.get(dominioId = dominio)
         sitio = SitioWeb(clienteId=cliente, nombreDominio=dom.nombreDominio, fechaSolicitud=date.today())
         #actualiza el estado del dominio
@@ -126,8 +125,8 @@ def registrarPaginaWebArchivo(request):
         dom.save()
         sitio.save()  # Guardar el objeto SitioWeb en la base de datos
         #-----------------------
-        print(request)
-        print(data.get('file_0'))
+        print("----")
+        
         for key, file in request.FILES.items():
             nuevo_archivo = Archivo(clienteId=cliente, sitioId=sitio, archivo=file)
             nuevo_archivo.save()
