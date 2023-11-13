@@ -46,12 +46,6 @@ body {
   text-align: center;
  }
  
- .container {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-around;
-  padding: 20px;
- }
  
  .box {
   background-color: #f2f2f2;

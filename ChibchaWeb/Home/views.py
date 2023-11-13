@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import login
-from Cliente.models import Cliente, Plan, TarjetaCredito
+from Cliente.models import Cliente, Plan, TarjetaCredito, SitioWeb, Dominio
 from Empleado.models import Empleado
 from Distribuidor.models import Distribuidor
 from django.http import HttpResponse, HttpResponseRedirect
@@ -55,8 +55,10 @@ def dashboard_view(request):
         if rol == "Cliente":
             cliente = Cliente.objects.get(usuario = user)
             tarjeta =  TarjetaCredito.objects.get(clienteId = cliente)
+            sitios_web = SitioWeb.objects.filter(clienteId=cliente)
+            dominios = Dominio.objects.filter(clienteId=cliente)
             tarjeta.save()
-            return render(request, "cliente.html", {'cliente':cliente, 'tarjeta':tarjeta})
+            return render(request, "cliente.html", {'cliente':cliente, 'tarjeta':tarjeta, 'sitios_web':sitios_web, 'dominios':dominios})
         elif rol == "Distribuidor":
             #Lo que pasa cuando un distribuidor inicia sesión
             distribuidor = Distribuidor.objects.get(usuario = user)

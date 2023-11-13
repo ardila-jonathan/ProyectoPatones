@@ -4,6 +4,12 @@
     border: cornflowerblue;
     cursor: pointer;
 }
+.container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    padding: 0px; 
+   }
 
 .usuario-img {
     width: 20px; /* Tamaño del logotipo */

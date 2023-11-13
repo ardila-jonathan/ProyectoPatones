@@ -2,7 +2,7 @@ from datetime import date
 import json
 from django.shortcuts import render, redirect
 from django.contrib.auth import login
-from .models import Cliente, TarjetaCredito, Dominio, SitioWeb
+from .models import Archivo, Cliente, TarjetaCredito, Dominio, SitioWeb
 from Distribuidor.models import Distribuidor, ExtensionDominio
 from django.template import loader
 from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
@@ -89,7 +89,7 @@ def agregarPagina(request, id_cliente):
     if user.id == id_cliente:
         cliente = Cliente.objects.get(usuario_id = id_cliente)
         id_C= cliente.clienteId
-        dominios = Dominio.objects.filter(clienteId_id=id_C).values('nombreDominio','dominioId')
+        dominios = Dominio.objects.filter(clienteId_id=id_C, estado='Sin usar').values('nombreDominio','dominioId')
     else:
         return redirect('home')
     
@@ -113,6 +113,58 @@ def registrarPaginaWeb(request):
     else:
         return redirect('home')
    
+@csrf_exempt
+def registrarPaginaWebArchivo(request):
+    if request.method == 'POST':
+        user = request.user
+        cliente = Cliente.objects.get(usuario=user)
+        dominio = request.POST.get('dominio')
+        dom=Dominio.objects.get(dominioId = dominio)
+        sitio = SitioWeb(clienteId=cliente, nombreDominio=dom.nombreDominio, fechaSolicitud=date.today())
+        #actualiza el estado del dominio
+        dom.estado='En uso'
+        dom.save()
+        sitio.save()  # Guardar el objeto SitioWeb en la base de datos
+        #-----------------------
+        print("----")
+        
+        for key, file in request.FILES.items():
+            nuevo_archivo = Archivo(clienteId=cliente, sitioId=sitio, archivo=file)
+            nuevo_archivo.save()
+
+
+
+        return JsonResponse({'redirect': '/dashboard'})  # Redirigir a la página de dashboard después de guardar
+    else:
+        return redirect('home')
+
+@login_required  
+def modificarPaginaWeb(request, webId):
+    archivo= Archivo.objects.filter(sitioId_id=webId)
+   
+    return render(request, "modificarPaginaWeb.html", {'sitio':SitioWeb.objects.get(webId = webId), 'archivos': archivo})
+
+@csrf_exempt
+def subirArchivo(request):
+    if request.method == 'POST':
+        user = request.user
+        cliente = Cliente.objects.get(usuario=user)
+        sitio_id = request.POST.get('sitio') 
+        sitio= SitioWeb.objects.get(webId=sitio_id)
+        #-----------------------
+        print("----")
+        
+        for key in request.FILES.keys():
+            file = request.FILES[key]  # Obtener cada archivo individualmente
+            
+            nuevo_archivo = Archivo(clienteId=cliente, sitioId=sitio, archivo=file)
+            nuevo_archivo.save()
+
+
+
+        return JsonResponse({'success': True}) # Redirigir a la página de dashboard después de guardar
+    else:
+        return redirect('home')
 
 def dominiosDisponibles(request, dominio):
     extensiones = ExtensionDominio.objects.all()

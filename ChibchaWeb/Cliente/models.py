@@ -79,6 +79,7 @@ class Ticket(models.Model):
 class Archivo(models.Model):
     archivoId= models.AutoField(primary_key=True)
     clienteId = models.ForeignKey(Cliente, on_delete=models.CASCADE)
+    sitioId = models.ForeignKey(SitioWeb,on_delete=models.CASCADE)
     archivo = models.FileField(upload_to='archivos/')
 
 class Dominio(models.Model):

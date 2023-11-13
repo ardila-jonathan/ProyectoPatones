@@ -63,7 +63,7 @@
             <p><strong>Dirección:</strong>{{tarjeta.direccion}}</p>
           </div>
           <div class="mt-auto">
-            <a href="{% url 'cambiarTarjeta' %}" class="btn btn-primary d-block mx-auto mt-2">Cambiar Tarjeta</a>
+            <a href="{% url 'cambiarTarjeta' %}" class="btn btn-outline-primary d-block mx-auto mt-2">Cambiar Tarjeta</a>
           </div>
         </div>
       </div>
@@ -71,63 +71,73 @@
 
     <div class="row mt-4">
       <div class="col-md-6">
-        <div class="card h-100 d-flex flex-column">
-          <div class="card-header">Registrar Dominio</div>
-          <div class="card-body">
-            <form>
-              <div class="form-group">
-                <label for="dominio">Dominio:</label>
-                <input type="text" id="dominio" class="form-control" placeholder="Nombre del Dominio">
-              </div>
+        <div class="mt-4">
+          <h3>Dominio</h3>
+      
+          {% if dominios %}
+            <ul class="list-group">
+                {% for dominio in dominios %}
+                  <li class="list-group-item">
+                      <a >{{ dominio.nombreDominio }}</a>
+                  </li>
+                {% endfor %}
+            </ul>
+          {% else %}
+            <h5>Aún no tienes dominios.</h5>
+          {% endif %}
 
-            </form>
-          </div>
+
           <div class="mt-auto">
-            <a href="{% url 'registrarDominio' %}" class="btn btn-primary d-block mx-auto mt-2">Registrar
-              Dominio</a>
+            <a href="{% url 'registrarDominio' %}" class="btn btn-outline-primary d-block mx-auto mt-2">Registrar Dominio</a>
           </div>
         </div>
       </div>
 
       <div class="col-md-6">
-        <div class="card h-100 d-flex flex-column">
-          <div class="card-header">Abrir Ticket</div>
-          <div class="card-body">
-            <form>
-              <div class="form-group">
-                <label for="titulo">Título:</label>
-                <input type="text" id="titulo" class="form-control" placeholder="Título del Ticket">
-              </div>
-              <div class="form-group">
-                <label for="descripcion">Descripción:</label>
-                <textarea id="descripcion" class="form-control" placeholder="Descripción del Ticket"></textarea>
-              </div>
-            </form>
-          </div>
+        <div class="mt-4">
+          <h3>Tickets</h3>
+          <ul class="list-group">
+            <li class="list-group-item">
+              <a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ&ab_channel=RickAstley">ticket 1: error abrir documentos</a>
+            </li>
+            <li class="list-group-item">
+              <a href="https://www.ejemplo2.com">Ticket 2: titulo</a>
+            </li>
+            <li class="list-group-item">
+              <a href="https://www.ejemplo3.com">ticket 3: titulo</a>
+            </li>
+          </ul>
           <div class="mt-auto">
-            <a type="submit" class="btn btn-primary d-block mx-auto mt-2">Abrir Ticket</a>
+            <a href="{% url 'registrarDominio' %}" class="btn btn-outline-primary d-block mx-auto mt-2">Crear nuevo ticket</a>
           </div>
         </div>
       </div>
     </div>
   </div>
 
+
   <div class="mt-4">
     <h3>Sitios Web</h3>
-    <ul class="list-group">
-      <li class="list-group-item">
-        <a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ&ab_channel=RickAstley">Ejemplo 1</a>
-      </li>
-      <li class="list-group-item">
-        <a href="https://www.ejemplo2.com">Ejemplo 2</a>
-      </li>
-      <li class="list-group-item">
-        <a href="https://www.ejemplo3.com">Ejemplo 3</a>
-      </li>
+
+      {% if sitios_web %}
+        <ul class="list-group">
+            {% for sitio in sitios_web %}
+              <li class="list-group-item">
+                  <a href="{% url 'modificarPagina' sitio.webId %}">{{ sitio.nombreDominio }}</a>
+              </li>
+            {% endfor %}
+        </ul>
+      {% else %}
+        <h5>Aún no tienes sitios web.</h5>
+      {% endif %}
+
     </ul>
-    <a href="{% url 'registrarPagina' cliente.usuario_id %}" class="btn btn-secondary m-4">Agregar
+
+
+    <a href="{% url 'registrarPagina' cliente.usuario_id %}" class="btn btn-success m-4">Agregar
       página</a>
   </div>
+
   <div class="text-right">
     <a href="{% url 'cerrarSesion' %}" class="btn btn-danger m-4">Cerrar Sesión</a>
   </div>
