@@ -117,8 +117,7 @@ def registrarPaginaWebArchivo(request):
     if request.method == 'POST':
         user = request.user
         cliente = Cliente.objects.get(usuario=user)
-        data = json.loads(request.body)
-        dominio = data.get('dominio')
+        dominio = request.POST.get('dominio')
         dom=Dominio.objects.get(dominioId = dominio)
         sitio = SitioWeb(clienteId=cliente, nombreDominio=dom.nombreDominio, fechaSolicitud=date.today())
         #actualiza el estado del dominio
@@ -126,8 +125,8 @@ def registrarPaginaWebArchivo(request):
         dom.save()
         sitio.save()  # Guardar el objeto SitioWeb en la base de datos
         #-----------------------
-        print(request)
-        print(data.get('file_0'))
+        print("----")
+        
         for key, file in request.FILES.items():
             nuevo_archivo = Archivo(clienteId=cliente, sitioId=sitio, archivo=file)
             nuevo_archivo.save()
@@ -135,6 +134,34 @@ def registrarPaginaWebArchivo(request):
 
 
         return JsonResponse({'redirect': '/dashboard'})  # Redirigir a la página de dashboard después de guardar
+    else:
+        return redirect('home')
+
+@login_required  
+def modificarPaginaWeb(request, webId):
+    archivo= Archivo.objects.filter(sitioId_id=webId)
+   
+    return render(request, "modificarPaginaWeb.html", {'sitio':SitioWeb.objects.get(webId = webId), 'archivos': archivo})
+
+@csrf_exempt
+def subirArchivo(request):
+    if request.method == 'POST':
+        user = request.user
+        cliente = Cliente.objects.get(usuario=user)
+        sitio_id = request.POST.get('sitio') 
+        sitio= SitioWeb.objects.get(webId=sitio_id)
+        #-----------------------
+        print("----")
+        
+        for key in request.FILES.keys():
+            file = request.FILES[key]  # Obtener cada archivo individualmente
+            
+            nuevo_archivo = Archivo(clienteId=cliente, sitioId=sitio, archivo=file)
+            nuevo_archivo.save()
+
+
+
+        return JsonResponse({'success': True}) # Redirigir a la página de dashboard después de guardar
     else:
         return redirect('home')
 

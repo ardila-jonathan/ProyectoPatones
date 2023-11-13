@@ -74,17 +74,19 @@
         <div class="mt-4">
           <h3>Dominio</h3>
       
-          <ul class="list-group">
-            <li class="list-group-item">
-              <a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ&ab_channel=RickAstley">dominio 1</a>
-            </li>
-            <li class="list-group-item">
-              <a href="https://www.ejemplo2.com">dominio 2</a>
-            </li>
-            <li class="list-group-item">
-              <a href="https://www.ejemplo3.com">dominio 3</a>
-            </li>
-          </ul>
+          {% if dominios %}
+            <ul class="list-group">
+                {% for dominio in dominios %}
+                  <li class="list-group-item">
+                      <a >{{ dominio.nombreDominio }}</a>
+                  </li>
+                {% endfor %}
+            </ul>
+          {% else %}
+            <h5>Aún no tienes dominios.</h5>
+          {% endif %}
+
+
           <div class="mt-auto">
             <a href="{% url 'registrarDominio' %}" class="btn btn-outline-primary d-block mx-auto mt-2">Registrar Dominio</a>
           </div>
@@ -106,7 +108,7 @@
             </li>
           </ul>
           <div class="mt-auto">
-            <a href="{% url 'registrarDominio' %}" class="btn btn-outline-primary d-block mx-auto mt-2">crear nuevo ticket</a>
+            <a href="{% url 'registrarDominio' %}" class="btn btn-outline-primary d-block mx-auto mt-2">Crear nuevo ticket</a>
           </div>
         </div>
       </div>
@@ -117,17 +119,21 @@
   <div class="mt-4">
     <h3>Sitios Web</h3>
 
-    <ul class="list-group">
-      <li class="list-group-item">
-        <a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ&ab_channel=RickAstley">Ejemplo 1</a>
-      </li>
-      <li class="list-group-item">
-        <a href="https://www.ejemplo2.com">Ejemplo 2</a>
-      </li>
-      <li class="list-group-item">
-        <a href="https://www.ejemplo3.com">Ejemplo 3</a>
-      </li>
+      {% if sitios_web %}
+        <ul class="list-group">
+            {% for sitio in sitios_web %}
+              <li class="list-group-item">
+                  <a href="{% url 'modificarPagina' sitio.webId %}">{{ sitio.nombreDominio }}</a>
+              </li>
+            {% endfor %}
+        </ul>
+      {% else %}
+        <h5>Aún no tienes sitios web.</h5>
+      {% endif %}
+
     </ul>
+
+
     <a href="{% url 'registrarPagina' cliente.usuario_id %}" class="btn btn-success m-4">Agregar
       página</a>
   </div>
