@@ -222,7 +222,7 @@
             if (validExtensions.includes(docType)){
                 const fileReader = new FileReader();
                 const id = `file-${Math.random().toString(32).substring(7)}`;
-
+                
                 fileReader.addEventListener('load', e=>{
                     const fileUrl = fileReader.result;
                     let nuevoElemento = {

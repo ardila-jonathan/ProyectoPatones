@@ -137,6 +137,34 @@ def registrarPaginaWebArchivo(request):
     else:
         return redirect('home')
 
+@login_required  
+def modificarPaginaWeb(request, webId):
+    archivo= Archivo.objects.filter(sitioId_id=webId)
+   
+    return render(request, "modificarPaginaWeb.html", {'sitio':SitioWeb.objects.get(webId = webId), 'archivos': archivo})
+
+@csrf_exempt
+def subirArchivo(request):
+    if request.method == 'POST':
+        user = request.user
+        cliente = Cliente.objects.get(usuario=user)
+        sitio_id = request.POST.get('sitio') 
+        sitio= SitioWeb.objects.get(webId=sitio_id)
+        #-----------------------
+        print("----")
+        
+        for key in request.FILES.keys():
+            file = request.FILES[key]  # Obtener cada archivo individualmente
+            
+            nuevo_archivo = Archivo(clienteId=cliente, sitioId=sitio, archivo=file)
+            nuevo_archivo.save()
+
+
+
+        return JsonResponse({'success': True}) # Redirigir a la página de dashboard después de guardar
+    else:
+        return redirect('home')
+
 def dominiosDisponibles(request, dominio):
     extensiones = ExtensionDominio.objects.all()
     dominios = Dominio.objects.filter(nombreDominio = dominio)
