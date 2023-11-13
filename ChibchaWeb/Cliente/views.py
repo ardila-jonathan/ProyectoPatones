@@ -12,6 +12,7 @@ from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.decorators import login_required
 from django.urls import reverse
 from django.views.decorators.csrf import csrf_exempt
+from random import random
 
 # Create your views here.
 
@@ -69,11 +70,11 @@ def registrarDominio(request):
     if request.method == 'POST':
         user = request.user
         cliente = Cliente.objects.get(usuario = user)
+        #FALTA VALIDAR EL METODO DE PAGO E INGRESO DE MESES DE PROPIEDAD!!!
         extensionDominio = ExtensionDominio.objects.get(extensionDominio = request.POST['extension'])
         dominio = Dominio(clienteId = cliente, nombreDominio = request.POST['nombreDominio'],
-                          extensionDominio = extensionDominio)
+                          extensionDominio = extensionDominio, fechaSolicitud = date.today(), tiempoPropiedad=(random()*12)+1) #FALTA IMPLEMENTAR LOS MESES DE PROPIEDAD EN LA VISTA
         
-        #FALTA VALIDAR EL METODO DE PAGO
         dominio.save()
         return redirect(reverse("registrarDominio"))
     
@@ -115,5 +116,13 @@ def registrarPaginaWeb(request):
 
 def dominiosDisponibles(request, dominio):
     extensiones = ExtensionDominio.objects.all()
-    dominios = Dominio.objects.filter(nombreDominio = dominio)
-    return render(request,'dominio.html',{'extensiones' : extensiones, 'dominios':dominios, 'dominioObj':dominio})
+
+    data = []
+    for extension in extensiones:
+        try:
+            Dominio.objects.get(extensionDominio=extension, nombreDominio=dominio)
+            data.append((extension,True))
+        except:
+            data.append((extension,False))
+
+    return render(request,'dominio.html',{'data':data, 'dominioObj':dominio})

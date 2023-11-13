@@ -34,32 +34,24 @@
         <th>Dominio</th>
         <th>Extensión</th>
         <th>En Uso</th>
+        <th>Precio Mensual</th>
         <th>Registrar Dominio</th>
       </tr>
       {% if dominioObj != "_" %}
-      {% if extensiones.count > 0 %}
-      {% for extension in extensiones %}
+      {% for extension, flag in data %}
       <tr>
         <td id="{{extension.pk}}d">{{dominioObj}}</td>
         <td id="{{extension.pk}}e">{{extension.extensionDominio}}</td>
-
-        {% if dominios.count > 0 %}
-        {% for dominio in dominios %}
-        {% if dominio.extensionDominio.extensionDominio == extension.extensionDominio %}
+        <td id="{{extension.pk}}">COP {{extension.precioExtension}}</td>
+        {% if flag %}
         <td>Sí</td>
-        <td><button class="btn" disabled> Registrar</button></td>
-        {% else %}
-        <td>No</td>
-        <td><button class="btn" id="{{extension.pk}}" onclick="enviarDominio(this.id)"> Registrar</button></td>
-        {% endif %}
-        {% endfor %}
+        <td><button class="btn" disabled> Dominio en uso</button></td>
         {% else %}
         <td>No</td>
         <td><button class="btn" id="{{extension.pk}}" onclick="enviarDominio(this.id)"> Registrar</button></td>
         {% endif %}
       </tr>
       {% endfor %}
-      {% endif %}
       {% endif %}
 
       <!-- Agrega más filas de datos según sea necesario -->
@@ -184,8 +176,10 @@
         extension: document.getElementById(id + "e").innerHTML
       },
       success: function (response) {
+        var url = "{% url 'dominiosDisponibles' 'valor' %}";
+        url = url.replace('valor', document.getElementById(id + "d").innerHTML);
         // Recarga la página cuando la solicitud AJAX tenga éxito
-        window.location.href = "{% url 'dashboard' %}";
+        window.location.href = url;
       }
 
     });

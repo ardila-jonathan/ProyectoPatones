@@ -1,6 +1,10 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from .models import Distribuidor
+from .GenRepBanc import BancaryReportGenerator
+from django.http import HttpResponse
+from .ReportAdapter import ReportAdapter
+
 
 # Create your views here.
 @login_required
@@ -19,3 +23,13 @@ def editar_distribuidor(request, id_distribuidor):
     else:
         return redirect('home')
     return render(request, "editarDistribuidor.html", {'distribuidor':Distribuidor.objects.get(usuario_id = id_distribuidor)})
+
+
+def descargarReporte(request):
+    generador = BancaryReportGenerator()
+    distribuidor = Distribuidor.objects.get(usuario=request.user)  
+    response = HttpResponse(content_type='application/pdf')
+    response['Content-Disposition'] = 'attachment; filename="reporte.pdf"'
+    generador.generatePDF(response, distribuidor.nombreDistribuidor,ReportAdapter.getListData(distribuidor))
+
+    return response

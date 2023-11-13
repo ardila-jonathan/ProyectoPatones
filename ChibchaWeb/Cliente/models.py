@@ -58,6 +58,9 @@ class TarjetaCredito(models.Model):
     fechaVencimiento = models.DateField(verbose_name="Fecha de vencimiento", blank=False, default=datetime.date.today)
     direccion = models.CharField(blank=False, verbose_name = "direccion", max_length=50, null=True)
 
+    def __str__(self) -> str:
+        return self.clienteId.nombreCliente
+
 
 class SitioWeb(models.Model):
     webId = models.AutoField(primary_key=True)
