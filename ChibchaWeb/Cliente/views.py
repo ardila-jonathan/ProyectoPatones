@@ -178,3 +178,16 @@ def dominiosDisponibles(request, dominio):
             data.append((extension,False))
 
     return render(request,'dominio.html',{'data':data, 'dominioObj':dominio})
+
+
+def dominiosDisponiblesSinRegistro(request, dominio):
+    extensiones = ExtensionDominio.objects.all()
+    data = []
+    for extension in extensiones:
+        try:
+            Dominio.objects.get(extensionDominio=extension, nombreDominio=dominio)
+            data.append((extension,True))
+        except:
+            data.append((extension,False))
+
+    return render(request,'dominioSin.html',{'data':data, 'dominioObj':dominio})
