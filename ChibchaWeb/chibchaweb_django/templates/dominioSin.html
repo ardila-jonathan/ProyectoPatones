@@ -33,8 +33,8 @@
       <tr>
         <th>Dominio</th>
         <th>Extensión</th>
-        <th>En Uso</th>
         <th>Precio Mensual</th>
+        <th>En Uso</th>
       </tr>
       {% if dominioObj != "_" %}
       {% for extension, flag in data %}
@@ -71,7 +71,7 @@
   function pasarValor() {
     let valor = document.getElementById('nombreDominio').value;
 
-    var url = "{% url 'dominiosDisponibles' 'valor' %}";
+    var url = "{% url 'dominioSinRegistro' 'valor' %}";
 
     if (valor != "") {
       url = url.replace('valor', valor);
