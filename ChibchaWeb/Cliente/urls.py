@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import consulta_cliente, consulta_clientes, editar_cliente, cambiar_tarjeta, registrarDominio, subirArchivo,modificarPaginaWeb ,dominiosDisponibles, agregarPagina,  registrarPaginaWeb, registrarPaginaWebArchivo
+from .views import consulta_cliente, consulta_clientes, editar_cliente, cambiar_tarjeta, registrarDominio, subirArchivo,modificarPaginaWeb ,dominiosDisponibles, agregarPagina,  registrarPaginaWeb, registrarPaginaWebArchivo, dominiosDisponiblesSinRegistro
 urlpatterns = [
     #path("", consulta_clientes, name='consultaClientes'),
     #path("prueba", consulta_cliente, name='consultaCliente'),
@@ -13,5 +13,6 @@ urlpatterns = [
     path('crear_sitio_web_a/', registrarPaginaWebArchivo, name='crear_sitio_web_a'),
     path("modificar/<int:webId>", modificarPaginaWeb, name='modificarPagina'),
     path("modificar/archivo", subirArchivo, name='subirArchivo'),
+    path("consultarDominio/<str:dominio>", dominiosDisponiblesSinRegistro, name="dominioSinRegistro"),
     #path('dashboard', dashboard_view, name='dashboard'),
 ]
