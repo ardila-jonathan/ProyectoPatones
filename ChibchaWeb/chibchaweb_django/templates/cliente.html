@@ -78,7 +78,7 @@
             <ul class="list-group">
                 {% for dominio in dominios %}
                   <li class="list-group-item">
-                      <a >{{ dominio.nombreDominio }}</a>
+                      <a href="#">{{dominio.nombreDominio}}{{dominio.extensionDominio.extensionDominio}}</a>
                   </li>
                 {% endfor %}
             </ul>
