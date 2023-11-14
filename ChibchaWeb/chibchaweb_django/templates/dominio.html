@@ -35,6 +35,7 @@
         <th>Extensión</th>
         <th>Precio Mensual</th>
         <th>En Uso</th>
+        <th>Registrar Dominio</th>
       </tr>
       {% if dominioObj != "_" %}
       {% for extension, flag in data %}
@@ -47,6 +48,7 @@
         <td><button class="btn" disabled> Dominio en uso</button></td>
         {% else %}
         <td>No</td>
+        <td><button class="btn" id="{{extension.pk}}" onclick="enviarDominio(this.id)"> Registrar</button></td>
         {% endif %}
       </tr>
       {% endfor %}
