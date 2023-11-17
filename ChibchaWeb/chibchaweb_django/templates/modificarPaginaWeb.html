@@ -1,102 +1,90 @@
 {% extends 'index.html' %} {% load static %} {% block content %}
 <!DOCTYPE html>
 <html lang="es">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link
-      rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
-    />
-    <title>Modificar Archivos de la Página</title>
-  </head>
 
-  <body>
-    <div class="container mt-5">
-      <div class="d-flex flex-column">
-        <div class="row">
-          <div class="col-md-5 mx-auto">
-            <div class="card h-100 d-flex flex-column">
-              <div class="card-header">Subir Archivos</div>
-              <div class="card-body">
-                <form>
-                  <div class="form-group">
-                    <input
-                      type="file"
-                      id="fileInput"
-                      class="form-control-file"
-                    />
-                  </div>
-                  <div class="text-center mt-2">
-                    <a id="subirArchivo" class="btn btn-primary">Subir</a>
-                  </div>
-                </form>
-              </div>
-            </div>
-          </div>
-        </div>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" />
+  <title>Modificar Archivos de la Página</title>
+</head>
 
-        <div class="col-md-11 mx-auto mt-3">
-          <div class="card">
-            <div class="card-header">Archivos y Carpetas</div>
-            <div class="card-body">
-              <!-- Lista de archivos y carpetas (debes cargar dinámicamente desde el servidor) -->
-              {% if archivos %} {% for archivo in archivos %}
-              <li class="list-group-item">
-                <a href="{{ archivo.archivo.url }}" download
-                  >{{ archivo.archivo }}</a
-                >
-              </li>
-              {% endfor %} {% else %}
-              <li class="list-group-item">No hay archivos subidos.</li>
-              {% endif %}
-            </div>
+<body>
+  <div class="container m-3">
+    <div class="row flex-row-reverse">
+      <div class="col-md-12">
+        <div class="card mb-3" style="border-radius: 10px;">
+          <div class="card-header">Archivos</div>
+          <div class="card-body">
+            <!-- Lista de archivos y carpetas (debes cargar dinámicamente desde el servidor) -->
+            {% if archivos %} {% for archivo in archivos %}
+            <li class="list-group-item">
+              <a href="{{ archivo.archivo.url }}" download>{{ archivo.archivo }}</a>
+            </li>
+            {% endfor %} {% else %}
+            <li class="list-group-item">No hay archivos subidos.</li>
+            {% endif %}
           </div>
         </div>
       </div>
-      <div class="m-4 text-center">
-        <a href="{% url 'dashboard' %}" class="btn btn-success"
-          >Guardar cambios</a
-        >
+      <div class="col-md-12">
+        <div class="card" style="border-radius: 10px;">
+          <div class="card-header">Subir Archivos</div>
+          <div class="card-body justify-content-center align-items-center">
+            <form>
+              <div class="form-group">
+                <input type="file" id="fileInput" class="form-control-file" />
+              </div>
+              <div class="text-center mt-2">
+                <a id="subirArchivo" class="btn btn-primary">Subir</a>
+              </div>
+            </form>
+          </div>
+        </div>
       </div>
     </div>
+  </div>
+  <div class="m-4 text-center">
+    <a href="{% url 'dashboard' %}" class="btn btn-success">Guardar cambios</a>
+  </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
-    <script>
-      var dataE = new FormData();
-      // JavaScript para manejar la interacción del usuario con los archivos y carpetas
-      document
-        .getElementById("fileInput")
-        .addEventListener("change", function (e) {
-          files = this.files;
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
+  <script>
+    var dataE = new FormData();
+    // JavaScript para manejar la interacción del usuario con los archivos y carpetas
+    document
+      .getElementById("fileInput")
+      .addEventListener("change", function (e) {
+        files = this.files;
 
-          for (let i = 0; i < files.length; i++) {
-            dataE.append("file_" + i, files[i]); // Agregar cada archivo con una clave única
-          }
-        });
+        for (let i = 0; i < files.length; i++) {
+          dataE.append("file_" + i, files[i]); // Agregar cada archivo con una clave única
+        }
+      });
 
-      document
-        .getElementById("subirArchivo")
-        .addEventListener("click", function () {
-          dataE.append("sitio", "{{ sitio.webId }}");
-          fetch('{% url "subirArchivo" %}', {
-            method: "POST",
-            body: dataE,
+    document
+      .getElementById("subirArchivo")
+      .addEventListener("click", function () {
+        dataE.append("sitio", "{{ sitio.webId }}");
+        fetch('{% url "subirArchivo" %}', {
+          method: "POST",
+          body: dataE,
+        })
+          .then((response) => response.json())
+          .then((data) => {
+            if (data.success) {
+              location.reload(); // Recargar la página actual si la carga fue exitosa
+            } else {
+              // Manejar otra lógica si la carga no fue exitosa
+            }
           })
-            .then((response) => response.json())
-            .then((data) => {
-              if (data.success) {
-                location.reload(); // Recargar la página actual si la carga fue exitosa
-              } else {
-                // Manejar otra lógica si la carga no fue exitosa
-              }
-            })
-            .catch((error) => {
-              // Manejar errores si la solicitud falla
-            });
-        });
-    </script>
-  </body>
+          .catch((error) => {
+            // Manejar errores si la solicitud falla
+          });
+      });
+  </script>
+</body>
+
 </html>
 
 {% endblock %}
