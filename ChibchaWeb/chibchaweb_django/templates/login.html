@@ -159,7 +159,18 @@
                 />
               </div>
               <div class="group">
-                <label for="pass" class="label">Contraseña</label>
+                <label for="pass" id="password" class="label" type="password" onchange="checkPasswordsMatch()">Contraseña</label>
+                <input
+                  id="pass"
+                  name="pass"
+                  type="password"
+                  class="input"
+                  data-type="password"
+                  required
+                />
+              </div>
+              <div class="group">
+                <label for="Repass" id="confirmPassword" class="label" type="password" onchange="checkPasswordsMatch()">Confirmar Contraseña</label>
                 <input
                   id="pass"
                   name="pass"

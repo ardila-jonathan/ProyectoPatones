@@ -208,6 +208,22 @@ const citiesByCountry = {
   ],
 };
 
+function checkPasswordsMatch() {
+  let password = document.getElementById('password').value;
+  let confirmPassword = document.getElementById('confirmPassword').value;
+  let message = document.getElementById('message');
+
+  if (password === confirmPassword && (password !== '' || confirmPassword !== '')) {
+  message.innerHTML = 'Las contraseñas coinciden';
+  message.style.color = 'green';
+  } else if (password === '' && confirmPassword === '') {
+  message.innerHTML = '';
+  } else {
+  message.innerHTML = 'Las contraseñas no coinciden';
+  message.style.color = 'red';
+  }
+}
+
 function updateCitySelect() {
   const countrySelect = document.getElementById("countrySelect");
   const citySelect = document.getElementById("citySelect");
