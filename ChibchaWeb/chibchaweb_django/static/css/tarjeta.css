@@ -195,3 +195,21 @@ color:transparent;
 input:focus:-ms-input-placeholder { 
 color:transparent; 
 }
+
+.three .col-3{
+  border: 1px solid rgba(0, 0, 0, 0.137);
+  padding: 0.5rem;
+  outline: none;
+  width: 100%;
+  min-width: unset;
+  border-radius: 5px;
+  background-color: rgba(221, 228, 236, 0.301);
+  border-color: rgba(221, 228, 236, 0.459);
+  margin: 2vh 0;
+  width: fit-content;
+  overflow: hidden; 
+  }
+  .three .col-3 input{
+  font-size: 0.7rem;
+  margin-left: 1vh;
+  }
