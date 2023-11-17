@@ -1,10 +1,12 @@
 from .models import Distribuidor, ExtensionDominio
 from Cliente.models import Cliente, TarjetaCredito, Dominio
+import locale
 
 class ReportFacade:
     
     @classmethod
     def getDictData(cls, distribuidor):
+        locale.setlocale(locale.LC_ALL, 'es_CO.utf8')
         dominiosDistribuidor = []
         extensionesDistribuidor = ExtensionDominio.objects.filter(distribuidorId = distribuidor)
         data = []
@@ -24,15 +26,16 @@ class ReportFacade:
                 data.append({'nombreDom':dominio.nombreDominio,
                             'extension':dominio.extensionDominio.extensionDominio,
                             'nombreCli':dominio.clienteId.nombreCliente,
-                            'valorCon':dominio.extensionDominio.precioExtension,
-                            'comision':(distribuidor.comision/100)*dominio.extensionDominio.precioExtension,
+                            'fechaReg':dominio.fechaSolicitud,
+                            'valorCon':locale.currency(dominio.extensionDominio.precioExtension, grouping=True),
+                            'comision':locale.currency((distribuidor.comision/100)*dominio.extensionDominio.precioExtension, grouping=True),
                             'tarjeta':tarjeta.numeroTarjeta}) 
                 
-                total += data[len(data)-1]['valorCon']
-                total_comision += data[len(data)-1]['comision']
+                total += dominio.extensionDominio.precioExtension
+                total_comision += (distribuidor.comision/100)*dominio.extensionDominio.precioExtension
                 
-            data.append(total)
-            data.append(total_comision)
-            data.append(total-total_comision)
+            data.append(locale.currency(total, grouping=True))
+            data.append(locale.currency(total_comision, grouping=True))
+            data.append(locale.currency(total-total_comision, grouping=True))
         
         return data

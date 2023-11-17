@@ -17,10 +17,7 @@ class ReportAdapter(ReportFacade, TargetInterface):
         for dictionary in dd[:-3]:
             data_item = []
             for key in dictionary:
-                if isinstance(dictionary[key], float):
-                    data_item.append(int(dictionary[key]))
-                else:
-                    data_item.append(dictionary[key])
+                data_item.append(dictionary[key])
 
             data.append(data_item)
         

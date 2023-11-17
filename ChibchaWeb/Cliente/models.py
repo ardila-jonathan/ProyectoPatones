@@ -90,6 +90,7 @@ class Dominio(models.Model):
     extensionDominio = models.ForeignKey(ExtensionDominio, on_delete=models.CASCADE)
     tiempoPropiedad = models.IntegerField(verbose_name="tiempoPropiedad", blank=False, null=True)
     fechaSolicitud = models.DateField(verbose_name="fechaSolicitud",null=True, blank=True, max_length=10)
+    fechaCancelacion = models.DateField(verbose_name="fechaCancelación", null=True, blank=True, max_length=10)
     
     class Meta:
         ordering = ('nombreDominio',)
