@@ -71,8 +71,7 @@ def dashboard_view(request):
             empleado = Empleado.objects.get(usuario = user)
             return render(request, "empleado.html", {'empleado':empleado})
     except:        
-        return render(request, "inicio.html")
-
+        return redirect('error500')
 
 def registro_clientes(request):
 
@@ -120,3 +119,6 @@ def acercaDeNos(request):
 
 def planes(request):
     return render(request, "planes.html",{'planes':Plan.objects.all()[:3]})
+
+def error_500(request):
+    return render(request, "error500.html")

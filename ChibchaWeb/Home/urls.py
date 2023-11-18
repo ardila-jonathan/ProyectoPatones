@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import acercaDeNos, home, planes, inicioSesion, registro_clientes, dashboard_view, singout, eliminar_usuario
+from .views import acercaDeNos, home, planes, inicioSesion, registro_clientes, dashboard_view, singout, eliminar_usuario, error_500
 
 urlpatterns = [
     path("", home, name='home'),
@@ -10,4 +10,5 @@ urlpatterns = [
     path("registro", registro_clientes, name="registroCliente"),
     path("eliminar", eliminar_usuario, name="eliminarUsuario"),
     path("dashboard", dashboard_view, name="dashboard"),
+    path("error", error_500, name="error500"),
 ]
