@@ -112,6 +112,25 @@
         </div>
       </div>
     </div>
+      <!-- Modal de Error -->
+<div class="modal fade" id="errorModal" tabindex="-1" role="dialog" aria-labelledby="errorModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="errorModalLabel"></h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p id="errorModalMessage"></p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal" id="btnSalir"></button>
+      </div>
+    </div>
+  </div>
+</div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
@@ -304,6 +323,14 @@
             fileList.appendChild(listItem);
           }
         });
+    </script>
+    <script>
+        function error() {
+  $('#errorModal').modal('show');
+  $('#errorModalTitle').text('Error');
+  $('#errorModalMessage').text('Parece que tu tarjeta no ha sido verificada correctamente. Es necesario realizar su verificación.');
+  $('#btnSalir').text('Salir');
+}
     </script>
   </body>
 </html>
