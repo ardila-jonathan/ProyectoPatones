@@ -1,3 +1,8 @@
+{% extends 'index.html' %}
+
+{% load static %}
+
+{% block content %}
 <!DOCTYPE html>
 <html lang="en">
 
@@ -35,27 +40,41 @@
 </head>
 
 <body>
-    </div>
+  <h2>Reporte de contratos de {{distribuidor.nombreDistribuidor}}</h2>
+  {% if datos_clientes %}
     <table>
-      <tr>
-        <th>Nombre cliente</th>
-        <th>Dominio Asociado</th>
-        <th>Meses de Contrato</th>
-        <th>Registrar Dominio</th>
-        <th>Fecha Solicitud</th>
-        <th>Estado de Dominio</th>
-      </tr>
-      <tr>
-        <td id=""></td>
-        <td id=""></td>
-        <td id=""></td>
-        <td id=""></td>
-        <td id=""></td>
-        <td id=""></td>
-      </tr>
-      <a href="#" class="btn-volver">Volver</a>
+        <tr>
+            <th>Nombre cliente</th>
+            <th>Dominio Asociado</th>
+            <th>Extensión Asociada</th>
+            <th>Meses de Contrato</th>
+            <th>Fecha Solicitud</th>
+            <th>Estado de Dominio</th>
+        </tr>
+        {% for dato_cliente in datos_clientes %}
+            {% for dominio in dato_cliente.dominio %}
+                <tr>
+                    <td>{{ dato_cliente.cliente.nombreCliente }}</td>
+                    <td>{{ dominio.nombreDominio }}</td>
+                    <td>{{ dominio.distribuidor_extensiondominio }}</td>
+                    <td>{{ dominio.tiempoPropiedad }}</td>
+                    <td>{{ dominio.fechaSolicitud }}</td>
+                    <td>{{ dominio.estado }}</td>
+                    <!-- Agrega más columnas según sea necesario -->
+                </tr>
+            {% endfor %}
+        {% endfor %}
+    </table>
+  {% else %}
+    <h2>No se encontraron contratos</h2>
+  {% endif %}
+  <a href="{% url 'dashboard' %}" class="btn-volver">Volver</a>
 </body>
+
+
+
 
 <script src="js/dominio.js" type="text/javascript"></script>
 
 </html>
+{% endblock %}
