@@ -112,27 +112,54 @@
         </div>
       </div>
     </div>
-      <!-- Modal de Error -->
-<div class="modal fade" id="errorModal" tabindex="-1" role="dialog" aria-labelledby="errorModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="errorModalLabel"></h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <p id="errorModalMessage"></p>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal" id="btnSalir"></button>
+    <!-- Modal de Error -->
+    <div
+      class="modal fade"
+      id="errorModal"
+      tabindex="-1"
+      role="dialog"
+      aria-labelledby="errorModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="errorModalLabel"></h5>
+            <button
+              type="button"
+              class="close"
+              data-dismiss="modal"
+              aria-label="Close"
+            >
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <p id="errorModalMessage"></p>
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-dismiss="modal"
+              id="btnSalir"
+            ></button>
+          </div>
+        </div>
       </div>
     </div>
-  </div>
-</div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+      function error() {
+        $("#errorModal").modal("show");
+        $("#errorModalTitle").text("Error");
+        $("#errorModalMessage").text(
+          "Parece que tu tarjeta no ha sido verificada correctamente. Es necesario realizar su verificación."
+        );
+        $("#btnSalir").text("Salir");
+      }
+    </script>
     <script>
       var dataE = new FormData();
       var contador = 0;
@@ -141,51 +168,57 @@
       document
         .getElementById("btnCrearSitioWeb")
         .addEventListener("click", function () {
-          // Obtener el valor seleccionado en el combobox
-          const selectedDomain = document.getElementById("selectDominio").value;
-          if (contador > 0) {
-            for (let i = 0; i < list.length; i++) {
-              dataE.append("file_" + i, list[i].file); // Realiza una acción con cada elemento de la lista
-            }
+          var validacion = false;
+          if (validacion) {
+            // Obtener el valor seleccionado en el combobox
+            const selectedDomain =
+              document.getElementById("selectDominio").value;
+            if (contador > 0) {
+              for (let i = 0; i < list.length; i++) {
+                dataE.append("file_" + i, list[i].file); // Realiza una acción con cada elemento de la lista
+              }
 
-            // Agregar el ID al FormData
-            dataE.append("dominio", selectedDomain);
-            // Enviar el valor al servidor utilizando fetch o cualquier otra técnica (debes definir la URL a la que enviar los datos)
-            fetch('{% url "crear_sitio_web_a" %}', {
-              method: "POST",
-              body: dataE,
-            })
-              .then((response) => response.json())
-              .then((data) => {
-                if (data.redirect) {
-                  window.location.href = data.redirect; // Redirigir a la URL especificada
-                } else {
-                  // Manejar otra lógica de respuesta si es necesario
-                }
+              // Agregar el ID al FormData
+              dataE.append("dominio", selectedDomain);
+              // Enviar el valor al servidor utilizando fetch o cualquier otra técnica (debes definir la URL a la que enviar los datos)
+              fetch('{% url "crear_sitio_web_a" %}', {
+                method: "POST",
+                body: dataE,
               })
-              .catch((error) => {
-                // Manejar errores si la solicitud falla
-              });
+                .then((response) => response.json())
+                .then((data) => {
+                  if (data.redirect) {
+                    window.location.href = data.redirect; // Redirigir a la URL especificada
+                  } else {
+                    // Manejar otra lógica de respuesta si es necesario
+                  }
+                })
+                .catch((error) => {
+                  // Manejar errores si la solicitud falla
+                });
+            } else {
+              // Enviar el valor al servidor utilizando fetch o cualquier otra técnica (debes definir la URL a la que enviar los datos)
+              fetch('{% url "crear_sitio_web" %}', {
+                method: "POST",
+                body: JSON.stringify({ dominio: selectedDomain }),
+                headers: {
+                  "Content-Type": "application/json",
+                },
+              })
+                .then((response) => response.json())
+                .then((data) => {
+                  if (data.redirect) {
+                    window.location.href = data.redirect; // Redirigir a la URL especificada
+                  } else {
+                    // Manejar otra lógica de respuesta si es necesario
+                  }
+                })
+                .catch((error) => {
+                  // Manejar errores si la solicitud falla
+                });
+            }
           } else {
-            // Enviar el valor al servidor utilizando fetch o cualquier otra técnica (debes definir la URL a la que enviar los datos)
-            fetch('{% url "crear_sitio_web" %}', {
-              method: "POST",
-              body: JSON.stringify({ dominio: selectedDomain }),
-              headers: {
-                "Content-Type": "application/json",
-              },
-            })
-              .then((response) => response.json())
-              .then((data) => {
-                if (data.redirect) {
-                  window.location.href = data.redirect; // Redirigir a la URL especificada
-                } else {
-                  // Manejar otra lógica de respuesta si es necesario
-                }
-              })
-              .catch((error) => {
-                // Manejar errores si la solicitud falla
-              });
+            error();
           }
         });
 
@@ -323,14 +356,6 @@
             fileList.appendChild(listItem);
           }
         });
-    </script>
-    <script>
-        function error() {
-  $('#errorModal').modal('show');
-  $('#errorModalTitle').text('Error');
-  $('#errorModalMessage').text('Parece que tu tarjeta no ha sido verificada correctamente. Es necesario realizar su verificación.');
-  $('#btnSalir').text('Salir');
-}
     </script>
   </body>
 </html>
