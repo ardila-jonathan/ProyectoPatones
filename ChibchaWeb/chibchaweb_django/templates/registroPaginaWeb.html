@@ -112,25 +112,46 @@
         </div>
       </div>
     </div>
-      <!-- Modal de Error -->
-<div class="modal fade" id="errorModal" tabindex="-1" role="dialog" aria-labelledby="errorModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="errorModalLabel"></h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="cerrarModal()">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <p id="errorModalMessage"></p>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal" id="btnSalir" onclick="cerrarModal()">Salir</button>
+    <!-- Modal de Error -->
+    <div
+      class="modal fade"
+      id="errorModal"
+      tabindex="-1"
+      role="dialog"
+      aria-labelledby="errorModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="errorModalLabel"></h5>
+            <button
+              type="button"
+              class="close"
+              data-dismiss="modal"
+              aria-label="Close"
+              onclick="cerrarModal()"
+            >
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <p id="errorModalMessage"></p>
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-dismiss="modal"
+              id="btnSalir"
+              onclick="cerrarModal()"
+            >
+              Salir
+            </button>
+          </div>
+        </div>
       </div>
     </div>
-  </div>
-</div>
     <!-- Modal de Error -->
     <div
       class="modal fade"
@@ -187,7 +208,7 @@
       document
         .getElementById("btnCrearSitioWeb")
         .addEventListener("click", function () {
-          var validacion = false;
+          var validacion = true;
           if (validacion) {
             // Obtener el valor seleccionado en el combobox
             const selectedDomain =
@@ -378,14 +399,16 @@
     </script>
     <script>
       function cerrarModal() {
-    $('#errorModal').modal('hide');
-  }
-        function error() {
-  $('#errorModal').modal('show');
-  $('#errorModalTitle').text('Error');
-  $('#errorModalMessage').text('Parece que tu tarjeta no ha sido verificada correctamente. Es necesario realizar su verificación.');
-  $('#btnSalir').text('Salir');
-}
+        $("#errorModal").modal("hide");
+      }
+      function error() {
+        $("#errorModal").modal("show");
+        $("#errorModalTitle").text("Error");
+        $("#errorModalMessage").text(
+          "Parece que tu tarjeta no ha sido verificada correctamente. Es necesario realizar su verificación."
+        );
+        $("#btnSalir").text("Salir");
+      }
     </script>
   </body>
 </html>

@@ -63,10 +63,26 @@ class TarjetaCredito(models.Model):
         return self.clienteId.nombreCliente
 
 
+class Dominio(models.Model):
+    dominioId = models.AutoField(primary_key=True)
+    clienteId = models.ForeignKey(Cliente,on_delete=models.CASCADE, null=True)
+    estado = models.CharField(blank=False, verbose_name="estadoDominio",max_length=15, default="Sin usar")
+    nombreDominio = models.CharField(blank=False,verbose_name="nombreDominio",max_length=100)
+    extensionDominio = models.ForeignKey(ExtensionDominio, on_delete=models.CASCADE)
+    tiempoPropiedad = models.IntegerField(verbose_name="tiempoPropiedad", blank=False, null=True)
+    fechaSolicitud = models.DateField(verbose_name="fechaSolicitud",null=True, blank=True, max_length=10)
+    fechaCancelacion = models.DateField(verbose_name="fechaCancelación", null=True, blank=True, max_length=10)
+    
+    class Meta:
+        ordering = ('nombreDominio',)
+
+    def __str__(self) -> str:
+        return self.nombreDominio + self.extensionDominio.extensionDominio
+
 class SitioWeb(models.Model):
     webId = models.AutoField(primary_key=True)
     clienteId = models.ForeignKey(Cliente, on_delete=models.CASCADE)
-    nombreDominio = models.CharField(verbose_name="dominio", blank=True, max_length=30)
+    dominio = models.ForeignKey(Dominio, on_delete=models.CASCADE, null=True)
     fechaSolicitud = models.DateField(verbose_name="Fecha desolicitud",null=True, blank=True, max_length=10)
     tiempoHosteo = models.IntegerField(verbose_name="tiempoHosteo", blank=False, null=True)
 
@@ -83,21 +99,7 @@ class Archivo(models.Model):
     sitioId = models.ForeignKey(SitioWeb,on_delete=models.CASCADE)
     archivo = models.FileField(upload_to='archivos/')
 
-class Dominio(models.Model):
-    dominioId = models.AutoField(primary_key=True)
-    clienteId = models.ForeignKey(Cliente,on_delete=models.CASCADE, null=True)
-    estado = models.CharField(blank=False, verbose_name="estadoDominio",max_length=15, default="Sin usar")
-    nombreDominio = models.CharField(blank=False,verbose_name="nombreDominio",max_length=100)
-    extensionDominio = models.ForeignKey(ExtensionDominio, on_delete=models.CASCADE)
-    tiempoPropiedad = models.IntegerField(verbose_name="tiempoPropiedad", blank=False, null=True)
-    fechaSolicitud = models.DateField(verbose_name="fechaSolicitud",null=True, blank=True, max_length=10)
-    fechaCancelacion = models.DateField(verbose_name="fechaCancelación", null=True, blank=True, max_length=10)
-    
-    class Meta:
-        ordering = ('nombreDominio',)
 
-    def __str__(self) -> str:
-        return self.nombreDominio + self.extensionDominio.extensionDominio
 
 
 

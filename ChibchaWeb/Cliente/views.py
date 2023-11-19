@@ -100,7 +100,7 @@ def agregarPagina(request, id_cliente):
     if user.id == id_cliente:
         cliente = Cliente.objects.get(usuario_id = id_cliente)
         id_C= cliente.clienteId
-        dominios = Dominio.objects.filter(clienteId_id=id_C, estado='Sin usar').values('nombreDominio','dominioId')
+        dominios = Dominio.objects.filter(clienteId_id=id_C, estado='Sin usar').values('nombreDominio','dominioId', 'extensionDominio')
     else:
         return redirect('home')
     
@@ -114,7 +114,7 @@ def registrarPaginaWeb(request):
         data = json.loads(request.body)
         dominio = data.get('dominio')
         dom=Dominio.objects.get(dominioId = dominio)
-        sitio = SitioWeb(clienteId=cliente, nombreDominio=dom.nombreDominio, fechaSolicitud=date.today())
+        sitio = SitioWeb(clienteId=cliente, dominio=dom, fechaSolicitud=date.today())
         #actualiza el estado del dominio
         dom.estado='En uso'
         dom.save()
@@ -131,7 +131,7 @@ def registrarPaginaWebArchivo(request):
         cliente = Cliente.objects.get(usuario=user)
         dominio = request.POST.get('dominio')
         dom=Dominio.objects.get(dominioId = dominio)
-        sitio = SitioWeb(clienteId=cliente, nombreDominio=dom.nombreDominio, fechaSolicitud=date.today())
+        sitio = SitioWeb(clienteId=cliente, dominio=dom, fechaSolicitud=date.today())
         #actualiza el estado del dominio
         dom.estado='En uso'
         dom.save()
