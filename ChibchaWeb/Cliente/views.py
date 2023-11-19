@@ -13,7 +13,8 @@ from django.contrib.auth.decorators import login_required
 from django.urls import reverse
 from django.views.decorators.csrf import csrf_exempt
 from random import random
-
+from creditcard import CreditCard
+from django.contrib import messages
 # Create your views here.
 
 def consulta_clientes(request):
@@ -57,11 +58,21 @@ def cambiar_tarjeta(request):
     user = request.user
 
     cliente = Cliente.objects.get(usuario = user)
-
     tarjeta = TarjetaCredito.objects.get(clienteId = cliente)
-
-
-    return render(request, 'tarjeta.html',{'tarjeta':tarjeta})
+    if request.method == 'POST':
+        tarjeta = TarjetaCredito.objects.get(clienteId = cliente)
+        tarjeta.numeroTarjeta = request.POST['numeroTarjeta']
+        tarjeta.cvc = request.POST['cvc']
+        tarjeta.fechaVencimientoMes = request.POST['mes']
+        tarjeta.fechaVencimientoAnio = request.POST['anio']
+        tarjeta.direccion = request.POST['direccion']
+        tarjeta.save()
+        print(tarjeta)
+        return redirect('dashboard')
+        #if not validar_tarjeta(request.POST['numeroTarjeta'], request.POST['mes'], request.POST['anio'], request.POST['cvc']):
+         #   messages.error(request, 'La tarjeta no es válida. Verifica los datos')
+    else:
+        return render(request, 'tarjeta.html',{'tarjeta':tarjeta, 'cliente':cliente})
 
 
 @csrf_exempt
@@ -191,3 +202,13 @@ def dominiosDisponiblesSinRegistro(request, dominio):
             data.append((extension,False))
 
     return render(request,'dominioSin.html',{'data':data, 'dominioObj':dominio})
+
+"""
+def validar_tarjeta(numero, mes, anio, cvc):
+    try:
+        card = CreditCard(numero=numero, mes=mes, anio=anio, cvc=cvc)
+        card.validate()
+        return True
+    except Exception as e:
+        print(f"Error de tarjeta: {e}")
+        return False """

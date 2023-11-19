@@ -55,7 +55,8 @@ class TarjetaCredito(models.Model):
     clienteId = models.ForeignKey(Cliente, on_delete=models.CASCADE)
     numeroTarjeta = models.CharField(blank=False,verbose_name="tarjeta numero",max_length=18)
     cvc = models.CharField(blank=False, max_length=3)
-    fechaVencimiento = models.DateField(verbose_name="Fecha de vencimiento", blank=False, default=datetime.date.today)
+    fechaVencimientoMes = models.IntegerField(verbose_name="Fecha mes", blank=True, null=True)
+    fechaVencimientoAnio = models.IntegerField(verbose_name="Fecha anio", blank=True, null=True)
     direccion = models.CharField(blank=False, verbose_name = "direccion", max_length=50, null=True)
 
     def __str__(self) -> str:
