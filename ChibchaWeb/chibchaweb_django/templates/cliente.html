@@ -46,9 +46,9 @@
               <a class="btn btn-primary" href="{% url 'editarCliente' cliente.usuario_id %}">
                 Modificar Información
               </a>
-              <button class="btn btn-danger" href="{% url 'eliminarUsuario' %}">
+              <a class="btn btn-danger" href="{% url 'eliminarUsuario' %}">
                 Eliminar cuenta
-              </button>
+              </a>
             </div>
           </div>
         </div>
@@ -80,7 +80,7 @@
             <ul class="list-group">
               {% for dominio in dominios %}
               <li class="list-group-item">
-                <a href="#">{{dominio.nombreDominio}}{{dominio.extensionDominio.extensionDominio}}</a>
+                <a href="{% url 'modificarDominio' dominio.dominioId %}">{{dominio.nombreDominio}}{{dominio.extensionDominio.extensionDominio}}</a>
               </li>
               {% endfor %}
             </ul>

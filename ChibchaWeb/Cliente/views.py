@@ -155,6 +155,17 @@ def modificarPaginaWeb(request, webId):
    
     return render(request, "modificarPaginaWeb.html", {'sitio':SitioWeb.objects.get(webId = webId), 'archivos': archivo})
 
+@login_required  
+def modificarDominio(request, dominioId):
+    return render(request, "modificarDominio.html", {'dominio':Dominio.objects.get(dominioId = dominioId)})
+
+@login_required  
+def cancelarDominio(request, dominioId):
+    dominio = Dominio.objects.get(dominioId = dominioId)
+    dominio.fechaCancelacion = date.today()
+    dominio.save()
+    return redirect('dashboard')
+
 @csrf_exempt
 def subirArchivo(request):
     if request.method == 'POST':
