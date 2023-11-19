@@ -1,0 +1,19 @@
+<?xml version='1.0' encoding='utf-8'?>
+<request>
+  <head>
+    <date>17/11/2023</date>
+    <time>13:38:55</time>
+    <request_id>42</request_id>
+    <distributor id="2">Godaddy</distributor>
+    <language>es-CO</language>
+    <description>DOMAIN REQUEST</description>
+  </head>
+  < />
+  <body>
+    <domain id="42">D1</domain>
+    <extension id="4">.co</extension>
+    <client id="2">Sergio Sierra</client>
+    <price>80000.0</price>
+    <months>8</months>
+  </body>
+</request>

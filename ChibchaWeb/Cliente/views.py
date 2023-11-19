@@ -81,10 +81,10 @@ def registrarDominio(request):
     if request.method == 'POST':
         user = request.user
         cliente = Cliente.objects.get(usuario = user)
-        #FALTA VALIDAR EL METODO DE PAGO E INGRESO DE MESES DE PROPIEDAD!!!
+        #FALTA VALIDAR EL METODO DE PAGO!!!
         extensionDominio = ExtensionDominio.objects.get(extensionDominio = request.POST['extension'])
         dominio = Dominio(clienteId = cliente, nombreDominio = request.POST['nombreDominio'],
-                          extensionDominio = extensionDominio, fechaSolicitud = date.today(), tiempoPropiedad=(random()*12)+1) #FALTA IMPLEMENTAR LOS MESES DE PROPIEDAD EN LA VISTA
+                          extensionDominio = extensionDominio, fechaSolicitud = date.today(), tiempoPropiedad=request.POST['meses']) 
         
         dominio.save()
         return redirect(reverse("registrarDominio"))
