@@ -43,7 +43,7 @@ def singout(request):
 
 def eliminar_usuario(request):
     request.user.delete()
-    return HttpResponseRedirect('index.html')
+    return redirect('home')
 
 @login_required
 def dashboard_view(request):
