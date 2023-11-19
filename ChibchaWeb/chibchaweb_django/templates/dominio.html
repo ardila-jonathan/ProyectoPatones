@@ -88,6 +88,26 @@
       Para más información, consulta nuestra política de cookies.</p>
     <button>Aceptar</button>
   </div>
+  <div class="modal fade" id="confirmacionModal" tabindex="-1" role="dialog" aria-labelledby="confirmacionModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="confirmacionModalLabel">Confirmación</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Cerrar">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <p>Tu tarjeta ha sido aceptada. Por favor selecciona el número de meses:</p>
+          <input type="number" id="cantidadMeses" placeholder="Cantidad de meses" min="1" required>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+          <button type="button" class="btn btn-primary" id="btnRegistrarModal">Registrar</button>
+        </div>
+      </div>
+    </div>
+  </div>
 </body>
 
 <script src="{%static 'js/dominio.js'%}" type="text/javascript"></script>
@@ -108,22 +128,29 @@
   }
 
   function enviarDominio(id) {
-    console.log("Se envia" + document.getElementById(id + "d").innerHTML + document.getElementById(id + "e").innerHTML);
-    // Envía el valor a tu vista de Django a través de una solicitud AJAX
-    $.ajax({
-      url: '/clientes/registrarDominio',
-      method: 'POST',
-      data: {
-        nombreDominio: document.getElementById(id + "d").innerHTML,
-        extension: document.getElementById(id + "e").innerHTML
-      },
-      success: function (response) {
-        var url = "{% url 'dominiosDisponibles' 'valor' %}";
-        url = url.replace('valor', document.getElementById(id + "d").innerHTML);
-        // Recarga la página cuando la solicitud AJAX tenga éxito
-        window.location.href = url;
-      }
+    $('#confirmacionModal').modal('show');
 
+    $('#btnRegistrarModal').on('click', function() {
+      var cantidadMeses = $('#cantidadMeses').val();
+      
+      if (cantidadMeses !== '') {
+        $.ajax({
+          url: '/clientes/registrarDominio',
+          method: 'POST',
+          data: {
+            nombreDominio: document.getElementById(id + "d").innerHTML,
+            extension: document.getElementById(id + "e").innerHTML,
+            meses: cantidadMeses
+          },
+          success: function (response) {
+            var url = "{% url 'dominiosDisponibles' 'valor' %}";
+            url = url.replace('valor', document.getElementById(id + "d").innerHTML);
+            window.location.href = url;
+          }
+        });
+      } else {
+        alert('Por favor, ingresa una cantidad válida de meses.');
+      }
     });
   }
 </script>
