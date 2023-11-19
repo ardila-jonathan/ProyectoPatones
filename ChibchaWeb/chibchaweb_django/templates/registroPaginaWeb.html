@@ -60,8 +60,7 @@
                     >
                       {% for dominio in dominios_disponibles %}
                       <option value="{{ dominio.dominioId }}">
-                        {{ dominio.nombreDominio }}{{
-                        dominio.extensionDominio.extensionDominio }}
+                        {{dominio.nombreDominio}}{{dominio.extensionDominio.extensionDominio}}
                       </option>
                       {% endfor %}
                     </select>

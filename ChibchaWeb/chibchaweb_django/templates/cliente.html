@@ -128,7 +128,7 @@
       <ul class="list-group">
         {% for sitio in sitios_web %}
         <li class="list-group-item">
-          <a href="{% url 'modificarPagina' sitio.webId %}">{{ sitio.nombreDominio }}</a>
+          <a href="{% url 'modificarPagina' sitio.webId %}">{{ sitio.dominio.nombreDominio }}{{ sitio.dominio.extensionDominio.extensionDominio }}</a>
         </li>
         {% endfor %}
       </ul>

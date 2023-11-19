@@ -86,6 +86,9 @@ class SitioWeb(models.Model):
     fechaSolicitud = models.DateField(verbose_name="Fecha desolicitud",null=True, blank=True, max_length=10)
     tiempoHosteo = models.IntegerField(verbose_name="tiempoHosteo", blank=False, null=True)
 
+    def __str__(self) -> str:
+        return self.dominio.nombreDominio + self.dominio.extensionDominio.extensionDominio
+
 class Ticket(models.Model):
     ticketiId = models.AutoField(primary_key=True)
     clienteId = models.ForeignKey(Cliente, on_delete=models.CASCADE)

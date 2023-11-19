@@ -100,7 +100,7 @@ def agregarPagina(request, id_cliente):
     if user.id == id_cliente:
         cliente = Cliente.objects.get(usuario_id = id_cliente)
         id_C= cliente.clienteId
-        dominios = Dominio.objects.filter(clienteId_id=id_C, estado='Sin usar').values('nombreDominio','dominioId', 'extensionDominio')
+        dominios = Dominio.objects.filter(clienteId_id=id_C, estado='Sin usar')
     else:
         return redirect('home')
     
@@ -157,7 +157,8 @@ def modificarPaginaWeb(request, webId):
 
 @login_required  
 def modificarDominio(request, dominioId):
-    return render(request, "modificarDominio.html", {'dominio':Dominio.objects.get(dominioId = dominioId)})
+    return render(request, "modificarDominio.html", {'dominio':Dominio.objects.get(dominioId = dominioId),
+                                                      'distribuidor':Distribuidor.objects.get(distribuidorId = Dominio.objects.get(dominioId = dominioId).extensionDominio.distribuidorId.pk)})
 
 @login_required  
 def cancelarDominio(request, dominioId):
