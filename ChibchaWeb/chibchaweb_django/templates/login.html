@@ -75,7 +75,6 @@
                 <a href="{% url 'admin:index' %}">Inicio administradores</a>
               </div>
             </div>
-            
           </form>
           <div class="sign-up-htm">
             <form method="post" action="{% url 'registroCliente' %}">
@@ -159,7 +158,14 @@
                 />
               </div>
               <div class="group">
-                <label for="pass" id="password" class="label" type="password" onchange="checkPasswordsMatch()">Contraseña</label>
+                <label
+                  for="pass"
+                  id="password"
+                  class="label"
+                  type="password"
+                  onchange="checkPasswordsMatch()"
+                  >Contraseña</label
+                >
                 <input
                   id="pass"
                   name="pass"
@@ -170,10 +176,17 @@
                 />
               </div>
               <div class="group">
-                <label for="Repass" id="confirmPassword" class="label" type="password" onchange="checkPasswordsMatch()">Confirmar Contraseña</label>
+                <label
+                  for="Repass"
+                  id="confirmPassword"
+                  class="label"
+                  type="password"
+                  onchange="checkPasswordsMatch()"
+                  >Confirmar Contraseña</label
+                >
                 <input
-                  id="pass"
-                  name="pass"
+                  id="Repass"
+                  name="Repass"
                   type="password"
                   class="input"
                   data-type="password"
