@@ -30,7 +30,7 @@ def consulta_clientes(request):
 def consulta_cliente(request):
     return render(request, "cliente.html")
 
-    
+
 
 @login_required
 def editar_cliente(request, id_cliente):
