@@ -126,7 +126,7 @@
         <p id="errorModalMessage"></p>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal" id="btnSalir"></button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal" id="btnSalir" onclick="cerrarModal()">Salir</button>
       </div>
     </div>
   </div>
@@ -325,6 +325,9 @@
         });
     </script>
     <script>
+      function cerrarModal() {
+    $('#errorModal').modal('hide');
+  }
         function error() {
   $('#errorModal').modal('show');
   $('#errorModalTitle').text('Error');
