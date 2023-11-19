@@ -24,7 +24,8 @@
           <li class="active"><a href="#">Tipo de pago</a></li>
         </ul>
       </div>
-      <form>
+      <form method="post" >
+        {% csrf_token %}
         <span id="card-header">Tarjeta guardada:</span>
         <div class="row row-1">
           <div class="col-2">
@@ -34,7 +35,11 @@
             />
           </div>
           <div class="col-7">
-            <input type="text" placeholder="**** **** **** 3193" />
+            <input placeholder="Número tarjeta" 
+              type="number" min="1000000000000" max="9999999999999999"
+              name="numeroTarjeta"
+              value={{tarjeta.numeroTarjeta}}
+              id="numeroTarjeta" />
           </div>
         </div>
         <!-- <div class="row row-1">
@@ -52,7 +57,10 @@
             <span id="card-inner">Nombre de tarjeta</span>
           </div>
           <div class="row row-2">
-            <input type="text" placeholder="David Diaz" />
+            <input type="text" 
+            placeholder="nombre"
+            value="{{cliente.nombreCliente}}"
+             />
           </div>
         </div>
         <div class="row three">
@@ -62,17 +70,26 @@
                 <span id="card-inner">Direccion de Usuario</span>
               </div>
               <div class="row row-2">
-                <input type="text" placeholder="Cra xxx" />
+                <input type="text" placeholder="Cra xxx"
+                id="direccion"
+                value="{{tarjeta.direccion}}" 
+                name="direccion"
+                />
               </div>
             </div>
           </div>
           <div class="col-3">
-            <input type="number" min="1" max="12" placeholder="MM" required>
+            <input type="number" min="1" max="12" placeholder="MM" required  id="mes" name="mes">
             <span>/</span>
-            <input type="number" min="0" max="99" placeholder="AA" required>
+            <input type="number" min="23" max="50" placeholder="AA" required id="anio" name="anio">
         </div>
           <div class="col-2">
-            <input type="text" placeholder="CVV" />
+            <input type="text" 
+            placeholder="CVV"
+            id="cvc"
+            value="{{tarjeta.cvc}}"
+            name="cvc"
+             />
           </div>
         </div>
         <button class="btnTarj d-flex mx-auto"><b>Agregar tarjeta</b></button>
