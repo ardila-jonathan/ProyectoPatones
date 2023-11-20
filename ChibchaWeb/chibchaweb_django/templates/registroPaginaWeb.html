@@ -41,6 +41,7 @@
 
   <body>
     <div class="container mt-5">
+      {% if plan %}
       <div class="row">
         <div class="col-md-12">
           <!-- Contenedor para alinear verticalmente los cards -->
@@ -110,7 +111,16 @@
           </div>
         </div>
       </div>
+      {% else %}
+      <div class="text-center">
+        <h2>No cuentas actuamente con un plan de hosteo.</h2>
+        <h2>¿Deseas ver un plan?</h2>
+        <a href="{% url 'planes' %}" class="btn btn-secondary mt-3">Ver planes</a>
+      </div>
+      {% endif %}
+      
     </div>
+    
     <!-- Modal de Error -->
     <div
       class="modal fade"

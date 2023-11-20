@@ -15,6 +15,7 @@ from django.views.decorators.csrf import csrf_exempt
 from random import random
 from creditcard import CreditCard
 from django.contrib import messages
+from datetime import datetime, timedelta
 # Create your views here.
 
 def consulta_clientes(request):
@@ -101,10 +102,11 @@ def agregarPagina(request, id_cliente):
         cliente = Cliente.objects.get(usuario_id = id_cliente)
         id_C= cliente.clienteId
         dominios = Dominio.objects.filter(clienteId_id=id_C, estado='Sin usar')
+        plan = cliente.planId
     else:
         return redirect('home')
     
-    return render(request, "registroPaginaWeb.html", {'cliente':Cliente.objects.get(usuario_id = id_cliente), 'dominios_disponibles': dominios})
+    return render(request, "registroPaginaWeb.html", {'cliente':Cliente.objects.get(usuario_id = id_cliente), 'dominios_disponibles': dominios, 'plan': plan})
 
 @csrf_exempt
 def registrarPaginaWeb(request):
@@ -131,7 +133,10 @@ def registrarPaginaWebArchivo(request):
         cliente = Cliente.objects.get(usuario=user)
         dominio = request.POST.get('dominio')
         dom=Dominio.objects.get(dominioId = dominio)
-        sitio = SitioWeb(clienteId=cliente, dominio=dom, fechaSolicitud=date.today())
+        fecha_hoy = datetime.now()
+
+        fechaH = fecha_hoy + timedelta(days=30)
+        sitio = SitioWeb(clienteId=cliente, dominio=dom, fechaSolicitud=date.today(), tiempoHosteo=fechaH)
         #actualiza el estado del dominio
         dom.estado='En uso'
         dom.save()
@@ -152,8 +157,11 @@ def registrarPaginaWebArchivo(request):
 @login_required  
 def modificarPaginaWeb(request, webId):
     archivo= Archivo.objects.filter(sitioId_id=webId)
-   
-    return render(request, "modificarPaginaWeb.html", {'sitio':SitioWeb.objects.get(webId = webId), 'archivos': archivo})
+    sitio = SitioWeb.objects.get(webId = webId)
+    
+    dominio = Dominio.objects.filter(dominioId= sitio.dominio.dominioId).first()
+    print(dominio)
+    return render(request, "modificarPaginaWeb.html", {'sitio':SitioWeb.objects.get(webId = webId), 'archivos': archivo, 'titulo':dominio})
 
 @login_required  
 def modificarDominio(request, dominioId):

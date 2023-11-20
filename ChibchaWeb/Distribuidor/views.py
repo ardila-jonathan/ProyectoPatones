@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
-from .ReporteContrato import PDFReportGenerator	
+
 from Cliente.models import Cliente, Dominio
 from .models import Distribuidor, ExtensionDominio
 from .GenRepBanc import BancaryReportGenerator
@@ -44,7 +44,6 @@ def reporteContrato(request, dist):
     dominios_dist = Dominio.objects.filter(extensionDominio__in=extensiones_dist)
     
     clientes_con_dominios_dist = Cliente.objects.filter(dominio__in=dominios_dist).distinct()
-    print("asdasda")
     datos_clientes = []
     # Iterar sobre los clientes
     for cliente in clientes_con_dominios_dist:
