@@ -120,7 +120,18 @@ def acercaDeNos(request):
     return render(request, "acercaDeNos.html")
 
 def planes(request):
-    return render(request, "planes.html",{'planes':Plan.objects.all()[:3]})
+    if request.user.is_authenticated:
+        user = request.user
+        try:
+            cliente = Cliente.objects.get(usuario=user)
+            valor_aceptado = cliente.planId
+        except Cliente.DoesNotExist:
+            valor_aceptado = None
+    else:
+        # Si el usuario no está autenticado, establece el valor_aceptado en None
+        valor_aceptado = None
+
+    return render(request, "planes.html",{'planes':Plan.objects.all()[:3] , 'valor_aceptado': valor_aceptado})
 
 def error_500(request):
     return render(request, "error500.html")

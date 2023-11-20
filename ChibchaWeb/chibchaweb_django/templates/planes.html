@@ -34,7 +34,15 @@
                 Anual: $420,000 (Descuento del 20%)
               </li>
             </ul>
-            <a href="#" class="btn btn-warning d-block mx-auto mt-2">Suscribirse</a>
+            {% if user.is_authenticated %}
+                <a id= 2 class="btn btn-primary d-block mx-auto mt-2" onclick="enviarDominio(this.id)">
+                  Suscribirse
+                </a>
+                {% else %}
+                <a class="btn btn-primary d-block mx-auto mt-2" href="{% url 'inicioSesion' %}">
+                  Suscribirse
+                </a>
+                {% endif %}
           </div>
         </div>
       </div>
@@ -71,7 +79,17 @@
                 Anual: $672,000 (Descuento del 20%)
               </li>
             </ul>
-            <a href="#" class="btn btn-success d-block mx-auto mt-2">Suscribirse</a>
+
+            {% if user.is_authenticated %}
+                <a id= 3 class="btn btn-primary d-block mx-auto mt-2" onclick="enviarDominio(this.id)">
+                  Suscribirse
+                </a>
+                {% else %}
+                <a class="btn btn-primary d-block mx-auto mt-2" href="{% url 'inicioSesion' %}">
+                  Suscribirse
+                </a>
+                {% endif %}
+
           </div>
         </div>
       </div>
@@ -108,12 +126,104 @@
                 Anual: $1,440,000 (Descuento del 20%)
               </li>
             </ul>
-            <a href="#" class="btn btn-primary d-block mx-auto mt-2">Suscribirse</a>
+            {% if user.is_authenticated %}
+                <a id= 4 class="btn btn-primary d-block mx-auto mt-2" onclick="enviarDominio(this.id)">
+                  Suscribirse
+                </a>
+                {% else %}
+                <a class="btn btn-primary d-block mx-auto mt-2" href="{% url 'inicioSesion' %}">
+                  Suscribirse
+                </a>
+                {% endif %}
           </div>
         </div>
       </div>
     </div>
   </div>
-</html>
 
+  <!--  MODAL     --> 
+  
+  <div class="modal fade" id="confirmacionModal" tabindex="-1" role="dialog" aria-labelledby="confirmacionModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="confirmacionModalLabel">Confirmación</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Cerrar">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          {% if valor_aceptado %}
+              <p>Ya tienes un plan asociado a tu cuenta, si te suscribes a este plan, el valor mensual podría cambiar. ¿Deseas suscribirte?</p>
+          {% else %}
+              <p>Tu tarjeta ha sido aceptada. El valor será descontado mensualmente automáticamente de tu tarjeta.</p>
+          {% endif %}
+      </div>      
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+          <button type="button" class="btn btn-primary" id="btnRegistrarModal">Suscribirse</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal de Error -->
+<div class="modal fade" id="errorModal" tabindex="-1" role="dialog" aria-labelledby="errorModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="errorModalLabel"></h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p id="errorModalMessage"></p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal" id="btnSalir"></button>
+      </div>
+    </div>
+  </div>
+</div>
+</body>
+
+{% csrf_token %}
+<script>
+  function enviarDominio(id) {
+    $('#confirmacionModal').modal('show');
+
+    $('#btnRegistrarModal').on('click', function() {
+
+      fetch('{% url "agregarPlan" %}', {
+          method: "POST",
+          body: JSON.stringify({ id: id }),
+        })
+          .then((response) => response.json())
+          .then((data) => {
+            if (data.redirect) {
+              var url = "{% url 'dashboard' %}";  
+              window.location.href = url;
+            } else {
+              // Manejar otra lógica si la carga no fue exitosa
+            }
+          })
+          .catch((error) => {
+            // Manejar errores si la solicitud falla
+          });
+    });
+  }
+
+
+  
+  function error() {
+  $('#errorModal').modal('show');
+  $('#errorModalTitle').text('Error');
+  $('#errorModalMessage').text('Parece que tu tarjeta no ha sido verificada correctamente. Es necesario realizar su verificación.');
+  $('#btnSalir').text('Salir');
+}
+
+</script>
+
+</html>
 {% endblock %}

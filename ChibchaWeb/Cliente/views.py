@@ -2,7 +2,7 @@ from datetime import date
 import json
 from django.shortcuts import render, redirect
 from django.contrib.auth import login
-from .models import Archivo, Cliente, TarjetaCredito, Dominio, SitioWeb
+from .models import Archivo, Cliente, TarjetaCredito, Dominio, SitioWeb, Plan
 from Distribuidor.models import Distribuidor, ExtensionDominio
 from django.template import loader
 from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
@@ -214,6 +214,22 @@ def dominiosDisponiblesSinRegistro(request, dominio):
             data.append((extension,False))
 
     return render(request,'dominioSin.html',{'data':data, 'dominioObj':dominio})
+
+@csrf_exempt
+def agregarPlan(request):
+    if request.method == 'POST':
+        user = request.user
+        cliente = Cliente.objects.get(usuario=user)
+        data = json.loads(request.body)
+        id = data.get('id', None)
+        plan = Plan.objects.get(planId= id)
+        cliente.planId = plan
+        cliente.save()
+        
+        return JsonResponse({'redirect': '/dashboard'})  # Redirigir a la página de dashboard después de guardar
+    else:
+        return redirect('home')
+
 
 """
 def validar_tarjeta(numero, mes, anio, cvc):
