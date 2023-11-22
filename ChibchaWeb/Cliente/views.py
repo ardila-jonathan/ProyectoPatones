@@ -2,7 +2,7 @@ from datetime import date
 import json
 from django.shortcuts import render, redirect
 from django.contrib.auth import login
-from .models import Archivo, Cliente, TarjetaCredito, Dominio, SitioWeb, Plan
+from .models import Archivo, Cliente, TarjetaCredito, Dominio, SitioWeb, Plan, DominioCancelado
 from Distribuidor.models import Distribuidor, ExtensionDominio
 from django.template import loader
 from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
@@ -171,8 +171,10 @@ def modificarDominio(request, dominioId):
 @login_required  
 def cancelarDominio(request, dominioId):
     dominio = Dominio.objects.get(dominioId = dominioId)
-    dominio.fechaCancelacion = date.today()
-    dominio.save()
+    dom_canc = DominioCancelado(clienteId = dominio.clienteId, nombreDominio = dominio.nombreDominio, extensionDominio = dominio.extensionDominio,
+                                fechaSolicitud = dominio.fechaSolicitud, fechaCancelacion = date.today())
+    dom_canc.save()
+    dominio.delete()
     return redirect('dashboard')
 
 @csrf_exempt
@@ -201,14 +203,16 @@ def dominiosDisponibles(request, dominio):
     extensiones = ExtensionDominio.objects.all()
 
     data = []
+    populares = []
     for extension in extensiones:
         try:
             Dominio.objects.get(extensionDominio=extension, nombreDominio=dominio)
             data.append((extension,True))
         except:
             data.append((extension,False))
+            populares.append(extension)
 
-    return render(request,'dominio.html',{'data':data, 'dominioObj':dominio})
+    return render(request,'dominio.html',{'data':data, 'dominioObj':dominio, 'populares':populares})
 
 
 def dominiosDisponiblesSinRegistro(request, dominio):

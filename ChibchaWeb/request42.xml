@@ -2,13 +2,12 @@
 <request>
   <head>
     <date>17/11/2023</date>
-    <time>19:10:25</time>
+    <time>11:35:10</time>
     <request_id>42</request_id>
     <distributor id="2">Godaddy</distributor>
     <language>es-CO</language>
     <description>DOMAIN REQUEST</description>
   </head>
-  < />
   <body>
     <domain id="42">D1</domain>
     <extension id="4">.co</extension>

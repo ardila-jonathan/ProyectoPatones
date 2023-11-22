@@ -30,30 +30,36 @@
       <button onclick="pasarValor(this.id)">Buscar</button></a>
       <!-- agregar Tabla  -->
     </div>
-    <table>
-      <tr>
-        <th>Dominio</th>
-        <th>Extensión</th>
-        <th>Precio Mensual</th>
-        <th>En Uso</th>
-      </tr>
-      {% if dominioObj != "_" %}
-      {% for extension, flag in data %}
-      <tr>
-        <td id="{{extension.pk}}d">{{dominioObj}}</td>
-        <td id="{{extension.pk}}e">{{extension.extensionDominio}}</td>
-        <td id="{{extension.pk}}">COP {{extension.precioExtension}}</td>
-        {% if flag %}
-        <td>Sí</td>
-        {% else %}
-        <td>No</td>
-        {% endif %}
-      </tr>
-      {% endfor %}
-      {% endif %}
 
-      <!-- Agrega más filas de datos según sea necesario -->
-    </table>
+    {% if data %}
+      <table>
+        <tr>
+          <th>Dominio</th>
+          <th>Extensión</th>
+          <th>Precio Mensual</th>
+          <th>En Uso</th>
+        </tr>
+        {% if dominioObj != "_" %}
+        {% for extension, flag in data %}
+        <tr>
+          <td id="{{extension.pk}}d">{{dominioObj}}</td>
+          <td id="{{extension.pk}}e">{{extension.extensionDominio}}</td>
+          <td id="{{extension.pk}}">COP {{extension.precioExtension}}</td>
+          {% if flag %}
+          <td>Sí</td>
+          {% else %}
+          <td>No</td>
+          {% endif %}
+        </tr>
+        {% endfor %}
+        {% endif %}
+      </table>
+    {% else %}
+      <div class="call-to-action">
+        <h2>No hay dominios disponibles para consultar</h2>
+      </div>
+    {% endif %}
+    
     </div>
     <div class="call-to-action">
       <h2>¡Ingresa y Registra tu dominio ahora, comienza tu aventura en línea!</h2>

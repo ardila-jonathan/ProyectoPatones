@@ -29,55 +29,53 @@
       <button onclick="pasarValor()">Buscar</button></a>
       <!-- agregar Tabla  -->
     </div>
-    <table>
-      <tr>
-        <th>Dominio</th>
-        <th>Extensión</th>
-        <th>Precio Mensual</th>
-        <th>En Uso</th>
-        <th>Registrar Dominio</th>
-      </tr>
-      {% if dominioObj != "_" %}
-      {% for extension, flag in data %}
-      <tr>
-        <td id="{{extension.pk}}d">{{dominioObj}}</td>
-        <td id="{{extension.pk}}e">{{extension.extensionDominio}}</td>
-        <td id="{{extension.pk}}">COP {{extension.precioExtension}}</td>
-        {% if flag %}
-        <td>Sí</td>
-        <td><button class="btn" disabled> Dominio en uso</button></td>
-        {% else %}
-        <td>No</td>
-        <td><button class="btn" id="{{extension.pk}}" onclick="enviarDominio(this.id)"> Registrar</button></td>
+    {% if data %}
+      <table>
+        <tr>
+          <th>Dominio</th>
+          <th>Extensión</th>
+          <th>Precio Mensual</th>
+          <th>En Uso</th>
+          <th>Comprar Dominio</th>
+        </tr>
+        {% if dominioObj != "_" %}
+        {% for extension, flag in data %}
+        <tr>
+          <td id="{{extension.pk}}d">{{dominioObj}}</td>
+          <td id="{{extension.pk}}e">{{extension.extensionDominio}}</td>
+          <td id="{{extension.pk}}">COP {{extension.precioExtension}}</td>
+          {% if flag %}
+          <td>Sí</td>
+          <td><button class="btn" disabled> Dominio en uso</button></td>
+          {% else %}
+          <td>No</td>
+          <td><button class="btn" id="{{extension.pk}}" onclick="enviarDominio(this.id)"> Comprar </button></td>
+          {% endif %}
+        </tr>
+        {% endfor %}
         {% endif %}
-      </tr>
-      {% endfor %}
-      {% endif %}
+      </table>
+    {% else %}
+      <div class="call-to-action">
+        <h2>No hay dominios disponibles para consultar</h2>
+      </div>
+    {% endif %}
+    </div>
 
-      <!-- Agrega más filas de datos según sea necesario -->
-    </table>
-    </div>
-    <h3>Extensiones de Dominio Populares:</h3>
-    <div class="options">
-      <div class="option">
-        <p>.com.co</p>
-        <span>Desde COP 41,900</span>
-        <p>por año</p>
-        <button>Comprar</button>
+    {% if populares and populares|length >= 3%}
+      <h3>Extensiones de Dominio Populares:</h3>
+      <div class="options">
+        {% for popular in populares|slice:":3" %}
+          <div class="option">
+            <p>{{popular.extensionDominio}}</p>
+            <span>Desde COP {{popular.precioExtension}}</span>
+            <p>por mes</p>
+            <button class="btn" id="{{popular.pk}}" onclick="enviarDominio(this.id)"> Comprar </button></td>
+          </div>
+        {% endfor %}
       </div>
-      <div class="option">
-        <p>.net.co</p>
-        <span>Desde COP 52,900</span>
-        <p>por año</p>
-        <button>Comprar</button>
-      </div>
-      <div class="option">
-        <p>.org.co</p>
-        <span>Desde COP 45,000</span>
-        <p>por año</p>
-        <button>Comprar</button>
-      </div>
-    </div>
+    {% endif %}
+
     <div class="call-to-action">
       <h2>¡Registra tu dominio ahora y comienza tu aventura en línea!</h2>
       <p>Aprovecha nuestras ofertas limitadas y asegura tu presencia en la web hoy mismo. ¡No te lo pierdas!</p>

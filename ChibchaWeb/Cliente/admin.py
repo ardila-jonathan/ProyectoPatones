@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Cliente, Plan, SitioWeb, TarjetaCredito, Ticket, Caracteristica, Dominio, Archivo
+from .models import Cliente, Plan, SitioWeb, TarjetaCredito, Ticket, Caracteristica, Dominio, Archivo, DominioCancelado
 
 # Register your models here.
 admin.site.register(Cliente)
@@ -10,3 +10,4 @@ admin.site.register(Ticket)
 admin.site.register(Caracteristica)
 admin.site.register(Dominio)
 admin.site.register(Archivo)
+admin.site.register(DominioCancelado)

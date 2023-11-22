@@ -7,7 +7,6 @@ def generateRequest(request:dict):
     requestXML = ET.Element("request")
 
     head = ET.SubElement(requestXML,"head")
-    ET.SubElement(requestXML, "")
     ET.SubElement(head,"date").text = request['date']
     ET.SubElement(head, "time").text = request['time']
     ET.SubElement(head,"request_id").text = request['id']

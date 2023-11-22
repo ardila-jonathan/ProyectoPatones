@@ -71,8 +71,21 @@ class Dominio(models.Model):
     extensionDominio = models.ForeignKey(ExtensionDominio, on_delete=models.CASCADE)
     tiempoPropiedad = models.IntegerField(verbose_name="tiempoPropiedad", blank=False, null=True)
     fechaSolicitud = models.DateField(verbose_name="fechaSolicitud",null=True, blank=True, max_length=10)
-    fechaCancelacion = models.DateField(verbose_name="fechaCancelación", null=True, blank=True, max_length=10)
     
+    class Meta:
+        ordering = ('nombreDominio',)
+
+    def __str__(self) -> str:
+        return self.nombreDominio + self.extensionDominio.extensionDominio
+
+class DominioCancelado(models.Model):
+    dominioId = models.AutoField(primary_key=True)
+    clienteId = models.ForeignKey(Cliente,on_delete=models.CASCADE, null=True)
+    nombreDominio = models.CharField(blank=False,verbose_name="nombreDominio",max_length=100)
+    extensionDominio = models.ForeignKey(ExtensionDominio, on_delete=models.CASCADE)
+    fechaSolicitud = models.DateField(verbose_name="fechaSolicitud",null=True, blank=True, max_length=10)
+    fechaCancelacion = models.DateField(verbose_name="fechaCancelación", null=True, blank=True, max_length=10)
+
     class Meta:
         ordering = ('nombreDominio',)
 
