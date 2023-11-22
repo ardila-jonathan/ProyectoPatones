@@ -71,6 +71,8 @@ def dashboard_view(request):
             empleado = Empleado.objects.get(usuario = user)
             return render(request, "empleado.html", {'empleado':empleado})
     except:        
+        if user.is_superuser:
+            return HttpResponseRedirect("/admin")
         return redirect('error500')
 
 def registro_clientes(request):

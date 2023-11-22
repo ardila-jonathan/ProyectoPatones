@@ -67,3 +67,17 @@ def reporteContrato(request, dist):
     # Pasar la lista de datos_clientes a la plantilla
 
     return render(request, "repContratos.html", {'distribuidor':Distribuidor.objects.get(distribuidorId = dist), 'datos_clientes': datos_clientes})
+
+
+@login_required
+def registroExtension(request):
+
+    if request.method == 'POST':
+        if(request.POST['extension']!='' and request.POST['precio'] != ''):
+            distribuidor = Distribuidor.objects.get(usuario=request.user)
+            extension = ExtensionDominio(distribuidorId = distribuidor, extensionDominio=request.POST['extension'],
+                                        precioExtension=request.POST['precio'])
+            extension.save()
+        else:
+            pass #Falta un modal que avise que no se pudo registrar la extension
+        redirect('dashboard')

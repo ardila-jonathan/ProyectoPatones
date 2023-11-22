@@ -70,26 +70,31 @@
           <div class="mt-4">
             <h3>Extensiones de Dominio</h3>
             <div class="mb-2">
-              <form action="">
+              <form method="post" action="{% url 'registroExtension' %}">
                 <div class="group">
                   <input
-                  id="userL"
-                  type="text"
-                  name="usuarioCliente"
-                  class="input"
+                    id="extension"
+                    name="extension"
+                    type="text"
+                    class="input"
+                    required
                   />
-                  <a href="" class="btn btn-outline-primary mx-auto">Registrar Extension de Dominio</a>
+                  <button type="submit" class="btn btn-outline-primary mx-auto">
+                    Registrar Extensión de Dominio
+                  </button>
                 </div>
               </form>
             </div>
             <div style="max-height: 400px; min-height: 100px; overflow-y: auto">
               <ul class="list-group">
                 <li class="list-group-item">
-                  <div class="d-flex justify-content-between align-items-center">
-                      <a>extension de dominio</a>
-                      <a href="#" class="btn btn-outline-danger">Eliminar</a>
+                  <div
+                    class="d-flex justify-content-between align-items-center"
+                  >
+                    <a>extension de dominio</a>
+                    <a href="#" class="btn btn-outline-danger">Eliminar</a>
                   </div>
-              </li>
+                </li>
               </ul>
               <h5>Aún no tienes dominios.</h5>
             </div>
