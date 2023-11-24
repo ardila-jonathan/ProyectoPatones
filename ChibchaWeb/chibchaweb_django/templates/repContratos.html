@@ -40,7 +40,8 @@
 </head>
 
 <body>
-  <h2>Reporte de contratos de {{distribuidor.nombreDistribuidor}}</h2>
+  <section>
+  <h2>Dominios Activos - Reporte de {{distribuidor.nombreDistribuidor}}</h2>
   {% if datos_clientes %}
     <table>
         <tr>
@@ -68,6 +69,24 @@
   {% else %}
     <h2>No se encontraron contratos</h2>
   {% endif %}
+</section>
+<section>
+  <h2>Dominios Cancelados</h2>
+  <table>
+    <tr>
+        <th>Nombre dominio</th>
+        <th>Extensión Asociada</th>
+        <th>Fecha Solicitud</th>
+        <th>Fecha Cancelación</th>
+    </tr>
+    <tr>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+  </table>
+</section>
   <a href="{% url 'dashboard' %}" class="btn-volver">Volver</a>
 </body>
 
