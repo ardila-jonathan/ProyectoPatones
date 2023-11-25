@@ -1,17 +1,17 @@
-from .ReportFacade import ReportFacade
+from .ReportDataGenerator import ReportDataGenerator
 from Distribuidor.models import Distribuidor
 
 class TargetInterface():
 
     @classmethod
-    def getListData(cls, distribuidor:Distribuidor ):
+    def getListData(cls, distribuidor:Distribuidor):
         pass
 
-class ReportAdapter(ReportFacade, TargetInterface):
+class ReportAdapter(ReportDataGenerator, TargetInterface):
     
     @classmethod
     def getListData(cls, distribuidor:Distribuidor):
-        dd = ReportFacade.getDictData(distribuidor)
+        dd = ReportDataGenerator.getDictData(distribuidor)
         data = []
 
         for dictionary in dd[:-3]:

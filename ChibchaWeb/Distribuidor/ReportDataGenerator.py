@@ -2,7 +2,7 @@ from .models import Distribuidor, ExtensionDominio
 from Cliente.models import Cliente, TarjetaCredito, Dominio
 import locale
 
-class ReportFacade:
+class ReportDataGenerator:
     
     @classmethod
     def getDictData(cls, distribuidor):
