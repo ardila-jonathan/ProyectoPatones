@@ -69,34 +69,13 @@
         <div class="col-md-6">
           <div class="mt-4">
             <h3>Extensiones de Dominio</h3>
-            <div class="mb-2">
-              <form method="post" action="{% url 'registroExtension' %}">
-                <div class="group">
-                  <input
-                    id="extension"
-                    name="extension"
-                    type="text"
-                    class="input"
-                    required
-                  />
-                  <button type="submit" class="btn btn-outline-primary mx-auto">
-                    Registrar Extensión de Dominio
-                  </button>
-                </div>
-              </form>
-            </div>
             <div style="max-height: 400px; min-height: 100px; overflow-y: auto">
               {% if extensiones %}
               <ul class="list-group">
                 {% for extension in extensiones %}
 
-                <li class="list-group-item">
-                  <div
-                    class="d-flex justify-content-between align-items-center"
-                  >
-                    <a href="#">{{ extension.extensionDominio }}</a>
-                    <a href="#" class="btn btn-outline-danger">Eliminar</a>
-                  </div>
+                <li class="list-group-item text-center">
+                  <a href="#">{{ extension.extensionDominio }}</a>
                 </li>
 
                 {% endfor %}
@@ -104,6 +83,67 @@
               {% else %}
               <h5>Aún no tienes dominios.</h5>
               {% endif %}
+              <div class="mt-2 text-center">
+                <a type="submit" class="btn btn-outline-primary mx-auto" data-toggle="modal" data-target="#registrarDominioModal">
+                  Registrar Extensión de Dominio
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- Modal de Registro de Dominios -->
+        <div class="modal" id="registrarDominioModal">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <!-- Encabezado del Modal -->
+              <div class="modal-header">
+                <h4 class="modal-title">Registro de Dominio</h4>
+                <button type="button" class="close" data-dismiss="modal">
+                  &times;
+                </button>
+              </div>
+
+              <!-- Cuerpo del Modal -->
+              <div class="modal-body">
+                <!-- Formulario de Registro de Dominio -->
+                <form>
+                  <div class="form-group">
+                    <label for="nombreExtension">Extensión:</label>
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="nombreExtension"
+                      placeholder="Ej. .com"
+                    />
+                  </div>
+                  <div class="form-group">
+                    <label for="precio">Precio:</label>
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="precio"
+                      placeholder="Ej. $10.99"
+                    />
+                  </div>
+                  <!-- Otros campos necesarios para el registro del dominio -->
+
+                  <!-- Botón para enviar el formulario -->
+                  <button type="submit" class="btn btn-primary">
+                    Registrar
+                  </button>
+                </form>
+              </div>
+
+              <!-- Pie del Modal -->
+              <div class="modal-footer">
+                <button
+                  type="button"
+                  class="btn btn-secondary"
+                  data-dismiss="modal"
+                >
+                  Cerrar
+                </button>
+              </div>
             </div>
           </div>
         </div>
