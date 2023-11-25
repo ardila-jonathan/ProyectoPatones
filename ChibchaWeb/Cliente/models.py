@@ -97,7 +97,6 @@ class SitioWeb(models.Model):
     clienteId = models.ForeignKey(Cliente, on_delete=models.CASCADE)
     dominio = models.ForeignKey(Dominio, on_delete=models.CASCADE, null=True)
     fechaSolicitud = models.DateField(verbose_name="Fecha desolicitud",null=True, blank=True, max_length=10)
-    tiempoHosteo = models.IntegerField(verbose_name="tiempoHosteo", blank=False, null=True)
 
     def __str__(self) -> str:
         return self.dominio.nombreDominio + self.dominio.extensionDominio.extensionDominio

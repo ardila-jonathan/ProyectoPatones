@@ -1,0 +1,18 @@
+<?xml version='1.0' encoding='utf-8'?>
+<request>
+  <head>
+    <date>24/11/2023</date>
+    <time>18:57:08</time>
+    <request_id>96</request_id>
+    <distributor id="3">Hostinger</distributor>
+    <language>es-CO</language>
+    <description>DOMAIN REQUEST</description>
+  </head>
+  <body>
+    <domain id="96">bugisoft</domain>
+    <extension id="5">.com</extension>
+    <client id="22">Manuel José López</client>
+    <price>150000.0</price>
+    <months>48</months>
+  </body>
+</request>

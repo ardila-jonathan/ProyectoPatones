@@ -86,17 +86,24 @@
               </form>
             </div>
             <div style="max-height: 400px; min-height: 100px; overflow-y: auto">
+              {% if extensiones %}
               <ul class="list-group">
+                {% for extension in extensiones %}
+
                 <li class="list-group-item">
                   <div
                     class="d-flex justify-content-between align-items-center"
                   >
-                    <a>extension de dominio</a>
+                    <a href="#">{{ extension.extensionDominio }}</a>
                     <a href="#" class="btn btn-outline-danger">Eliminar</a>
                   </div>
                 </li>
+
+                {% endfor %}
               </ul>
+              {% else %}
               <h5>Aún no tienes dominios.</h5>
+              {% endif %}
             </div>
           </div>
         </div>
@@ -122,6 +129,12 @@
     </div>
     <a href="{% url 'cerrarSesion' %}" class="btn btn-danger">Cerrar Sesión</a>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
+
+    {% if flag %}
+    <script>
+      alert("NO SE PUDO REGISTRAR LA EXTENSIÓN");
+    </script>
+    {% endif %}
   </body>
 </html>
 {% endblock %}

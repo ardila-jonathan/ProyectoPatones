@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from django.contrib.auth import login
 from Cliente.models import Cliente, Plan, TarjetaCredito, SitioWeb, Dominio
 from Empleado.models import Empleado
-from Distribuidor.models import Distribuidor
+from Distribuidor.models import Distribuidor, ExtensionDominio
 from django.http import HttpResponse, HttpResponseRedirect
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import AuthenticationForm
@@ -63,9 +63,10 @@ def dashboard_view(request):
         elif rol == "Distribuidor":
             #Lo que pasa cuando un distribuidor inicia sesión
             distribuidor = Distribuidor.objects.get(usuario = user)
+            extensionesDistri = ExtensionDominio.objects.filter(distribuidorId = distribuidor)
             req = getRequest(Dominio.objects.all()[0])
             generateRequest(req)
-            return render(request, "distribuidor.html", {'distribuidor':distribuidor})
+            return render(request, "distribuidor.html", {'distribuidor':distribuidor, 'extensiones':extensionesDistri})
         elif rol == "Empleado":
             #Lo que pasa cuando un empleado inicia sesión
             empleado = Empleado.objects.get(usuario = user)

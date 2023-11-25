@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 
-from Cliente.models import Cliente, Dominio
+from Cliente.models import Cliente, Dominio, DominioCancelado
 from .models import Distribuidor, ExtensionDominio
 from .GenRepBanc import BancaryReportGenerator
 
@@ -20,7 +20,11 @@ def editar_distribuidor(request, id_distribuidor):
             distr = Distribuidor.objects.get(usuario_id = id_distribuidor)
             distr.nombreDistribuidor = request.POST['nombre']
             distr.categoria = request.POST['categoria']
-            
+            if request.POST['categoria'] == "basico":
+                distr.comision = 15
+            else:
+                distr.comision = 20
+                
             distr.save()
             return redirect('dashboard')
     else:
@@ -44,6 +48,9 @@ def reporteContrato(request, dist):
     dominios_dist = Dominio.objects.filter(extensionDominio__in=extensiones_dist)
     
     clientes_con_dominios_dist = Cliente.objects.filter(dominio__in=dominios_dist).distinct()
+
+    dominios_can_dis = DominioCancelado.objects.filter(extensionDominio__in=extensiones_dist)
+
     datos_clientes = []
     # Iterar sobre los clientes
     for cliente in clientes_con_dominios_dist:
@@ -66,18 +73,22 @@ def reporteContrato(request, dist):
             dominio.distribuidor_extensiondominio = distribuidor_extensiondominio
     # Pasar la lista de datos_clientes a la plantilla
 
-    return render(request, "repContratos.html", {'distribuidor':Distribuidor.objects.get(distribuidorId = dist), 'datos_clientes': datos_clientes})
+
+    return render(request, "repContratos.html", {'distribuidor':Distribuidor.objects.get(distribuidorId = dist), 'datos_clientes': datos_clientes, 'dominiosCan':dominios_can_dis})
 
 
 @login_required
 def registroExtension(request):
 
+    flag = False
     if request.method == 'POST':
-        if(request.POST['extension']!='' and request.POST['precio'] != ''):
+
+        if not ExtensionDominio.objects.filter(extensionDomnio = request.POST['extension']).exists():
             distribuidor = Distribuidor.objects.get(usuario=request.user)
             extension = ExtensionDominio(distribuidorId = distribuidor, extensionDominio=request.POST['extension'],
                                         precioExtension=request.POST['precio'])
             extension.save()
         else:
-            pass #Falta un modal que avise que no se pudo registrar la extension
-        redirect('dashboard')
+            flag = True
+        
+        redirect('dashboard', flag = flag)

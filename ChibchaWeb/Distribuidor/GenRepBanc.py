@@ -2,8 +2,10 @@ from reportlab.pdfgen import canvas
 from reportlab.pdfbase.ttfonts import TTFont
 from reportlab.pdfbase import pdfmetrics
 from datetime import date, datetime
-from reportlab.platypus import Table, TableStyle
 from reportlab.lib import colors
+from reportlab.lib.pagesizes import letter, A4, landscape
+from reportlab.platypus import SimpleDocTemplate, Table, TableStyle, PageBreak, Paragraph, Spacer
+
 
 class BancaryReportGenerator:
 
@@ -30,21 +32,29 @@ class BancaryReportGenerator:
 
         return cls.__instance
     
+
+
     def generatePDF(cls, response, nombreDistribuidor, info:list):
-        pdf = canvas.Canvas(response)
-        pdf.setPageSize(( cls.ancho_pagina, cls.alto_pagina))
-        pdf.setFillColorRGB(221/255,238/255,239/255)
-        pdf.rect(0,0,cls.ancho_pagina,cls.alto_pagina,fill=1)
-        pdf.setFillColorRGB(0,0,0)
-        pdf.setTitle('Reporte Bancario ' + nombreDistribuidor)
-        pdf.setFont('Helvetica', 12)
-        #pdf.setFont('abc',tamaño)
-        #pdf.setFillColorRGB(0,0,0)
-        pdf.drawString(cls.ancho_pagina - 80, cls.alto_pagina - 20, date.today().strftime("%d/%m/%Y"))
-        pdf.drawString(cls.ancho_pagina - 80, cls.alto_pagina - 40, datetime.now().strftime("%H:%M:%S"))
-        pdf.drawInlineImage("chibchaweb_django\static\images\logo.jpg", 390-cls.ancho_pagina, cls.alto_pagina - 60, preserveAspectRatio=True, height=50)
-        pdf.drawString(90, cls.alto_pagina - 40, 'CibchaWeb')
-        pdf.drawCentredString(cls.ancho_pagina / 2, cls.alto_pagina - 85, "Reporte Bancario " + nombreDistribuidor)
+        cls.ancho_pagina = 841.89
+        cls.alto_pagina = 595.27
+        pdf = SimpleDocTemplate(response, pagesize=landscape(A4))
+
+        elements = []
+
+        def draw_header(canvas, doc):
+            canvas.saveState()
+            canvas.setFillColorRGB(221/255,238/255,239/255)
+            canvas.rect(0,0,cls.ancho_pagina,cls.alto_pagina,fill=1)
+            canvas.setFillColorRGB(0,0,0)
+            canvas.setFont('Helvetica', 12)
+            canvas.drawString(cls.ancho_pagina - 80, cls.alto_pagina - 20, date.today().strftime("%d/%m/%Y"))
+            canvas.drawString(cls.ancho_pagina - 80, cls.alto_pagina - 40, datetime.now().strftime("%H:%M:%S"))
+            canvas.drawInlineImage("chibchaweb_django\static\images\logo.jpg", 390-cls.ancho_pagina, cls.alto_pagina - 60, preserveAspectRatio=True, height=50)
+            canvas.drawString(90, cls.alto_pagina - 40, 'CibchaWeb')
+            canvas.drawCentredString(cls.ancho_pagina / 2, cls.alto_pagina - 85, "Reporte Bancario " + nombreDistribuidor)
+            canvas.restoreState()
+
+        pdf.build(elements, onFirstPage=draw_header, onLaterPages=draw_header)
 
         #Agregar tabla
         data = [['Nombre dominio', 'Extensión dominio', 'Nombre Cliente',  'Fecha Registro' , 'Valor Total Contrato', 'Valor Comisión', 'Tarjeta de Crédito'],]
@@ -62,7 +72,6 @@ class BancaryReportGenerator:
         ('BOX', (0,0), (-1,-1), 1, colors.black),
         ])
 
-   
         for i in range(1, len(data)):
             if i % 2 == 0:
                 bg_color = colors.white
@@ -72,16 +81,14 @@ class BancaryReportGenerator:
 
         table.setStyle(style)
 
-
-        w, h = table.wrapOn(pdf, 0, 0)
-        table.drawOn(pdf, cls.ancho_pagina/2 - w/2, cls.alto_pagina - h - 100) 
+        elements.append(Spacer(1, 10))  # Add a spacer before the table
+        elements.append(table)
+        elements.append(PageBreak())
 
         print(info)
-        y_position = cls.alto_pagina - h - 150 
-        pdf.drawString(28, y_position, "Total mensual: COP " + info[-3])
-        pdf.drawString(28, y_position - 20, "Total comisión a ChibchaWeb: COP " + info[-2])
-        pdf.drawString(28, y_position - 40, "Total ingresos mensuales: COP " + info[-1]) 
 
-        pdf.showPage()
-        pdf.save()
+        elements.append(Paragraph("Total mensual: COP " + info[-3]))
+        elements.append(Paragraph("Total comisión a ChibchaWeb: COP " + info[-2]))
+        elements.append(Paragraph("Total ingresos mensuales: COP " + info[-1])) 
 
+        pdf.build(elements)

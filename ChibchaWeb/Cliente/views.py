@@ -80,14 +80,14 @@ def cambiar_tarjeta(request):
 def registrarDominio(request):
 
     if request.method == 'POST':
-        user = request.user
-        cliente = Cliente.objects.get(usuario = user)
-        #FALTA VALIDAR EL METODO DE PAGO!!!
         extensionDominio = ExtensionDominio.objects.get(extensionDominio = request.POST['extension'])
-        dominio = Dominio(clienteId = cliente, nombreDominio = request.POST['nombreDominio'],
-                          extensionDominio = extensionDominio, fechaSolicitud = date.today(), tiempoPropiedad=request.POST['meses']) 
-        
-        dominio.save()
+        if not Dominio.objects.filter(nombreDominio = request.POST['nombreDominio'], extensionDominio = extensionDominio).exists():
+            user = request.user
+            cliente = Cliente.objects.get(usuario = user)
+            #FALTA VALIDAR EL METODO DE PAGO!!!   
+            dominio = Dominio(clienteId = cliente, nombreDominio = request.POST['nombreDominio'],
+                            extensionDominio = extensionDominio, fechaSolicitud = date.today(), tiempoPropiedad=request.POST['meses'])            
+            dominio.save()
         return redirect(reverse("registrarDominio"))
     
     else:
@@ -118,10 +118,9 @@ def registrarPaginaWeb(request):
         dom=Dominio.objects.get(dominioId = dominio)
         sitio = SitioWeb(clienteId=cliente, dominio=dom, fechaSolicitud=date.today())
         #actualiza el estado del dominio
+        sitio.save()  # Guardar el objeto SitioWeb en la base de datos
         dom.estado='En uso'
         dom.save()
-        sitio.save()  # Guardar el objeto SitioWeb en la base de datos
-
         return JsonResponse({'redirect': '/dashboard'})  # Redirigir a la página de dashboard después de guardar
     else:
         return redirect('home')
@@ -133,13 +132,9 @@ def registrarPaginaWebArchivo(request):
         cliente = Cliente.objects.get(usuario=user)
         dominio = request.POST.get('dominio')
         dom=Dominio.objects.get(dominioId = dominio)
-        fecha_hoy = datetime.now()
 
-        fechaH = fecha_hoy + timedelta(days=30)
-        sitio = SitioWeb(clienteId=cliente, dominio=dom, fechaSolicitud=date.today(), tiempoHosteo=fechaH)
-        #actualiza el estado del dominio
-        dom.estado='En uso'
-        dom.save()
+        #fechaH = fecha_hoy + timedelta(days=30)
+        sitio = SitioWeb(clienteId=cliente, dominio=dom, fechaSolicitud=date.today())
         sitio.save()  # Guardar el objeto SitioWeb en la base de datos
         #-----------------------
         print("----")
