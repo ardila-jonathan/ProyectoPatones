@@ -102,7 +102,7 @@ class SitioWeb(models.Model):
         return self.dominio.nombreDominio + self.dominio.extensionDominio.extensionDominio
 
 class Ticket(models.Model):
-    ticketiId = models.AutoField(primary_key=True)
+    ticketId = models.AutoField(primary_key=True)
     clienteId = models.ForeignKey(Cliente, on_delete=models.CASCADE)
     descripcion = models.TextField(verbose_name="Descripcion", blank=True, max_length=100)
     estado = models.BooleanField(default=False)

@@ -119,3 +119,6 @@ def modificarPrecioExtension(request):
         None
 
 
+def solicitudXML(request, dominioId):
+    dominio = Dominio.objects.get(dominioId = dominioId)
+    return render(request, 'Solicitudes.html',{'dominio':dominio})

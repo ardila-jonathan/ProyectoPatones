@@ -103,7 +103,6 @@ def registro_clientes(request):
 
             tarjeta.save()
 
-
             rol = Rol(usuario = user, rol="Cliente")
 
             rol.save()
