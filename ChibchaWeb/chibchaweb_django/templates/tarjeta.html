@@ -36,7 +36,7 @@
           </div>
           <div class="col-7">
             <input placeholder="Número tarjeta" 
-              type="number" min="1000000000000" max="9999999999999999"
+              type="number" 
               name="numeroTarjeta"
               value={{tarjeta.numeroTarjeta}}
               id="numeroTarjeta" />
@@ -79,9 +79,9 @@
             </div>
           </div>
           <div class="col-3">
-            <input type="number" min="1" max="12" placeholder="MM" required  id="mes" name="mes">
+            <input type="number" min="1" max="12" placeholder="MM" required  id="mes" name="mes" value="{{tarjeta.fechaVencimientoMes}}">
             <span>/</span>
-            <input type="number" min="23" max="50" placeholder="AA" required id="anio" name="anio">
+            <input type="number" min="23" max="50" placeholder="AA" required id="anio" name="anio" value="{{tarjeta.fechaVencimientoAnio}}">
         </div>
           <div class="col-2">
             <input type="text" 
@@ -95,6 +95,8 @@
         <button class="btnTarj d-flex mx-auto"><b>Agregar tarjeta</b></button>
       </form>
     </div>
+
+        
   </body>
 </html>
 {% endblock %}

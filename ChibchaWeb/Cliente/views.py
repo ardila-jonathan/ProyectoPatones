@@ -13,9 +13,10 @@ from django.contrib.auth.decorators import login_required
 from django.urls import reverse
 from django.views.decorators.csrf import csrf_exempt
 from random import random
-from creditcard import CreditCard
 from django.contrib import messages
 from datetime import datetime, timedelta
+from .validar_tarjeta import validar_tarjeta
+
 # Create your views here.
 
 def consulta_clientes(request):
@@ -67,11 +68,15 @@ def cambiar_tarjeta(request):
         tarjeta.fechaVencimientoMes = request.POST['mes']
         tarjeta.fechaVencimientoAnio = request.POST['anio']
         tarjeta.direccion = request.POST['direccion']
-        tarjeta.save()
-        print(tarjeta)
+        if validar_tarjeta(tarjeta.numeroTarjeta) == True:
+            tarjeta.save()
+            print("Tarjeta guardada")
+            messages.success(request, 'La tarjeta de crédito se ha guardado correctamente.')
+        else: 
+            print('tarjeta no guardada')
+            messages.success(request, 'Número de la tarjeta de credito no valido')
         return redirect('dashboard')
-        #if not validar_tarjeta(request.POST['numeroTarjeta'], request.POST['mes'], request.POST['anio'], request.POST['cvc']):
-         #   messages.error(request, 'La tarjeta no es válida. Verifica los datos')
+        
     else:
         return render(request, 'tarjeta.html',{'tarjeta':tarjeta, 'cliente':cliente})
 
@@ -238,12 +243,4 @@ def agregarPlan(request):
         return redirect('home')
 
 
-"""
-def validar_tarjeta(numero, mes, anio, cvc):
-    try:
-        card = CreditCard(numero=numero, mes=mes, anio=anio, cvc=cvc)
-        card.validate()
-        return True
-    except Exception as e:
-        print(f"Error de tarjeta: {e}")
-        return False """
+
