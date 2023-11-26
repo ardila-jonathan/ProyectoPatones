@@ -106,6 +106,7 @@ class Ticket(models.Model):
     clienteId = models.ForeignKey(Cliente, on_delete=models.CASCADE)
     descripcion = models.TextField(verbose_name="Descripcion", blank=True, max_length=100)
     estado = models.BooleanField(default=False)
+    titulo = models.CharField(max_length=100, null =True)
 
 
 class Archivo(models.Model):
