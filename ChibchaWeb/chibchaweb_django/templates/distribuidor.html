@@ -1,180 +1,147 @@
 {% extends 'index.html' %} {% load static %} {% block content %}
-<!DOCTYPE html>
-<html lang="es">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link
-      rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
-    />
-    <title>Dashboard del Distribuidor</title>
-  </head>
-
-  <body>
-    <div class="container flex-column">
-      <div class="row mb-2">
-        <div class="col-md-6">
-          <div class="card d-flex flex-column h-100">
-            <div class="card-header">Información del Distribuidor</div>
-            <div class="card-body d-flex flex-column">
-              <p>
-                <strong>Distribuidor: </strong
-                >{{distribuidor.nombreDistribuidor}}
-              </p>
-              <p><strong>Categoria: </strong>{{distribuidor.categoria}}</p>
-              <p>
-                <strong>Comisión a ChibchaWeb: </strong
-                >{{distribuidor.comision}}%
-              </p>
-              <div class="mt-auto text-center">
-                <!-- Utiliza la clase 'mt-auto' para mover los botones hacia la parte inferior -->
-                <a
-                  class="btn btn-primary"
-                  href="{% url 'editarDistribuidor' distribuidor.usuario_id %}"
-                >
-                  Modificar Información</a
-                >
-                <a class="btn btn-danger" href="{% url 'eliminarUsuario' %}">
-                  Eliminar cuenta
-                </a>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="col-md-6">
-          <div class="card mt-2">
-            <div class="card-header">Exportar a PDF</div>
-            <div class="card-body">
-              <p>Archivo bancario exportado como PDF.</p>
-              <a href="{% url 'reporteBancario' %}" class="btn btn-primary"
-                >Descargar PDF</a
-              >
-            </div>
-          </div>
-          <div class="card mt-2">
-            <div class="card-header">Reporte de Contratos</div>
-            <div class="card-body">
-              <p>Se genera un reporte con los contratos de los clientes.</p>
-              <a
-                href="{% url 'reporteContrato' dist=distribuidor.distribuidorId %}"
-                class="btn btn-primary"
-                >Ver Reporte</a
-              >
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-md-6">
-          <div class="mt-4">
-            <h3>Extensiones de Dominio</h3>
-            <div style="max-height: 400px; min-height: 100px; overflow-y: auto">
-              {% if extensiones %}
-              <ul class="list-group">
-                {% for extension in extensiones %}
-
-                <li class="list-group-item text-center">
-                  <a href="{% url 'modExtension' extension.extensionId %}">{{ extension.extensionDominio }}</a>
-                </li>
-
-                {% endfor %}
-              </ul>
-              {% else %}
-              <h5>Aún no tienes dominios.</h5>
-              {% endif %}
-              <div class="mt-2 text-center">
-                <a type="submit" class="btn btn-outline-primary mx-auto" data-toggle="modal" data-target="#registrarDominioModal">
-                  Registrar Extensión de Dominio
-                </a>
-              </div>
-            </div>
-          </div>
-        </div>
-        <!-- Modal de Registro de Dominios -->
-        <div class="modal" id="registrarDominioModal">
-          <div class="modal-dialog">
-            <div class="modal-content">
-              <!-- Encabezado del Modal -->
-              <div class="modal-header">
-                <h4 class="modal-title">Registro de Dominio</h4>
-                <button type="button" class="close" data-dismiss="modal">
-                  &times;
-                </button>
-              </div>
-
-              <!-- Cuerpo del Modal -->
-              <div class="modal-body">
-                <!-- Formulario de Registro de Dominio -->
-                <form>
-                  <div class="form-group">
-                    <label for="nombreExtension">Extensión:</label>
-                    <input
-                      type="text"
-                      class="form-control"
-                      id="nombreExtension"
-                      placeholder="Ej. .com"
-                    />
-                  </div>
-                  <div class="form-group">
-                    <label for="precio">Precio:</label>
-                    <input
-                      type="text"
-                      class="form-control"
-                      id="precio"
-                      placeholder="Ej. $10.99"
-                    />
-                  </div>
-                  <!-- Otros campos necesarios para el registro del dominio -->
-
-                  <!-- Botón para enviar el formulario -->
-                  <button type="submit" class="btn btn-primary">
-                    Registrar
-                  </button>
-                </form>
-              </div>
-
-              <!-- Pie del Modal -->
-              <div class="modal-footer">
-                <button
-                  type="button"
-                  class="btn btn-secondary"
-                  data-dismiss="modal"
-                >
-                  Cerrar
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="col-md-6">
-          <div class="card">
-            <div class="card-header">Solicitudes XML</div>
-            <div class="card-body">
-              <p>Ejemplo de solicitud XML:</p>
-              <pre>
-                &lt;xml version="1.0"&gt;
-                &lt;request&gt;
-                &lt;client_id&gt;12345&lt;/client_id&gt;
-                &lt;amount&gt;1000.00&lt;/amount&gt;
-                &lt;description&gt;Pago de factura&lt;/description&gt;
-                &lt;/request&gt;
-                </pre
-              >
-            </div>
+<div class="container flex-column">
+  <div class="row mb-2">
+    <div class="col-md-6">
+      <div class="card d-flex flex-column h-100">
+        <div class="card-header">Información del Distribuidor</div>
+        <div class="card-body d-flex flex-column">
+          <p>
+            <strong>Distribuidor: </strong>{{distribuidor.nombreDistribuidor}}
+          </p>
+          <p><strong>Categoria: </strong>{{distribuidor.categoria}}</p>
+          <p>
+            <strong>Comisión a ChibchaWeb: </strong>{{distribuidor.comision}}%
+          </p>
+          <div class="mt-auto text-center">
+            <a class="btn btn-primary" href="{% url 'editarDistribuidor' distribuidor.usuario_id %}">
+              Modificar Información</a>
+            <a class="btn btn-danger" href="{% url 'eliminarUsuario' %}">
+              Eliminar cuenta
+            </a>
           </div>
         </div>
       </div>
     </div>
-    <a href="{% url 'cerrarSesion' %}" class="btn btn-danger">Cerrar Sesión</a>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
+    <div class="col-md-6">
+      <div class="card mt-2">
+        <div class="card-header">Exportar a PDF</div>
+        <div class="card-body">
+          <p>Archivo bancario exportado como PDF.</p>
+          <a href="{% url 'reporteBancario' %}" class="btn btn-primary">Descargar PDF</a>
+        </div>
+      </div>
+      <div class="card mt-2">
+        <div class="card-header">Reporte de Contratos</div>
+        <div class="card-body">
+          <p>Se genera un reporte con los contratos de los clientes.</p>
+          <a href="{% url 'reporteContrato' dist=distribuidor.distribuidorId %}" class="btn btn-primary">Ver Reporte</a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <div class="mt-4">
+        <h3>Extensiones de Dominio</h3>
+        <div style="max-height: 400px; min-height: 100px; overflow-y: auto">
+          {% if extensiones %}
+          <ul class="list-group">
+            {% for extension in extensiones %}
 
-    {% if flag %}
-    <script>
-      alert("NO SE PUDO REGISTRAR LA EXTENSIÓN");
-    </script>
-    {% endif %}
-  </body>
-</html>
+            <li class="list-group-item text-center">
+              <a href="{% url 'modExtension' extension.extensionId %}">{{ extension.extensionDominio }}</a>
+            </li>
+
+            {% endfor %}
+          </ul>
+          {% else %}
+          <h5>Aún no tienes dominios.</h5>
+          {% endif %}
+          <div class="mt-2 text-center">
+            <a type="submit" class="btn btn-outline-primary mx-auto" data-toggle="modal"
+              data-target="#registrarDominioModal">
+              Registrar Extensión de Dominio
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Modal de Registro de Dominios -->
+    <div class="modal" id="registrarDominioModal">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <!-- Encabezado del Modal -->
+          <div class="modal-header">
+            <h4 class="modal-title">Registro de Dominio</h4>
+            <button type="button" class="close" data-dismiss="modal">
+              &times;
+            </button>
+          </div>
+
+          <!-- Cuerpo del Modal -->
+          <div class="modal-body">
+            <!-- Formulario de Registro de Dominio -->
+            <form>
+              <div class="form-group">
+                <label for="nombreExtension">Extensión:</label>
+                <input type="text" class="form-control" id="nombreExtension" placeholder="Ej. .com" />
+              </div>
+              <div class="form-group">
+                <label for="precio">Precio:</label>
+                <input type="text" class="form-control" id="precio" placeholder="Ej. $10.99" />
+              </div>
+
+              <!-- Botón para enviar el formulario -->
+              <button type="submit" class="btn btn-primary">
+                Registrar
+              </button>
+            </form>
+          </div>
+
+          <!-- Pie del Modal -->
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">
+              Cerrar
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-6">
+      <div class="mt-4">
+        <h3>Solicutudes XML</h3>
+        <div style="max-height: 400px; min-height: 100px; overflow-y: auto">
+          <ul class="list-group">
+
+            <li class="list-group-item text-center">
+              <a href="">extension n</a>
+            </li>
+            <li class="list-group-item text-center">
+              <a href="">extension n-1</a>
+            </li>
+            <li class="list-group-item text-center">
+              <a href="">extension ...</a>
+            </li>
+            <li class="list-group-item text-center">
+              <a href="">extension 1</a>
+            </li>
+
+          </ul>
+
+          <h5>Aún no tienes solicutudes.</h5>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<a href="{% url 'cerrarSesion' %}" class="btn btn-danger">Cerrar Sesión</a>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
+
+{% if flag %}
+<script>
+  alert("NO SE PUDO REGISTRAR LA EXTENSIÓN");
+</script>
+{% endif %}
+
 {% endblock %}

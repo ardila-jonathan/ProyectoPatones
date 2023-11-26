@@ -1,6 +1,7 @@
 {% extends 'index.html' %} {% load static %} {% block content %}
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -11,125 +12,129 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </head>
+
 <body>
 
-<div class="container mt-5">
-  <h2 class="mb-4">Modificar Dominio</h2>
+  <h2 class="mt-2">Modificar Dominio</h2>
+  <div class="container mt-2">
+    <!-- Formulario para modificar el dominio -->
+    <form>
+      {% csrf_token %}
+      <div class="form-group">
+        <label for="nombreExtension">Nombre de Extensión: {{ext.extensionDominio}}</label>
+      </div>
+      <div class="form-group">
+        <label for="precio">Precio:</label>
+        <input type="text" class="form-control" id="precio" value="{{ext.precioExtension}}">
+      </div>
+      <!-- Otros campos necesarios para la modificación del dominio -->
 
-  <!-- Formulario para modificar el dominio -->
-  <form>
-    {% csrf_token %}
-    <div class="form-group">
-      <label for="nombreExtension">Nombre de Extensión: {{ext.extensionDominio}}</label>
-    </div>
-    <div class="form-group">
-      <label for="precio">Precio:</label>
-      <input type="text" class="form-control" id="precio" value="{{ext.precioExtension}}">
-    </div>
-    <!-- Otros campos necesarios para la modificación del dominio -->
-    
   </div>
-  
+
+  <div class="text-center">
     <!-- Botón para enviar el formulario -->
     <button type="submit" class="btn btn-primary" id="guardarCambiosBtn">Guardar Cambios</button>
 
-    
-    
     <!-- Botón para eliminar el dominio -->
-    <button type="button" class="btn btn-danger ml-2" data-toggle="modal" data-target="#confirmarEliminarModal">Eliminar Dominio</button>
+    <button type="button" class="btn btn-danger ml-2" data-toggle="modal" data-target="#confirmarEliminarModal">Eliminar
+      Dominio</button>
+  </div>
   </form>
 
+  </div>
   <!-- Botón para volver al dashboard o página principal -->
-  <a href="{% url 'dashboard' %}" class="btn btn-secondary mt-3">Volver al Dashboard</a>
-</div>
+  <div class="text-center m-4">
+    <a href="{% url 'dashboard' %}" class="btn btn-secondary mt-3">Volver al Dashboard</a>
+  </div>
 
-<!-- Modal para confirmar la eliminación del dominio -->
-<div class="modal fade" id="confirmarEliminarModal" tabindex="-1" role="dialog" aria-labelledby="confirmarEliminarModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="confirmarEliminarModalLabel">Confirmar Eliminación</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        ¿Estás seguro de que deseas eliminar este dominio? Esta acción no se puede deshacer.
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-        <button type="button" class="btn btn-danger">Eliminar</button>
+  <!-- Modal para confirmar la eliminación del dominio -->
+  <div class="modal fade" id="confirmarEliminarModal" tabindex="-1" role="dialog"
+    aria-labelledby="confirmarEliminarModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="confirmarEliminarModalLabel">Confirmar Eliminación</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          ¿Estás seguro de que deseas eliminar este dominio? Esta acción no se puede deshacer.
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+          <button type="button" class="btn btn-danger">Eliminar</button>
+        </div>
       </div>
     </div>
   </div>
-</div>
 
 </body>
 
 <script>
-    document.addEventListener("DOMContentLoaded", function () {
+  document.addEventListener("DOMContentLoaded", function () {
     // Espera a que se cargue el DOM antes de asignar el evento click
     const guardarCambiosBtn = document.getElementById("guardarCambiosBtn");
 
     guardarCambiosBtn.addEventListener("click", function () {
-        // Obtén el nuevo valor del input
-        const nuevoPrecio = document.getElementById("precio").value;
+      // Obtén el nuevo valor del input
+      const nuevoPrecio = document.getElementById("precio").value;
 
-        // Valida si el nuevo precio es un número
-        if (isNaN(nuevoPrecio)) {
-            alert("Por favor, ingrese un número válido para el precio.");
-            return;
-        }
+      // Valida si el nuevo precio es un número
+      if (isNaN(nuevoPrecio)) {
+        alert("Por favor, ingrese un número válido para el precio.");
+        return;
+      }
 
-        // Construye los datos a enviar en la solicitud POST
-        const datos = {
-            precio: nuevoPrecio,
-            id: "{{ext.pk}}"
-            // Otros campos necesarios para la modificación del dominio
-        };
+      // Construye los datos a enviar en la solicitud POST
+      const datos = {
+        precio: nuevoPrecio,
+        id: "{{ext.pk}}"
+        // Otros campos necesarios para la modificación del dominio
+      };
 
-        // Envia la solicitud POST utilizando Fetch
-        fetch('{% url "actExtension" %}', {
-            method: "POST",
-            headers: {
-                "X-CSRFToken": getCookie('csrftoken'),  // Agrega el token CSRF al encabezado
-            },
-            body: JSON.stringify(datos),
+      // Envia la solicitud POST utilizando Fetch
+      fetch('{% url "actExtension" %}', {
+        method: "POST",
+        headers: {
+          "X-CSRFToken": getCookie('csrftoken'),  // Agrega el token CSRF al encabezado
+        },
+        body: JSON.stringify(datos),
+      })
+        .then(response => response.json())
+        .then(data => {
+
+
+          if (data.success) {
+            alert("Cambios guardados correctamente"); // Recargar la página actual si la carga fue exitosa
+          } else {
+            // Manejar otra lógica si la carga no fue exitosa
+          }
         })
-            .then(response => response.json())
-            .then(data => {
-                
-                
-                if (data.success) {
-                  alert("Cambios guardados correctamente"); // Recargar la página actual si la carga fue exitosa
-                } else {
-                  // Manejar otra lógica si la carga no fue exitosa
-                }
-            })
-            .catch(error => {
-                console.error("Error al enviar la solicitud:", error);
-                alert("Error al guardar cambios. Por favor, inténtelo de nuevo.");
-            });
+        .catch(error => {
+          console.error("Error al enviar la solicitud:", error);
+          alert("Error al guardar cambios. Por favor, inténtelo de nuevo.");
+        });
     });
 
     function getCookie(name) {
-        let cookieValue = null;
-        if (document.cookie && document.cookie !== '') {
-            const cookies = document.cookie.split(';');
-            for (let i = 0; i < cookies.length; i++) {
-                const cookie = cookies[i].trim();
-                if (cookie.startsWith(name + '=')) {
-                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
-                    break;
-                }
-            }
+      let cookieValue = null;
+      if (document.cookie && document.cookie !== '') {
+        const cookies = document.cookie.split(';');
+        for (let i = 0; i < cookies.length; i++) {
+          const cookie = cookies[i].trim();
+          if (cookie.startsWith(name + '=')) {
+            cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+            break;
+          }
         }
-        return cookieValue;
+      }
+      return cookieValue;
     }
-});
+  });
 
-  </script>
-  
+</script>
+
 
 </html>
 {% endblock %}
