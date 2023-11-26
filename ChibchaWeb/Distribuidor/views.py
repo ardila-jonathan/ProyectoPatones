@@ -1,11 +1,11 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
-
+import json
 from Cliente.models import Cliente, Dominio, DominioCancelado
 from .models import Distribuidor, ExtensionDominio
 from .GenRepBanc import BancaryReportGenerator
-
-from django.http import HttpResponse
+from django.views.decorators.csrf import csrf_exempt
+from django.http import HttpResponse, JsonResponse
 from .ReportAdapter import ReportAdapter
 
 
@@ -92,3 +92,30 @@ def registroExtension(request):
             flag = True
         
         redirect('dashboard', flag = flag)
+
+@login_required
+def vmodificarExtension(request, ext):
+   
+    return render(request, "modificarDominioDistribuidor.html", {'ext':ExtensionDominio.objects.get(extensionId = ext)})
+
+@login_required
+@csrf_exempt
+def modificarPrecioExtension(request):
+    if request.method == 'POST':
+        data = json.loads(request.body)
+        
+        nuevo_precio = data.get('precio')
+        extension_id = data.get('id')
+        
+        
+        exte = ExtensionDominio.objects.get(extensionId = int(extension_id))
+        exte.precioExtension = float(nuevo_precio)
+        exte.save()
+        # Devolver una respuesta JSON
+        return JsonResponse({'success': True})
+    else:
+        # Manejar otros métodos HTTP según sea necesario
+        # ...
+        None
+
+

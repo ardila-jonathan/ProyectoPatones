@@ -75,7 +75,7 @@
                 {% for extension in extensiones %}
 
                 <li class="list-group-item text-center">
-                  <a href="#">{{ extension.extensionDominio }}</a>
+                  <a href="{% url 'modExtension' extension.extensionId %}">{{ extension.extensionDominio }}</a>
                 </li>
 
                 {% endfor %}
