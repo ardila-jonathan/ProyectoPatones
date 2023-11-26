@@ -13,9 +13,10 @@ from django.contrib.auth.decorators import login_required
 from django.urls import reverse
 from django.views.decorators.csrf import csrf_exempt
 from random import random
-from creditcard import CreditCard
 from django.contrib import messages
 from datetime import datetime, timedelta
+from .validar_tarjeta import validar_tarjeta
+
 # Create your views here.
 
 def consulta_clientes(request):
@@ -67,11 +68,15 @@ def cambiar_tarjeta(request):
         tarjeta.fechaVencimientoMes = request.POST['mes']
         tarjeta.fechaVencimientoAnio = request.POST['anio']
         tarjeta.direccion = request.POST['direccion']
-        tarjeta.save()
-        print(tarjeta)
+        if validar_tarjeta(tarjeta.numeroTarjeta) == True:
+            tarjeta.save()
+            print("Tarjeta guardada")
+            messages.success(request, 'La tarjeta de crédito se ha guardado correctamente.')
+        else: 
+            print('tarjeta no guardada')
+            messages.success(request, 'Número de la tarjeta de credito no valido')
         return redirect('dashboard')
-        #if not validar_tarjeta(request.POST['numeroTarjeta'], request.POST['mes'], request.POST['anio'], request.POST['cvc']):
-         #   messages.error(request, 'La tarjeta no es válida. Verifica los datos')
+        
     else:
         return render(request, 'tarjeta.html',{'tarjeta':tarjeta, 'cliente':cliente})
 
@@ -79,19 +84,16 @@ def cambiar_tarjeta(request):
 @csrf_exempt
 def registrarDominio(request):
 
-    flag = 0
     if request.method == 'POST':
         extensionDominio = ExtensionDominio.objects.get(extensionDominio = request.POST['extension'])
         if not Dominio.objects.filter(nombreDominio = request.POST['nombreDominio'], extensionDominio = extensionDominio).exists():
             user = request.user
             cliente = Cliente.objects.get(usuario = user)
+            #FALTA VALIDAR EL METODO DE PAGO!!!   
             dominio = Dominio(clienteId = cliente, nombreDominio = request.POST['nombreDominio'],
                             extensionDominio = extensionDominio, fechaSolicitud = date.today(), tiempoPropiedad=request.POST['meses'])            
-            dominio.save()       
-        else:
-            flag = 1
-            
-        return JsonResponse({'dominio':request.POST['nombreDominio'], 'flag': flag})
+            dominio.save()
+        return redirect(reverse("registrarDominio"))
     
     else:
         return render(request, 'dominio.html')
@@ -197,7 +199,7 @@ def subirArchivo(request):
     else:
         return redirect('home')
 
-def dominiosDisponibles(request, dominio, flag):
+def dominiosDisponibles(request, dominio):
     extensiones = ExtensionDominio.objects.all()
 
     data = []
@@ -210,8 +212,7 @@ def dominiosDisponibles(request, dominio, flag):
             data.append((extension,False))
             populares.append(extension)
 
-    # Meter validacion de tarjeta aca
-    return render(request,'dominio.html',{'data':data, 'dominioObj':dominio, 'populares':populares, 'flag':flag})
+    return render(request,'dominio.html',{'data':data, 'dominioObj':dominio, 'populares':populares})
 
 
 def dominiosDisponiblesSinRegistro(request, dominio):
@@ -242,12 +243,4 @@ def agregarPlan(request):
         return redirect('home')
 
 
-"""
-def validar_tarjeta(numero, mes, anio, cvc):
-    try:
-        card = CreditCard(numero=numero, mes=mes, anio=anio, cvc=cvc)
-        card.validate()
-        return True
-    except Exception as e:
-        print(f"Error de tarjeta: {e}")
-        return False """
+

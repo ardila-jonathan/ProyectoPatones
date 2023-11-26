@@ -3,7 +3,7 @@ from django.contrib.auth.decorators import login_required
 
 from Cliente.models import Cliente, Dominio, DominioCancelado
 from .models import Distribuidor, ExtensionDominio
-from .BancaryReportFacade import BancaryReportFacade
+from .GenRepBanc import BancaryReportGenerator
 
 from django.http import HttpResponse
 from .ReportAdapter import ReportAdapter
@@ -33,7 +33,7 @@ def editar_distribuidor(request, id_distribuidor):
 
 
 def descargarReporte(request):
-    generador = BancaryReportFacade()
+    generador = BancaryReportGenerator()
     distribuidor = Distribuidor.objects.get(usuario=request.user)  
     response = HttpResponse(content_type='application/pdf')
     response['Content-Disposition'] = 'attachment; filename="reporte.pdf"'
@@ -82,12 +82,13 @@ def registroExtension(request):
 
     flag = False
     if request.method == 'POST':
-        distribuidor = Distribuidor.objects.get(usuario=request.user)
-        if not ExtensionDominio.objects.filter(extensionDominio = request.POST['nombreExtension']).exists():
-            extension = ExtensionDominio(distribuidorId = distribuidor, extensionDominio=request.POST['nombreExtension'],
+
+        if not ExtensionDominio.objects.filter(extensionDomnio = request.POST['extension']).exists():
+            distribuidor = Distribuidor.objects.get(usuario=request.user)
+            extension = ExtensionDominio(distribuidorId = distribuidor, extensionDominio=request.POST['extension'],
                                         precioExtension=request.POST['precio'])
             extension.save()
         else:
             flag = True
         
-        return render(request, "distribuidor.html", {'distribuidor':distribuidor, 'extensiones':ExtensionDominio.objects.filter(distribuidorId = distribuidor), 'flag':flag})
+        redirect('dashboard', flag = flag)
