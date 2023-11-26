@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Solicitudes XML</title>
+  <link rel="stylesheet" href="{%static 'css/Solicitudes.css'%}" type="text/css">
+</head>
+<body>
+  <div class="container">
+    <h1>Solicitudes XML</h1>
+    <div class="xml-container" id="xmlContainer">
+      <!-- Aquí se mostrará el XML -->
+      <!-- Es indispensable colocarse en la identacion exacta (mirar el ejemplo de las pizzas)-->
+      <textarea id="xmlContent" class="xml-content" readonly spellcheck="false">
+<pizzas>
+  <pizza nombre="Barbacoa" precio="8">
+    <ingrediente nombre="Salsa Barbacoa"/>
+    <ingrediente nombre="Mozzarella"/>
+    <ingrediente nombre="Pollo"/>
+    <ingrediente nombre="Bacon"/>
+    <ingrediente nombre="Ternera"/>
+  </pizza>
+  <pizza nombre="Margarita" precio="6">
+    <ingrediente nombre="Tomate"/>
+    <ingrediente nombre="Jamón"/>
+    <ingrediente nombre="Queso"/>
+  </pizza>
+</pizzas>
+      </textarea>
+    </div>
+    <div class="buttons">
+      <button onclick="copyXml()">Copiar XML</button>
+      <a href="#" download="solicitud.xml" onclick="downloadXml()">Descargar XML</a>
+    </div>
+  </div>
+  <script src="{%static 'js/Solicitudes.js'%}" type="text/javascript"></script>
+</body>
+</html>

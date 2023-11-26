@@ -1,0 +1,55 @@
+   body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    font-family: Arial, sans-serif;
+  }
+  
+  .container {
+    text-align: center;
+    border: 1px solid #ccc;
+    padding: 20px;
+    border-radius: 8px;
+    width: 70vw;
+  }
+  
+  .xml-container {
+    border: 1px solid #ddd;
+    padding: 10px;
+    margin-bottom: 20px;
+    max-width: 100%; /* Ajusta el ancho máximo del contenedor */
+    margin-left: auto;
+    margin-right: auto;
+  }
+  
+  .xml-content {
+    width: 100%;
+    height: 300px; /* Altura inicial del textarea */
+    resize: vertical; /* Permitir solo redimensionamiento vertical */
+    white-space: pre-wrap;
+    font-family: Consolas, monospace;
+    tab-size: 2;
+    padding: 10px;
+    border: 1px solid #ccc;
+    pointer-events: none; /* Deshabilitar eventos del mouse para no seleccionar texto */
+  }
+  
+  .buttons button,
+  .buttons a {
+    padding: 10px 20px;
+    margin: 0 10px;
+    text-decoration: none;
+    cursor: pointer;
+    border: none;
+    border-radius: 5px;
+    background-color: #4CAF50;
+    color: white;
+  }
+  
+  .buttons button:hover,
+  .buttons a:hover {
+    background-color: #45a049;
+  }
+  
