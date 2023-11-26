@@ -57,12 +57,12 @@
       </table>
     {% else %}
       <div class="call-to-action">
-        <h2>Ingrese el nombre de dominio que busca para obtener las opciones disponibles</h2>
+        <h2>No hay dominios disponibles para consultar</h2>
       </div>
     {% endif %}
     </div>
 
-    {% if populares and populares|length >= 3 and dominioObj != "_" %}
+    {% if populares and populares|length >= 3%}
       <h3>Extensiones de Dominio Populares:</h3>
       <div class="options">
         {% for popular in populares|slice:":3" %}
@@ -134,7 +134,7 @@
   function pasarValor() {
     let valor = document.getElementById('nombreDominio').value;
 
-    var url = "{% url 'dominiosDisponibles' 'valor' '0' %}";
+    var url = "{% url 'dominiosDisponibles' 'valor' %}";
 
     if (valor != "") {
       url = url.replace('valor', valor);
@@ -162,9 +162,8 @@
             meses: cantidadMeses
           },
           success: function (response) {
-            var url = "{% url 'dominiosDisponibles' 'valor1' '2' %}";
-            url = url.replace('valor1', response.dominio);
-            url = url.replace('2', response.flag);
+            var url = "{% url 'dominiosDisponibles' 'valor' %}";
+            url = url.replace('valor', document.getElementById(id + "d").innerHTML);
             window.location.href = url;
           }
         });
@@ -182,14 +181,6 @@
 }
 
 </script>
-
-{% if flag %}
-  <script>
-    alert(
-      "NO SE PUDO REGISTRAR EL DOMINIO YA QUE OTRO CLIENTE LO HA OBTENIDO ANTES QUE USTED"
-    );
-  </script>
-{% endif %}
 
 </html>
 {% endblock %}
