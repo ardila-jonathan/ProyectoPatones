@@ -64,6 +64,7 @@ def dashboard_view(request):
             #Lo que pasa cuando un distribuidor inicia sesión
             distribuidor = Distribuidor.objects.get(usuario = user)
             extensionesDistri = ExtensionDominio.objects.filter(distribuidorId = distribuidor)
+            dominios_distr = Dominio.objects.filter()
             req = getRequest(Dominio.objects.all()[0])
             generateRequest(req)
             return render(request, "distribuidor.html", {'distribuidor':distribuidor, 'extensiones':extensionesDistri})
@@ -79,37 +80,40 @@ def dashboard_view(request):
 def registro_clientes(request):
 
     if request.method == 'POST':
-        if request.POST['pass'] == request.POST['Repass']:
-            try:
-                user = User.objects.create_user(username = request.POST['user'], password=request.POST['pass'])
-                user.save()
-                login(request, user)
-            except:
-                return render(request, 'login.html', {'mensaje_advertencia':"EL NOMBRE DE USUARIO REGISTRADO YA EXISTE. INTENTA CON OTRO"})
+        if not Cliente.objects.filter(emailCliente = request.POST['email']).exists():
+            if request.POST['pass'] == request.POST['Repass']:
+                try:
+                    user = User.objects.create_user(username = request.POST['user'], password=request.POST['pass'])
+                    user.save()
+                    login(request, user)
+                except:
+                    return render(request, 'login.html', {'mensaje_advertencia':"EL NOMBRE DE USUARIO REGISTRADO YA EXISTE. INTENTA CON OTRO"})
 
-            nombre = request.POST['name']
-            fecha_nac = request.POST['fecha']
-            email = request.POST['email']
-            pais = request.POST['countrySelect']
-            ciudad = request.POST['citySelect']
+                nombre = request.POST['name']
+                fecha_nac = request.POST['fecha']
+                email = request.POST['email']
+                pais = request.POST['countrySelect']
+                ciudad = request.POST['citySelect']
 
 
-            nuevoCliente = Cliente(usuario=user, nombreCliente=nombre, fechaNacimientoCliente=fecha_nac, emailCliente=email,
-                                paisCliente=pais, ciudadCliente=ciudad, ClienteActivo=False)
+                nuevoCliente = Cliente(usuario=user, nombreCliente=nombre, fechaNacimientoCliente=fecha_nac, emailCliente=email,
+                                    paisCliente=pais, ciudadCliente=ciudad, ClienteActivo=False)
 
-            nuevoCliente.save()
+                nuevoCliente.save()
 
-            tarjeta = TarjetaCredito(clienteId = nuevoCliente, numeroTarjeta = "0000000000000000", cvc = "000", direccion = "" )
+                tarjeta = TarjetaCredito(clienteId = nuevoCliente, numeroTarjeta = "0000000000000000", cvc = "000", direccion = "" )
 
-            tarjeta.save()
+                tarjeta.save()
 
-            rol = Rol(usuario = user, rol="Cliente")
+                rol = Rol(usuario = user, rol="Cliente")
 
-            rol.save()
+                rol.save()
 
-            return redirect('dashboard')
+                return redirect('dashboard')
+            else:
+                return render(request, 'login.html', {'mensaje_advertencia':"LAS CONTRASEÑAS NO COINCIDEN"})
         else:
-            return render(request, 'login.html', {'mensaje_advertencia':"LAS CONTRASEÑAS NO COINCIDEN"})
+            return render(request, 'login.html', {'mensaje_advertencia':"Ya existe un usuario con este correo. Intenta recuperar tu contraseña"})
     else:
         return render(request, 'login.html')
 

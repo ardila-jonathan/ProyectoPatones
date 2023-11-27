@@ -1,31 +1,22 @@
-from reportlab.pdfgen import canvas
-from reportlab.pdfbase.ttfonts import TTFont
-from reportlab.pdfbase import pdfmetrics
 from datetime import date, datetime
 from reportlab.lib import colors
-from reportlab.lib.pagesizes import letter, A4, landscape
+from reportlab.lib.pagesizes import A4, landscape
 from reportlab.platypus import SimpleDocTemplate, Table, TableStyle, PageBreak, Paragraph, Spacer
 
 
-class BancaryReportGenerator:
+class BancaryReportFacade:
 
     __instance = None
-    ancho_pagina = 841.89
-    alto_pagina = 595.27 
+    __ancho_pagina = 841.89
+    __alto_pagina = 595.27  
 
-    def __BancaryReportGenerator(self):
+    def __BancaryReportFacade(self):
         #Constructor privado
         pass
 
     def __new__(cls):
         if not cls.__instance:
-            cls.__instance = super(BancaryReportGenerator, cls).__new__(cls)
-
-            """
-            pdfmetrics.registerFont(
-                TTFont('nombrefuente', 'ruta_fuente')
-            )
-            """
+            cls.__instance = super(BancaryReportFacade, cls).__new__(cls)
             print("No existe")
         else:
             print("Ya existe")
@@ -35,8 +26,6 @@ class BancaryReportGenerator:
 
 
     def generatePDF(cls, response, nombreDistribuidor, info:list):
-        cls.ancho_pagina = 841.89
-        cls.alto_pagina = 595.27
         pdf = SimpleDocTemplate(response, pagesize=landscape(A4))
 
         elements = []
@@ -44,14 +33,14 @@ class BancaryReportGenerator:
         def draw_header(canvas, doc):
             canvas.saveState()
             canvas.setFillColorRGB(221/255,238/255,239/255)
-            canvas.rect(0,0,cls.ancho_pagina,cls.alto_pagina,fill=1)
+            canvas.rect(0,0,cls.__ancho_pagina,cls.__alto_pagina,fill=1)
             canvas.setFillColorRGB(0,0,0)
             canvas.setFont('Helvetica', 12)
-            canvas.drawString(cls.ancho_pagina - 80, cls.alto_pagina - 20, date.today().strftime("%d/%m/%Y"))
-            canvas.drawString(cls.ancho_pagina - 80, cls.alto_pagina - 40, datetime.now().strftime("%H:%M:%S"))
-            canvas.drawInlineImage("chibchaweb_django\static\images\logo.jpg", 390-cls.ancho_pagina, cls.alto_pagina - 60, preserveAspectRatio=True, height=50)
-            canvas.drawString(90, cls.alto_pagina - 40, 'CibchaWeb')
-            canvas.drawCentredString(cls.ancho_pagina / 2, cls.alto_pagina - 85, "Reporte Bancario " + nombreDistribuidor)
+            canvas.drawString(cls.__ancho_pagina - 80, cls.__alto_pagina - 20, date.today().strftime("%d/%m/%Y"))
+            canvas.drawString(cls.__ancho_pagina - 80, cls.__alto_pagina - 40, datetime.now().strftime("%H:%M:%S"))
+            canvas.drawInlineImage("chibchaweb_django\static\images\logo.jpg", 390-cls.__ancho_pagina, cls.__alto_pagina - 60, preserveAspectRatio=True, height=50)
+            canvas.drawString(90, cls.__alto_pagina - 40, 'CibchaWeb')
+            canvas.drawCentredString(cls.__ancho_pagina / 2, cls.__alto_pagina - 85, "Reporte Bancario " + nombreDistribuidor)
             canvas.restoreState()
 
         pdf.build(elements, onFirstPage=draw_header, onLaterPages=draw_header)
@@ -59,7 +48,7 @@ class BancaryReportGenerator:
         #Agregar tabla
         data = [['Nombre dominio', 'Extensión dominio', 'Nombre Cliente',  'Fecha Registro' , 'Valor Total Contrato', 'Valor Comisión', 'Tarjeta de Crédito'],]
         data.extend(info[:-3])
-        ancho_columna = (cls.ancho_pagina * 4.5 / 5) / len(data[0])
+        ancho_columna = (cls.__ancho_pagina * 4.5 / 5) / len(data[0])
         ancho_columnas = [ancho_columna] * len(data[0])
         table = Table(data, colWidths=ancho_columnas, spaceBefore=20, spaceAfter=20)
 

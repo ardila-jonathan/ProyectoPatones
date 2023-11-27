@@ -84,6 +84,7 @@ def cambiar_tarjeta(request):
 @csrf_exempt
 def registrarDominio(request):
 
+    flag = 0
     if request.method == 'POST':
         extensionDominio = ExtensionDominio.objects.get(extensionDominio = request.POST['extension'])
         if not Dominio.objects.filter(nombreDominio = request.POST['nombreDominio'], extensionDominio = extensionDominio).exists():
@@ -92,8 +93,11 @@ def registrarDominio(request):
             #FALTA VALIDAR EL METODO DE PAGO!!!   
             dominio = Dominio(clienteId = cliente, nombreDominio = request.POST['nombreDominio'],
                             extensionDominio = extensionDominio, fechaSolicitud = date.today(), tiempoPropiedad=request.POST['meses'])            
-            dominio.save()
-        return redirect(reverse("registrarDominio"))
+            dominio.save()       
+        else:
+            flag = 1
+
+        return JsonResponse({'dominio':request.POST['nombreDominio'], 'flag': flag})
     
     else:
         return render(request, 'dominio.html')
@@ -199,7 +203,7 @@ def subirArchivo(request):
     else:
         return redirect('home')
 
-def dominiosDisponibles(request, dominio):
+def dominiosDisponibles(request, dominio, flag):
     extensiones = ExtensionDominio.objects.all()
 
     data = []
@@ -211,8 +215,8 @@ def dominiosDisponibles(request, dominio):
         except:
             data.append((extension,False))
             populares.append(extension)
-
-    return render(request,'dominio.html',{'data':data, 'dominioObj':dominio, 'populares':populares})
+    # Meter validacion de tarjeta aca
+    return render(request,'dominio.html',{'data':data, 'dominioObj':dominio, 'populares':populares, 'flag':flag})
 
 
 def dominiosDisponiblesSinRegistro(request, dominio):

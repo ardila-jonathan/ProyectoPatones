@@ -13,8 +13,12 @@
             <strong>Comisión a ChibchaWeb: </strong>{{distribuidor.comision}}%
           </p>
           <div class="mt-auto text-center">
-            <a class="btn btn-primary" href="{% url 'editarDistribuidor' distribuidor.usuario_id %}">
-              Modificar Información</a>
+            <a
+              class="btn btn-primary"
+              href="{% url 'editarDistribuidor' distribuidor.usuario_id %}"
+            >
+              Modificar Información</a
+            >
             <a class="btn btn-danger" href="{% url 'eliminarUsuario' %}">
               Eliminar cuenta
             </a>
@@ -27,14 +31,20 @@
         <div class="card-header">Exportar a PDF</div>
         <div class="card-body">
           <p>Archivo bancario exportado como PDF.</p>
-          <a href="{% url 'reporteBancario' %}" class="btn btn-primary">Descargar PDF</a>
+          <a href="{% url 'reporteBancario' %}" class="btn btn-primary"
+            >Descargar PDF</a
+          >
         </div>
       </div>
       <div class="card mt-2">
         <div class="card-header">Reporte de Contratos</div>
         <div class="card-body">
           <p>Se genera un reporte con los contratos de los clientes.</p>
-          <a href="{% url 'reporteContrato' dist=distribuidor.distribuidorId %}" class="btn btn-primary">Ver Reporte</a>
+          <a
+            href="{% url 'reporteContrato' dist=distribuidor.distribuidorId %}"
+            class="btn btn-primary"
+            >Ver Reporte</a
+          >
         </div>
       </div>
     </div>
@@ -49,7 +59,9 @@
             {% for extension in extensiones %}
 
             <li class="list-group-item text-center">
-              <a href="{% url 'modExtension' extension.extensionId %}">{{ extension.extensionDominio }}</a>
+              <a href="{% url 'modExtension' extension.extensionId %}"
+                >{{ extension.extensionDominio }}</a
+              >
             </li>
 
             {% endfor %}
@@ -58,8 +70,12 @@
           <h5>Aún no tienes dominios.</h5>
           {% endif %}
           <div class="mt-2 text-center">
-            <a type="submit" class="btn btn-outline-primary mx-auto" data-toggle="modal"
-              data-target="#registrarDominioModal">
+            <a
+              type="submit"
+              class="btn btn-outline-primary mx-auto"
+              data-toggle="modal"
+              data-target="#registrarDominioModal"
+            >
               Registrar Extensión de Dominio
             </a>
           </div>
@@ -72,7 +88,9 @@
         <div class="modal-content">
           <!-- Encabezado del Modal -->
           <div class="modal-header">
-            <h4 class="modal-title">Registro de Dominio</h4>
+            <h4 class="modal-title">
+              Registro de Extensión de Dominio Dominio
+            </h4>
             <button type="button" class="close" data-dismiss="modal">
               &times;
             </button>
@@ -81,26 +99,43 @@
           <!-- Cuerpo del Modal -->
           <div class="modal-body">
             <!-- Formulario de Registro de Dominio -->
-            <form>
+            <form method="post" action="{% url 'registroExtension' %}">
+              {% csrf_token %}
               <div class="form-group">
                 <label for="nombreExtension">Extensión:</label>
-                <input type="text" class="form-control" id="nombreExtension" placeholder="Ej. .com" />
+                <input
+                  type="text"
+                  class="form-control"
+                  id="nombreExtension"
+                  name="nombreExtension"
+                  placeholder="Ej. .com"
+                  required
+                />
               </div>
               <div class="form-group">
                 <label for="precio">Precio:</label>
-                <input type="text" class="form-control" id="precio" placeholder="Ej. $10.99" />
+                <input
+                  type="text"
+                  class="form-control"
+                  id="precio"
+                  name="precio"
+                  placeholder="Ej. $10.99"
+                  required
+                />
               </div>
 
               <!-- Botón para enviar el formulario -->
-              <button type="submit" class="btn btn-primary">
-                Registrar
-              </button>
+              <button type="submit" class="btn btn-primary">Registrar</button>
             </form>
           </div>
 
           <!-- Pie del Modal -->
           <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-dismiss="modal"
+            >
               Cerrar
             </button>
           </div>
@@ -113,7 +148,6 @@
         <h3>Solicutudes XML</h3>
         <div style="max-height: 400px; min-height: 100px; overflow-y: auto">
           <ul class="list-group">
-
             <li class="list-group-item text-center">
               <a href="">extension n</a>
             </li>
@@ -126,7 +160,6 @@
             <li class="list-group-item text-center">
               <a href="">extension 1</a>
             </li>
-
           </ul>
 
           <h5>Aún no tienes solicutudes.</h5>
@@ -140,8 +173,8 @@
 
 {% if flag %}
 <script>
-  alert("NO SE PUDO REGISTRAR LA EXTENSIÓN");
+  alert(
+    "NO SE PUDO REGISTRAR LA EXTENSIÓN POR QUE OTRO DISTRIBUIDOR YA LA HA REGISTRADO"
+  );
 </script>
-{% endif %}
-
-{% endblock %}
+{% endif %} {% endblock %}

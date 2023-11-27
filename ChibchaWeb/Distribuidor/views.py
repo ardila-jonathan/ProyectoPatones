@@ -3,7 +3,7 @@ from django.contrib.auth.decorators import login_required
 import json
 from Cliente.models import Cliente, Dominio, DominioCancelado
 from .models import Distribuidor, ExtensionDominio
-from .GenRepBanc import BancaryReportGenerator
+from .BancaryReportFacade import BancaryReportFacade
 from django.views.decorators.csrf import csrf_exempt
 from django.http import HttpResponse, JsonResponse
 from .ReportAdapter import ReportAdapter
@@ -82,16 +82,15 @@ def registroExtension(request):
 
     flag = False
     if request.method == 'POST':
-
-        if not ExtensionDominio.objects.filter(extensionDomnio = request.POST['extension']).exists():
-            distribuidor = Distribuidor.objects.get(usuario=request.user)
+        distribuidor = Distribuidor.objects.get(usuario=request.user)
+        if not ExtensionDominio.objects.filter(extensionDominio = request.POST['extension']).exists():         
             extension = ExtensionDominio(distribuidorId = distribuidor, extensionDominio=request.POST['extension'],
                                         precioExtension=request.POST['precio'])
             extension.save()
         else:
             flag = True
         
-        redirect('dashboard', flag = flag)
+        return render(request, "distribuidor.html", {'distribuidor':distribuidor, 'extensiones':ExtensionDominio.objects.filter(distribuidorId = distribuidor), 'flag':flag})
 
 @login_required
 def vmodificarExtension(request, ext):
