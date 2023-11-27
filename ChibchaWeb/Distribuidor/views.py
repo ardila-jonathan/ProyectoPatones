@@ -33,7 +33,7 @@ def editar_distribuidor(request, id_distribuidor):
 
 
 def descargarReporte(request):
-    generador = BancaryReportGenerator()
+    generador = BancaryReportFacade()
     distribuidor = Distribuidor.objects.get(usuario=request.user)  
     response = HttpResponse(content_type='application/pdf')
     response['Content-Disposition'] = 'attachment; filename="reporte.pdf"'
@@ -83,8 +83,8 @@ def registroExtension(request):
     flag = False
     if request.method == 'POST':
         distribuidor = Distribuidor.objects.get(usuario=request.user)
-        if not ExtensionDominio.objects.filter(extensionDominio = request.POST['extension']).exists():         
-            extension = ExtensionDominio(distribuidorId = distribuidor, extensionDominio=request.POST['extension'],
+        if not ExtensionDominio.objects.filter(extensionDominio = request.POST['nombreExtension']).exists():
+            extension = ExtensionDominio(distribuidorId = distribuidor, extensionDominio=request.POST['nombreExtension'],
                                         precioExtension=request.POST['precio'])
             extension.save()
         else:

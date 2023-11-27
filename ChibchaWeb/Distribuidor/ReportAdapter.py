@@ -1,4 +1,3 @@
-from .ReportFacade import ReportFacade
 from .ReportDataGenerator import ReportDataGenerator
 from Distribuidor.models import Distribuidor
 
