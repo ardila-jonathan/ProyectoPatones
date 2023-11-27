@@ -1,45 +1,22 @@
 {% extends 'index.html' %} {% load static %} {% block content %}
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <title>Solicitudes XML</title>
-    <link
-      rel="stylesheet"
-      href="{% static 'css/Solicitudes.css' %}"
-      type="text/css"
-    />
-  </head>
-  <body>
-    <div class="container">
-      <h1>Solicitudes XML</h1>
-      <h2>
-        {{dominio.clienteId.nombreCliente}} - {{dominio.nombreDominio}}{{dominio.extensionDomnio.extensionDominio}}
-      </h2>
-      <div class="xml-container" id="xmlContainer">
-        <textarea
-          id="xmlContent"
-          class="xml-content"
-          readonly
-          spellcheck="false"
-        >
+
+<link rel="stylesheet" href="{% static 'css/Solicitudes.css' %}" type="text/css" />
+<div class="container-fluid">
+  <h1>Solicitudes XML</h1>
+  <h2>
+    {{dominio.clienteId.nombreCliente}} - {{dominio.nombreDominio}}{{dominio.extensionDomnio.extensionDominio}}
+  </h2>
+  <div class="xml-container" id="xmlContainer">
+    <textarea id="xmlContent" class="xml-content" readonly spellcheck="false">
 
 {{texto}}
 
-      </textarea
-        >
-      </div>
-      <div class="buttons">
-        <button onclick="copyXml()">Copiar XML</button>
-        <a href="#" download="solicitud.xml" onclick="downloadXml()"
-          >Descargar XML</a
-        >
-      </div>
-    </div>
-    <script
-      src="{%static 'js/Solicitudes.js'%}"
-      type="text/javascript"
-    ></script>
-  </body>
-</html>
+      </textarea>
+  </div>
+  <div class="buttons">
+    <button onclick="copyXml()">Copiar XML</button>
+    <a href="#" download="solicitud.xml" onclick="downloadXml()">Descargar XML</a>
+  </div>
+</div>
+<script src="{%static 'js/Solicitudes.js'%}" type="text/javascript"></script>
 {% endblock %}
