@@ -147,31 +147,35 @@
   }
 
   function enviarDominio(id) {
-    $('#confirmacionModal').modal('show');
+    if("{{ tarjeta }}"){
+      $('#confirmacionModal').modal('show');
 
-    $('#btnRegistrarModal').on('click', function() {
-      var cantidadMeses = $('#cantidadMeses').val();
-      
-      if (cantidadMeses !== '') {
-        $.ajax({
-          url: '/clientes/registrarDominio',
-          method: 'POST',
-          data: {
-            nombreDominio: document.getElementById(id + "d").innerHTML,
-            extension: document.getElementById(id + "e").innerHTML,
-            meses: cantidadMeses
-          },
-          success: function (response) {
-            var url = "{% url 'dominiosDisponibles' 'valor1' '2' %}";
-            url = url.replace('valor1', response.dominio);
-            url = url.replace('2', response.flag);
-            window.location.href = url;
-          }
-        });
-      } else {
-        alert('Por favor, ingresa una cantidad válida de meses.');
-      }
-    });
+      $('#btnRegistrarModal').on('click', function() {
+        var cantidadMeses = $('#cantidadMeses').val();
+        
+        if (cantidadMeses !== '') {
+          $.ajax({
+            url: '/clientes/registrarDominio',
+            method: 'POST',
+            data: {
+              nombreDominio: document.getElementById(id + "d").innerHTML,
+              extension: document.getElementById(id + "e").innerHTML,
+              meses: cantidadMeses
+            },
+            success: function (response) {
+              var url = "{% url 'dominiosDisponibles' 'valor1' '2' %}";
+              url = url.replace('valor1', response.dominio);
+              url = url.replace('2', response.flag);
+              window.location.href = url;
+            }
+          });
+        } else {
+          alert('Por favor, ingresa una cantidad válida de meses.');
+        }
+      });
+    }else{
+      error()
+    } 
   }
   
   function error() {

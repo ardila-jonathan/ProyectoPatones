@@ -147,22 +147,17 @@
       <div class="mt-4">
         <h3>Solicutudes XML</h3>
         <div style="max-height: 400px; min-height: 100px; overflow-y: auto">
+          {% if dominios %}
           <ul class="list-group">
+            {% for dominio in dominios %}
             <li class="list-group-item text-center">
-              <a href="">extension n</a>
+              <a href="{% url 'solicitudXML' dominio.pk %}">{{dominio.nombreDominio}}{{dominio.extensionDominio.extensionDominio}}</a>
             </li>
-            <li class="list-group-item text-center">
-              <a href="">extension n-1</a>
-            </li>
-            <li class="list-group-item text-center">
-              <a href="">extension ...</a>
-            </li>
-            <li class="list-group-item text-center">
-              <a href="">extension 1</a>
-            </li>
+            {% endfor %}
           </ul>
-
+          {% else %}
           <h5>Aún no tienes solicutudes.</h5>
+          {% endif %}
         </div>
       </div>
     </div>

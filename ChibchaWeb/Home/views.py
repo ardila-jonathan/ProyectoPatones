@@ -10,7 +10,7 @@ from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.decorators import login_required
 from django.urls import reverse
 from .models import Rol
-from Distribuidor.XMLGenerator import getRequest, generateRequest
+
 
 
 # Create your views here.
@@ -64,10 +64,8 @@ def dashboard_view(request):
             #Lo que pasa cuando un distribuidor inicia sesión
             distribuidor = Distribuidor.objects.get(usuario = user)
             extensionesDistri = ExtensionDominio.objects.filter(distribuidorId = distribuidor)
-            dominios_distr = Dominio.objects.filter()
-            req = getRequest(Dominio.objects.all()[0])
-            generateRequest(req)
-            return render(request, "distribuidor.html", {'distribuidor':distribuidor, 'extensiones':extensionesDistri})
+            dominios_distr = Dominio.objects.filter(extensionDominio__in = extensionesDistri)
+            return render(request, "distribuidor.html", {'distribuidor':distribuidor, 'extensiones':extensionesDistri, 'dominios':dominios_distr})
         elif rol == "Empleado":
             #Lo que pasa cuando un empleado inicia sesión
             empleado = Empleado.objects.get(usuario = user)

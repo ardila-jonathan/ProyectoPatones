@@ -26,7 +26,10 @@ def generateRequest(request:dict):
     
     tree = ET.ElementTree(requestXML)
     
-    tree.write("request"+request['id']+".xml", encoding='utf-8', xml_declaration=True)
+    #tree.write("request"+request['id']+".xml", encoding='utf-8', xml_declaration=True)
+
+    return ET.tostring(requestXML, encoding='utf-8').decode('utf-8')
+
 
 
 def getRequest(domain):

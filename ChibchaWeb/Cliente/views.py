@@ -89,8 +89,7 @@ def registrarDominio(request):
         extensionDominio = ExtensionDominio.objects.get(extensionDominio = request.POST['extension'])
         if not Dominio.objects.filter(nombreDominio = request.POST['nombreDominio'], extensionDominio = extensionDominio).exists():
             user = request.user
-            cliente = Cliente.objects.get(usuario = user)
-            #FALTA VALIDAR EL METODO DE PAGO!!!   
+            cliente = Cliente.objects.get(usuario = user) 
             dominio = Dominio(clienteId = cliente, nombreDominio = request.POST['nombreDominio'],
                             extensionDominio = extensionDominio, fechaSolicitud = date.today(), tiempoPropiedad=request.POST['meses'])            
             dominio.save()       
@@ -203,6 +202,7 @@ def subirArchivo(request):
     else:
         return redirect('home')
 
+@login_required
 def dominiosDisponibles(request, dominio, flag):
     extensiones = ExtensionDominio.objects.all()
 
@@ -216,7 +216,9 @@ def dominiosDisponibles(request, dominio, flag):
             data.append((extension,False))
             populares.append(extension)
     # Meter validacion de tarjeta aca
-    return render(request,'dominio.html',{'data':data, 'dominioObj':dominio, 'populares':populares, 'flag':flag})
+    tarjetaValida = validar_tarjeta(TarjetaCredito.objects.get(clienteId = Cliente.objects.get(usuario = request.user)).numeroTarjeta)
+    print(tarjetaValida)
+    return render(request,'dominio.html',{'data':data, 'dominioObj':dominio, 'populares':populares, 'flag':flag, 'tarjeta':tarjetaValida})
 
 
 def dominiosDisponiblesSinRegistro(request, dominio):

@@ -7,7 +7,7 @@ from .BancaryReportFacade import BancaryReportFacade
 from django.views.decorators.csrf import csrf_exempt
 from django.http import HttpResponse, JsonResponse
 from .ReportAdapter import ReportAdapter
-
+from Distribuidor.XMLGenerator import getRequest, generateRequest
 
 # Create your views here.
 @login_required
@@ -120,4 +120,5 @@ def modificarPrecioExtension(request):
 
 def solicitudXML(request, dominioId):
     dominio = Dominio.objects.get(dominioId = dominioId)
-    return render(request, 'Solicitudes.html',{'dominio':dominio})
+    req = getRequest(dominio)
+    return render(request, 'Solicitudes.html',{'dominio':dominio, 'texto':generateRequest(req)})
