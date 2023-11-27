@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import login
 from Cliente.models import Cliente, Plan, TarjetaCredito, SitioWeb, Dominio
+from Cliente.validar_tarjeta import validar_tarjeta
 from Empleado.models import Empleado
 from Distribuidor.models import Distribuidor, ExtensionDominio
 from django.http import HttpResponse, HttpResponseRedirect
@@ -129,13 +130,17 @@ def planes(request):
         try:
             cliente = Cliente.objects.get(usuario=user)
             valor_aceptado = cliente.planId
+            tarjetaValida = validar_tarjeta(TarjetaCredito.objects.get(clienteId = Cliente.objects.get(usuario = request.user)).numeroTarjeta)
+            print(tarjetaValida)
         except Cliente.DoesNotExist:
+            tarjetaValida=False
             valor_aceptado = None
     else:
         # Si el usuario no está autenticado, establece el valor_aceptado en None
+        tarjetaValida=False
         valor_aceptado = None
 
-    return render(request, "planes.html",{'planes':Plan.objects.all()[:3] , 'valor_aceptado': valor_aceptado})
+    return render(request, "planes.html",{'planes':Plan.objects.all()[:3] , 'valor_aceptado': valor_aceptado, 'tarjeta': tarjetaValida})
 
 def error_500(request):
     return render(request, "error500.html")
