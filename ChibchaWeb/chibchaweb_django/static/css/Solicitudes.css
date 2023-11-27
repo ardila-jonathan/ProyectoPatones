@@ -20,12 +20,13 @@
     width: 100%;
     height: 300px; /* Altura inicial del textarea */
     resize: vertical; /* Permitir solo redimensionamiento vertical */
+    overflow-y: auto;
     white-space: pre-wrap;
     font-family: Consolas, monospace;
     tab-size: 2;
     padding: 10px;
     border: 1px solid #ccc;
-    pointer-events: none; /* Deshabilitar eventos del mouse para no seleccionar texto */
+    pointer-events: stroke; /* Deshabilitar eventos del mouse para no seleccionar texto */
   }
   
   .buttons button,
