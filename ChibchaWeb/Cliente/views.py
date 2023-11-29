@@ -2,7 +2,7 @@ from datetime import date
 import json
 from django.shortcuts import render, redirect
 from django.contrib.auth import login
-from .models import Archivo, Cliente, TarjetaCredito, Dominio, SitioWeb, Plan, DominioCancelado
+from .models import Archivo, Cliente, TarjetaCredito, Dominio, SitioWeb, Plan, DominioCancelado, Ticket
 from Distribuidor.models import Distribuidor, ExtensionDominio
 from django.template import loader
 from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
@@ -250,3 +250,21 @@ def agregarPlan(request):
 
 
 
+def crearTicket(request):
+    
+    if request.method == 'POST':
+            cliente = Cliente.objects.get(usuario=request.user)
+            titulo = request.POST['titulo']
+            descripcion = request.POST['descripcion']
+            ticket = Ticket(titulo=titulo, descripcion=descripcion, clienteId=cliente)  
+            ticket.estado = "sin resolver"
+            ticket.save()
+            print(ticket)
+            return redirect("dashboard")
+    else:
+        return render(request, "registrarTicket.html")
+    
+
+def vistaTicket(request, ticket_id):
+    ticket = Ticket.objects.get(ticketId=ticket_id)
+    return render(request, "consultarTicketCliente.html" ,{"Ticket":ticket})
