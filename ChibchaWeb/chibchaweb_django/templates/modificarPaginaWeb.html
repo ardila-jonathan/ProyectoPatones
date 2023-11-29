@@ -13,6 +13,30 @@
   <h2>{{titulo}}</h2>
   <div class="container m-3">
     <div class="row flex-row-reverse">
+      <!-- Card de Dominio -->
+      <div class="col-md-12">
+        <div class="card mb-3">
+          <div class="card-header">Dominio</div>
+        <div class="card-body">
+          <p>¿Quieres cambiar el dominio de tu página?</p>
+          <div>
+            <form id="formCrearSitioWeb">
+              <select name="selectDominio" id="selectDominio" class="form-select">
+                <option value="{{ dominio.dominioId }}">
+                </option>
+              </select>
+            </form>
+
+            <p>No hay dominios disponibles</p>
+          </div>
+
+          <div class="column text-center mt-2">
+            <a href="{% url 'registrarDominio' %}" class="btn btn-secondary">Registrar Nuevo Dominio</a>
+            <a href="#" onclick="usarDominio()" class="btn btn-success ">Usar Dominio Seleccionado</a>
+          </div>
+        </div>
+      </div>
+      </div>
       <div class="col-md-12">
         <div class="card mb-3" style="border-radius: 10px;">
           <div class="card-header">Archivos</div>
