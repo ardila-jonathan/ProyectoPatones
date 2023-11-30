@@ -80,7 +80,8 @@
             <ul class="list-group">
               {% for dominio in dominios %}
               <li class="list-group-item">
-                <a href="{% url 'modificarDominio' dominio.dominioId %}">{{dominio.nombreDominio}}{{dominio.extensionDominio.extensionDominio}}</a>
+                <a
+                  href="{% url 'modificarDominio' dominio.dominioId %}">{{dominio.nombreDominio}}{{dominio.extensionDominio.extensionDominio}}</a>
               </li>
               {% endfor %}
             </ul>
@@ -100,21 +101,19 @@
         <div class="mt-4">
           <h3>Tickets</h3>
           <div style="max-height: 400px; min-height: 100px; overflow-y: auto;">
-            
+            {% if tickets %}
+            <ul class="list-group">
               {% for t in tickets %}
-               <div class="row">
-                <div class="card w-75 col m-2">
-                  <a href="{%url "consultaTicketCli" t.pk%}">
-                    
-                      <li class="list-group-item">
-                        <h5 class="card-title">{{ t.titulo }}</h5>      
-                      </li>         
-                  
-                  </a>
-                </div>
-                </div>
-            {% endfor %}
-            
+              <li class="list-group-item">
+                <a href="{% url  'consultaTicketCli' t.pk %}">
+                  {{ t.titulo }}
+                </a>
+              </li>
+              {% endfor %}
+            </ul>
+            {% else %}
+            <h5>Aún no tienes tickets.</h5>
+            {% endif %}
           </div>
           <div class="mt-auto">
             <a href="{% url 'crearTicket' %}" class="btn btn-outline-primary d-block mx-auto mt-2">Crear nuevo
@@ -131,7 +130,7 @@
       <ul class="list-group">
         {% for sitio in sitios_web %}
         <li class="list-group-item">
-          <a href="{% url 'modificarPagina' sitio.webId %}">{{ sitio.dominio.nombreDominio }}{{ sitio.dominio.extensionDominio.extensionDominio }}</a>
+          <a href="{% url 'modificarPagina' sitio.webId %}">{{ sitio.dominio.nombreDominio }}{{sitio.dominio.extensionDominio.extensionDominio }}</a>
         </li>
         {% endfor %}
       </ul>
