@@ -49,11 +49,9 @@
           <div class="card-header">Tickets Asignados</div>
           <div class="card-body">
             <ul>
-              <li><a href="#">Ticket #001 - Problema de Red</a></li>
-              <li><a href="#">Ticket #002 - Error en la Aplicación</a></li>
-              <li><a href="#">Ticket #003 - Consulta de Cliente</a></li>
-              <li><a href="#">Ticket #004 - Actualización de Software</a></li>
-              <li><a href="#">Ticket #005 - Soporte Técnico</a></li>
+              {% for ticket in tickets  %}
+              <li><a href="{%url "consultarTicketsEmp" ticket.pk%}">{{ticket.titulo}}</a></li>
+              {% endfor %}
             </ul>
           </div>
         </div>
