@@ -50,7 +50,11 @@
           <div class="card-body">
             <ul>
               {% for ticket in tickets  %}
-              <li><a href="{%url "consultarTicketsEmp" ticket.pk%}">{{ticket.titulo}}</a></li>
+              <a href="{%url "consultarTicketsEmp" ticket.pk%}">
+              <li class="list-group-item">
+                <h5 class="card-title">{{ticket.titulo}}</h5>  
+              </li>
+              </a>
               {% endfor %}
             </ul>
           </div>
