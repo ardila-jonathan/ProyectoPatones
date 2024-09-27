@@ -90,7 +90,9 @@ def registroExtension(request):
         else:
             flag = True
         
-        return render(request, "distribuidor.html", {'distribuidor':distribuidor, 'extensiones':ExtensionDominio.objects.filter(distribuidorId = distribuidor), 'flag':flag})
+        extensionesDistri = ExtensionDominio.objects.filter(distribuidorId = distribuidor)
+        dominios_distr = Dominio.objects.filter(extensionDominio__in = extensionesDistri)
+        return render(request, "distribuidor.html", {'distribuidor':distribuidor, 'extensiones':extensionesDistri, 'dominios':dominios_distr, 'flag':flag})
 
 @login_required
 def vmodificarExtension(request, ext):

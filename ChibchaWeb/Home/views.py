@@ -71,7 +71,7 @@ def dashboard_view(request):
         elif rol == "Empleado":
             #Lo que pasa cuando un empleado inicia sesión
             empleado = Empleado.objects.get(usuario = user)
-            tickets = Ticket.objects.all()
+            tickets = Ticket.objects.filter(estado="sin resolver")
             return render(request, "empleado.html", {'empleado':empleado, "tickets":tickets})
     except:        
         if user.is_superuser:

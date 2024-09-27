@@ -147,7 +147,11 @@
   }
 
   function enviarDominio(id) {
-    if("{{ tarjeta }}"){
+    var flag = false;
+    if ("{{ tarjeta }}" == "True"){
+	flag = true;
+    }
+    if(flag){
       $('#confirmacionModal').modal('show');
 
       $('#btnRegistrarModal').on('click', function() {
@@ -181,7 +185,7 @@
   function error() {
   $('#errorModal').modal('show');
   $('#errorModalTitle').text('Error');
-  $('#errorModalMessage').text('Parece que tu tarjeta no ha sido verificada correctamente. Es necesario realizar su verificación.');
+  $('#errorModalMessage').text('La información de tu tarjeta de crédito no es válida. Porfavor actualiza tu tarjeta en tu panel de control');
   $('#btnSalir').text('Salir');
 }
 
